@@ -1,0 +1,37 @@
+주소록 관리 프로그램
+
+토이 프로젝트
+기본적으로 해야하는 절차?
+
+1. 주제 선정
+"주소록"
+
+2. 요구 분석 + 기능 명세서
+프로그램에서 해야할 일들..
+
+2.1 새로운 주소 데이터를 추가한다
+2.2 기존 주소 데이터를 목록으로 출력한다
+2.3 기존 주소 데이터를 삭제한다
+2.4 원하는 주소 데이터를 검색한다
+
+3. 데이터 저장 -> 저장소 구조
+파일 입출력 기반
+AddressBook -> "data" -> "address.txt"
+구조 -> csv 기반
+이름, 나이 성별 연락처 주소
+ex) 홍길동,20,1,010-1234-5678,서울시 강남구 대치동
+-더미 데이터를 만들자
+
+4. 구현 -> 프로젝트 구조 + 필요한 파일들
+"com.test.java": 최상위 패키지
+	- "Main.java" : 메인 클래스
+"com.test.java.service"
+	- "AddressService.java
+"com.test.java.repository"
+	- "AddressDAO.java" : 파일 입출력 + 데이터 조작
+"com.test.java.dto"
+	- "AddressDto.java" : 주소록 데이터 저장 + 전달
+"com.test.java.ui"
+	- "AddressUi.java" : 화면 출력	
+	
+	chcp 65001
