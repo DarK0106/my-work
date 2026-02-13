@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>황윤재의 개발 블로그</title>
+    <style>
+        /* 스타일 (CSS) - 디자인을 담당합니다 */
+        body {
+            background-color: #1a1a1a; /* 다크 모드 배경 */
+            color: white;
+            font-family: 'Pretendard', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        .card {
+            background: #2d2d2d;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            animation: float 3s ease-in-out infinite; /* 둥둥 떠다니는 애니메이션 */
+        }
+        h1 {
+            color: #00ff88; /* 네온 그린 */
+            margin-bottom: 10px;
+        }
+        p {
+            color: #cccccc;
+            font-size: 1.2rem;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #00ff88;
+            color: #1a1a1a;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 50px;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background: white;
+            transform: scale(1.1); /* 마우스 올리면 커짐 */
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>황윤재 (Hwang Yoonjae)</h1>
+        <p>🚀 Java & HTML 공부 중인 개발자입니다.</p>
+        <p>오늘 깃허브 세팅 완벽하게 끝냄!</p>
+        <a href="https://github.com/DarK0106" target="_blank" class="btn">내 깃허브 놀러가기</a>
+    </div>
+
+</body>
+</html>
