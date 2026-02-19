@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E컵여고생</title>
+        <style>
+            /* li {color : red;} */
+
+            /* #li1, #li2, #li3 {color: aquamarine;} */
+            /* .item {color: hotpink;} 클래스 쓰기 */
+            /* ol > li {color :aquamarine;} ol의 자식인 li 애들만 색 바꿔라 */
+            /* ul > li {color : orange;} ul의 자식인 li 애들만 색 바꿔라 */
+            /* html > body > ul > li > b {color:red;} */
+            /* ul b {color: skyblue;} */
+            /* ol#list1 > li > b {color: palevioletred;} */
+            #list1 > b {color: palevioletred;}
+
+        </style>
+</head>
+<body>
+    <!-- ex05_selector.html -->
+    <!-- 
+    CSS 선택자
+    1. 전체 선택자
+    2. 태그 선택자
+    3. 아이디 선택자
+    4. 클래스 선택자
+    5. 그룹 선택자
+    6. 자식 선택자, Child Selector
+    - 부모 선택자 > 자식 선택자 {}
+    - 조건 > 대상 {} (*중요)
+    - li 끼리는 구분이 안 가니까 ol ul도 따져보자
+    - 친부모를 조건으로 친자식을 선택한다.
+
+    7. 자손 선택자, Descendant Selector 
+    - 조상선택자 자식선택자 {}
+    - 조상을 조건으로 자식을 선택한다.
+
+
+    -->
+
+    <h1>자식/자손 선택자</h1>
+
+    <!-- <ol>
+        <li id = "li1" class = "item">저녁에 <b>과제</b> 작성하기</li>
+        <li id = "li2" class = "item"><i>강아지</i> 밥주기</li>
+        <li id = "li3" class = "item">책상 정리하기</li>
+    </ol> -->
+    
+    <ol id = "list1">
+        <li>저녁에 <b>과제(***)</b> 작성하기</li>
+        <li><i>강아지</i> 밥주기</li>
+        <li>책상 정리하기</li>
+    </ol>
+
+    <ol>
+        <li>저녁에 <b>과제</b> 작성하기</li>
+        <li><i>강아지</i> 밥주기</li>
+        <li>책상 정리하기</li>
+    </ol>
+
+    <ul>
+        <li>저녁에 <b>과제</b> 작성하기</li>
+        <li><i>강아지</i> 밥주기</li>
+        <li>
+            책상 정리하기
+            <ol>
+                <li><b>쓰레기</b> 버리기</li>
+                <li>먼지 닦기</li>
+            </ol>
+        
+        </li>
+    </ul>
+    
+    <p>안녕하세요. 저는 <b>엄준식</b>입니다.</p>
+
+</body>
+</html>

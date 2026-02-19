@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>집가고싶어요</title>
+    <style>
+        /*
+            CSS 구조(문법)
+        
+            선택자 { 속성명: 값; }
+            선택자 { 속성명: 값; 속성명: 값; 속성명: 값; }
+        
+            선택자, Selector
+            - 선택자 { 속성명: 값; }
+            - HTML 페이지내에서 원하는 특정 태그(*중요)를 검색하는 도구
+            - 태그를 왜 찾을까? 태그를 찾아서 태그 자신한테 혹은 태그가 가지는 내용물한테 서식을 적용하려고
+            
+            CSS 선택자
+
+            1. 전체 선택자
+                - * {}
+                - 모든 태그(*)를 선택한다.
+
+            2. 태그 선택자
+                - 태그명 {}
+                - 태그명을 사용해서 태그를 선택한다
+                - 장점: 쉽다.
+                - 단점: 생각보다 쓰기가 어렵다. 같은 태그에 다른 서식 지정 불가능
+
+            3. 아이디 선택자
+                - <태그 id = "">
+                - 태그명#아이디 {}
+                - 태그가 가지는 id를 사용해 태그를 선택한다.
+                - id는 문서 내에 유일해야 한다 <- 프로그램이 발견해주지 않으니 사람이 조심해야함
+                - 바꾸는건 괜찮은데 유지보수가 꽝이네
+                - 한놈만 찾으니까 재사용성이 없네
+        
+            4. 클래스 선택자
+                - <태그 class = "">
+                - 태그가 가지는 class를 사용해 태그를 선택한다.
+                - 태그명.클래스 {}
+                - .클래스 {} <- 주의할것
+                - 클래스는 중복값을 가질 수 있음
+
+            태그명은 생략할 수 있다
+
+        */
+
+        /* div { color: red; } 모든 div를 찾아서 이 색으로 바꿔라 */
+
+        /* * { color: turquoise; } */
+        /* div#div1 { color : purple; } */
+        /* div#div2 { color : olive; } */
+
+        /* div.divs { color : gray; } */
+
+        /* #div1 { color: silver; } */
+        /* .divs {color: hotpink; } */
+
+    </style>
+</head>
+<body>
+    <!-- ex03_selector.html -->
+
+    <h1>CSS 선택자</h1>
+
+    <div id = "div1">div 태그입니다.</div>
+    <div id = "div2" class = "divs">div 태그입니다.</div>
+    <div id = "div3" class = "divs">div 태그입니다.</div>
+
+    <hr>
+
+    <div>작업자: 홍길동</div>
+
+</body>
+</html>

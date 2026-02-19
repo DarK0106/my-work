@@ -19,6 +19,29 @@
 		- 스스로 랜더링 결과를 만들지 않는다.(눈에 안보임)
 		- 기능성 태그
 		- 입력받은 값을 서버로 보내는 역할
+		- form.method: 전송 방식(GET, POST)
+		- form.action: 전달할 서버측 URL
+		
+		<form> 자식 태그들(= 입력 컨트롤)
+		
+		<input> 태그
+		- 단독 태그
+		- 인라인 태그
+		
+		- input.type: 입력 컨트롤의 종류(default: text)
+		- input.name: 식별자(서버에 전송할 때 사용함)
+		- input.id: 식별자(CSS, JavaScript에서 사용)
+		- input.class: 식별자(CSS, JavaScript에서 사용)
+		- input.size: 컨트롤의 길이, 단위는 글자 수, 하지만 신뢰를 할 수 없다(폰트를 뭘 쓰냐에 따라 다름)
+		- input.maxlength: 최대 입력 글자 수 + 유효성 검사
+		- input.value: 컨트롤이 가지는 현재 입력값(실시간)
+		- input.readonly: 플래그형, 읽기 전용 텍스트박스를 만들고 싶을 때 사용, 입력이 안 됨
+		- input.disabled: 플래그형, 비활성화, 읽기 전용(readonly)과 차이는 읽기 전용은 서버로 넘어가는데
+		disabled는 데이터가 안 넘어감, readonly는 컴퓨터로 치면 키보드랑 마우스를 빼버린것
+		disabled는 컴퓨터를 꺼버린것, 주로 버튼(ex.보내기 버튼)에 많이 쓴다?
+		- input.accesskey: 바로가기(alt + '내가 정해둔 키' 누르면 그 텍스트 박스로 바로 감)
+		- input.autofocus: 플래그형(사이트 들어오자마자 텍스트박스에 포커스가 가있음 ex.구글 검색창)
+		- input.tabindex: 탭 순서 정하기
 		
 		form.method
 		- 데이터를 서버로 전송하는 방식
@@ -48,22 +71,208 @@
 
 
  	-->
- 	<h1> 데이터 입력</h1>
-	<form method = "GET" action = "ex19_ok.jsp">
-		아이디: <input type = "text" name="id">
-		<input type = "submit" name="보내기">
+	<h1>데이터 입력</h1>
+	<form method="GET" action="ex19_ok.jsp">
+		아이디: <input type="text" name="id"> <input type="submit"
+			name="보내기">
 	</form>
-	
+
 	<hr>
-	
+
 	<h1>네이버 검색</h1>
-	
-	<form method = "" action ="https://search.naver.com/search.naver">
-		검색어: <input type = "text" name = "query">
-		<input type = "submit" value= "검색하기">
-	
+
+	<form method="" action="https://search.naver.com/search.naver">
+		검색어: <input type="text" name="query"> <input type="submit"
+			value="검색하기">
+
 	</form>
- 
- 
+
+	<h1>입력 컨트롤</h1>
+
+	<form method="post" action="ex19_ok.jsp">
+
+		<!-- 단일라인? -> 엔터를 못 침 -->
+		텍스트박스(단일라인): <input type="text" name="txt1" id="txt1" class="txts"
+			size="10" maxlength="5" value="홍길동" accesskey="s" autofocus
+			tabindex="1"> <br> <input type="text" tabindex="3">
+		<br> <input type="text" tabindex="2">
+
+		<hr>
+		<!-- 
+			암호 상자, Password Box, Masked TextBox
+			- 마스킹 처리된 텍스트 박스
+			- 대부분 속성이 텍스트 박스와 동일
+			- value 속성 사용 금지!!
+		
+		
+		 -->
+		텍스트박스(암호): <input type="password">
+
+		<hr>
+		<!-- 
+			다중 라인 텍스트 박스
+			- 여러 줄을 입력받는 박스
+			- <textarea></textarea>
+			- 쌍태그, 인라인태그
+			- 대부분 속성이 텍스트박스와 동일
+			- value 속성이 없다
+		
+		 -->
+
+		텍스트박스(다중라인):
+		<textarea cols="50" ros="5" value="CDATA, Simple type">PCDATA, Complex Type 초깃값</textarea>
+
+		<hr>
+		<!-- 
+			체크 박스
+			- 논리값 입력(체크했으면 true, 체크안했으면 false)
+			- 단일 선택, 다중 선택 용도로 사용
+		
+		
+		 -->
+		체크 박스: <input type="checkbox" checked readonly> <br> 취미:
+		<input type="checkbox"> 독서 <input type="checkbox" id="cd2">
+		<label for="cd2" style="user-select: none;">수영</label> <input
+			type="checkbox"> 등산
+
+
+
+		<hr>
+		<!-- 
+			라디오 버튼
+			- 단일 선택 컨트롤, 다중 선택 불가능
+		
+		 -->
+		라디오 버튼: <label><input type="radio" name="rb1"> 남자</label> <label><input
+			type="radio" name="rb1" checked> 여자</label>
+
+		<hr>
+
+		<!-- 
+		 	셀렉트 박스
+		 	- 콤보 박스, 드랍다운 리스트
+		 
+		 
+		 
+		  -->
+		셀렉트 박스: <select>
+			<option>강아지</option>
+			<option>고양이</option>
+			<option>뱡아리</option>
+
+		</select> <br> 셀렉트 박스(다중 선택): <select size="5" multiple>
+			<option>강아지</option>
+			<option>고양이</option>
+			<option>뱡아리</option>
+
+		</select> <br> 애완동물을 여러 개로 선택하시오 <select>
+			<option disabled>*포유류*</option>
+			<option>강아지</option>
+			<option>고양이</option>
+			<option>돼지</option>
+			<option disabled>*파충류*</option>
+			<option>거북이</option>
+			<option>도마뱀</option>
+			<option disabled>*곤충류*</option>
+			<option>메뚜기</option>
+			<option>귀뚜라미</option>
+			<option>나비</option>
+
+		</select> <br> 애완동물을 여러 개로 선택하시오 <select>
+			<optgroup lable="*포유류*">
+				<option>강아지</option>
+				<option>고양이</option>
+				<option>돼지</option>
+			</optgroup>
+			<optgroup lable="*파충류*">
+				<option>거북이</option>
+				<option>도마뱀</option>
+			</optgroup>
+			<optgroup lable="*곤충류*">
+				<option>메뚜기</option>
+				<option>귀뚜라미</option>
+				<option>나비</option>
+			</optgroup>
+
+		</select>
+
+
+		<hr>
+		<!-- 
+			파일 업로드
+			- 첨부 파일
+		
+		
+		 -->
+		파일 선택: <input type="file">
+
+		<hr>
+
+		<!-- 
+		히든 태그
+		
+		 -->
+
+		<!-- 
+		 각종 버튼
+		 -->
+		전송 버튼: <input type="submit" value="전송하기">
+
+		<hr>
+
+		취소 버튼: <input type="reset" value="초기화">
+
+		<hr>
+
+		이미지 버튼: <input type="image" src="images/catty01.png"> 
+		
+		<hr>
+		
+		그냥 버튼: <input type = "button" value = "버튼"
+					onclick = "alert('안녕하세요.');"> 
+		<hr>
+		
+		그냥 버튼: <input type = "button" value = "버튼"
+					onclick = "location.href='https://www.naver.com/';">
+		<hr>
+							
+		그냥 버튼: <input type = "button" value = "버튼"
+					onclick = "this.form.submit();">
+					
+		<hr>
+		
+		<button>버튼</button>
+		
+		<hr>
+		
+		<button type="submit">버튼</button>
+		<button type="reset">버튼</button>
+		<button type="button">버튼</button>
+					 
+		<hr>
+		
+		<input type="button" value = "<img src = 'images/bullet10.png'> 글쓰기">			 
+		
+		<hr>
+		
+		<input type = "button" value = "✒️ 글쓰기">
+		
+		<hr>
+		<button>
+			<img src = "images/bullet10.png">
+			글쓰기
+			
+		
+		
+		</button>
+		
+		<hr>
+		
+		<input type="submit" value="보내기">
+
+
+	</form>
+
+
 </body>
 </html>

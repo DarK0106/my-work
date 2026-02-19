@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        /*
+            CSS 선택자
+            1. 전체 선택자
+            2. 태그 선택자
+            3. 아이디 선택자
+            4. 클래스 선택자
+            5. 그룹 선택자
+                - 여러 선택자들을 한번에 선택
+                - 구현부를 공유한다.
+        */
+
+        /* Case 1. */
+        /* div#div1 {color: red;}
+        div#div2 {color: red;} */
+
+        /* Case 2. */
+        .divs {text-decoration: underline;}
+        .test {color: brown;}
+
+        /* Case 3. */
+        div#div1, div#div2, h1, .divs {color: teal;}
+    </style>
+</head>
+<body>
+    <!--
+        ex04_selector.html
+   
+   
+    -->
+
+    <h1 class = "divs">CSS <span>선택자</span></h1>
+
+    <div id = "div1" class = "test">div 태그입니다.</div>
+    <div id = "div2" class = "test divs">div <span>태그</span>입니다.</div>
+    <div id = "div3" class = "divs">div 태그입니다.</div>
+
+    <hr>
+
+    <div>작업자: 홍길동</div>
+</body>
+</html>

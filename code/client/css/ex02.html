@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>엄준식</title>
+    <style>
+        /* CSS 영역 */
+        li { text-decoration: underline; color: lightgreen }
+    </style>
+
+    <link rel = "stylesheet" href = "ex02.css">
+</head>
+<body>
+    <!-- ex02. html -->
+    
+    <!--
+    
+        HTML 문서에 CSS를 적용하는 방법
+
+        1. Inline Style Sheet
+        - 인라인 스타일 시트
+        - HTML 태그에 직접 style 속성을 사용해서 서식을 지정
+        - <태그 style = "CSS 코드">
+        - 적용범위: 태그 1개
+        - 재사용성 0
+        - 장점: 가독성이 높음
+        - 단점: 재사용 불가능
+
+        2. Embeded Style Sheet
+        - 내부 스타일 시트
+        - 페이지 상단에 <style> 태그를 사용해서 서식을 지정
+        - 적용범위: 현재 페이지
+        - 장점: 재사용성이 좋다
+        - 단점: 가독성이 낮다(코드를 분리했기 때문)
+        
+
+
+        3. External Style Sheet
+        - 외부 스타일 시트
+        - 별도의 CSS 파일(*.css)을 사용해서 서식을 지정
+        - <link> 태그를 사용해서 외부 CSS 파일을 참조
+        - 적용범위: 모든 페이지
+        - 장점: 재사용성이 가장 좋음
+        - 단점: 가독성 최하(찾기가 힘듦)
+
+        일반적인 적용 방식
+        1. 외부 스타일 시트 -> 모든(여러) 페이지에 공통적 서식 구현
+            - 전체적 서식 틀 작업
+        2. 내부 스타일 시트 -> 특정 페이지에 자주 반복되는 서식 구현
+        3. 인라인 스타일 시트 -> 특정 태그에 서식 구현
+    
+    -->
+
+    <h1>애완 동물</h1>
+
+    <ul>
+        <li>강아지</li>
+        <li style="color: red;">고양이</li>
+        <li>병아리</li>
+    </ul>
+
+</body>
+</html>
