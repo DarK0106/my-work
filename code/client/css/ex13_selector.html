@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+    <style>
+        /*
+        선택자가 중복 가능한가?
+        - 가능하다.
+        - 비추천
+
+        1. 속성 충돌 X -> 아무 문제 없이 모두 적용
+        2. 충돌나면 더 나중에 작성한 스타일로 적용
+        
+        
+        
+        */
+
+        /* div {color: aquamarine;}
+        div {background-color: tan;} */
+
+        /* div {color: pink;}
+        div {color: violet;} */
+
+        /*
+        여러 선택자가 1개 태그에 중복 적용되는 경우에 속성 충돌 발생!!하는 경우
+        - 선택자 우선 순위 !!
+        - 점수 계산 -> 점수가 가장 높은 선택자를 적용
+                    -> 점수가 동일하면 -> 마지막에 선언한 속성을 적용
+        - 더 구체적으로 묘사한 선택자가 높은 우선순위를 가짐
+        1. 태그   선택자:   1점
+        2. 클래스 선택자:  10점
+        3. 아이디 선택자: 100점
+        
+        
+        
+        
+        */
+        
+        /*
+            1. 홍길동을 찾아주세요 라고 말함 <- 어디 사는 길동이인데? 정확도가 매우 떨어짐 
+            <- 이게 태그 선택자
+
+            2. 서울에 사는 홍길동~ <- 클래스 선택자
+
+            3. 서울 대치동 은마아파트 100동 사는 홍길동~ <- 정확함, 아이디 선택자
+        
+        
+        
+        */
+
+
+        /* #box1 {color: orange;}
+        .box {color: crimson;}
+        div {color: blueviolet;} */
+        /* 묘사가 정확해지면 정확해질수록 점수가 올라가서 우선순위가 높아짐 */
+
+        /* body > div#box1.box {color: teal;}
+        div#box1.box {color: coral;} */
+        
+        /* #box1 {color: crimson;}
+        #box1.box {color: mediumaquamarine;} */
+        /* 기존에 있던걸 지우지 말고 새로 적용하려는걸 우선순위를 높이는 식으로 수정하라 */
+
+        #box1 {color: crimson;}
+        .box.aaa.bbb.ccc.ddd.eee.fff.ggg.hhh.iii.jjj { color: hotpink;}
+        /* 클래스가 아무리 많이 들어가도 아이디로 찍는거보다 명확할 수가 없음 */
+        /* 태그 1만개 모여도 아이디 하나 못이김, 그럼 점수계산 왜함? 동급인 애들끼리는 점수가 유효 */
+        
+    </style>
+<body>
+    <!-- ex13_selector.html -->
+    
+    <div id = "box1" class="box aaa bbb ccc ddd eee fff ggg hhh iii jjj">상자</div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div></div>
+    <div></div>
+    <!-- <p class="box">상자</p> -->
+</body>
+</html>

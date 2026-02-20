@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* ex08_selector.html */
+        /*
+        CSS 선택자
+        1. 전체 선택자
+        2. 태그 선택자
+        3. 아이디 선택자
+        4. 클래스 선택자
+        5. 그룹 선택자
+        6. 자식 선택자, Child Selector
+        7. 자손 선택자, Descendant Selector 
+        8. 인접 형제 선택자, Adjacent Sibling Selector
+        9. 형제 선택자, Sibiling Selector
+        10. 의사 클래스, Pseudo Class 
+            or 의사 요소, Pseudo Element
+            - 여기서 말하는 클래스는 클래스 처럼 보이는데 클래스가 아니다?        
+            - 여기서 말하는 요소는 태그 처럼 보이는데 태그가 아니다?
+            
+            의사 클래스, 가상 클래스
+            - 태그에 가보면 클래스가 없지만, 선택자에서는 존재하는 클래스처럼 사용
+            - 처음에는 <a>태그에 한해서만 시도하여 사용됐음 -> 현재는 대부분 태그에 제공
+            - HTML5(+CSS3) -> 대량 증가
+        
+        
+        
+        */
+
+        /* 
+            라인 전체 주석: Ctrl + /
+            선택 영역 주석: Alt + Shift + a
+        
+        
+        
+        */
+
+        /* a:link {color: lightgreen;} /* 한번도 방문하지 않은 링크 */
+        /* a:visited {color: orange;} /* 방문한적이 있는 링크 */
+        /* a:active {color: red;} 활성화된 링크 */
+        /* a:hover {color: purple;} /* 마우스를 올렸을 때 */
+
+        /* 일반적인 <a> 적용하는 CSS */
+
+        a
+        {
+            color:black;
+            text-decoration: none;
+            
+        }
+        a:hover
+        {
+            color:red;
+            text-decoration: underline;
+        }
+
+        .data { outline: none; }
+        .data:focus { color: yellow;}
+        .data:hover { background-color: orange;}
+
+    </style>
+</head>
+<body>
+    <!-- ex08_selector.html -->
+    <h1>의사 클래스</h1>
+
+    <a href = "https://www.google.com/">구글</a>
+    <a href = "https://www.naver.com/">네이버</a>
+    <a href = "https://www.daum.net/">카카오</a>
+
+    <h1>업무</h1>
+    <input type ="text" class="data"><br>
+    <input type ="text" class="data"><br>
+    <input type ="text" class="data"><br>
+    <input type ="text" class="data"><br>
+    <input type ="text" class="data"><br>
+    <input type ="text" class="data"><br>
+    <input type ="text" class="data"><br>
+    <input type ="text" class="data"><br>
+    <input type ="text" class="data"><br>
+    <input type ="text" class="data"><br>
+</body>
+</html>

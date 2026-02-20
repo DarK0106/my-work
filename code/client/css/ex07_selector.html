@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    /*
+    ex07_selector.html
+     
+    CSS 선택자
+    1. 전체 선택자
+    2. 태그 선택자
+    3. 아이디 선택자
+    4. 클래스 선택자
+    5. 그룹 선택자
+    6. 자식 선택자, Child Selector
+    7. 자손 선택자, Descendant Selector 
+    8. 인접 형제 선택자, Adjacent Sibling Selector
+        - 형제 선택자 + 선택자 {}
+        - 자식 선택자와 비슷
+    9. 형제 선택자, Sibiling Selector
+        - 형제 선택자 ~ 선택자 {}
+        - 자손 선택자와 비슷
+        
+
+    */
+        /* div + p {color:blue;} */
+        /* p + div {color:blue;} */
+        /* 형만 조건으로 사용할 수 있다? 동생은 사용 불가능? 순차적으로 읽어나가기 때문? */
+        /* 먼저 읽어들인것만 조건으로 사용가능하고 나중에 읽은건 사용불가? */
+        /* div + p {color:blue;} 첫번째로 div 동생으로 오는 p 태그만 찾고싶음? */
+        /* div + div + p {color: aquamarine;} */
+        div ~ p {color: hotpink;}
+        /* p ~ div {color: hotpink;} */
+
+
+    </style>
+</head>
+<body>
+    <!-- ex07_selector.html -->
+     <h1>형제 선택자</h1>
+     <p>p 태그입니다.</p>
+     <div>div 태그입니다.</div>
+     <div>div 태그입니다.</div>
+     <p>1. p 태그입니다.</p>
+     <p>p 태그입니다.</p>
+     <p>p 태그입니다.</p>
+     <div>div 태그입니다.</div>
+     <p>2. p 태그입니다.</p>
+</body>
+</html>

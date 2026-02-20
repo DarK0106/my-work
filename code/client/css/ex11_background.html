@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        /*
+            폼 컨트롤
+            - 브라우저가 기본적으로 서식을 적용(User-Agent)
+            - 개발자가 일부 속성을 정의하면 나머지 대부분의 User Agent 의 속성이 기본값으로 바뀐다
+        
+        */
+
+
+        #search
+        {
+            /* background-color: yellow; */
+            background-image: url(images/hangame.png);
+            background-repeat: no-repeat;
+            background-position: center center;
+            
+            
+        }
+        
+        #search:focus
+        {
+            background-image: url();
+            
+        }
+        
+        #btnSend
+        {
+            background-image: url(images/bullet10.png);
+            background-repeat: no-repeat;
+            background-position: 5px center;
+
+        }
+
+    </style>
+</head>
+<body>
+    <!-- ex11_background.html -->
+    <h1>네이버</h1>
+    <form>
+        <input type="text" id = "search">
+        <br>
+        <br>
+        <input type="button" id = "btnSend" value="   검색하기">
+        <br>
+        <br>
+        <button type="button">
+            <img src="images/bullet10.png">
+            검색하기
+
+        </button>
+    </form>
+
+
+</body>
+</html>

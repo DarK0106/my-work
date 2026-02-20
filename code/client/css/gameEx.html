@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>윤재표 벽돌깨기 게임</title>
+    <style>
+        /* 1. 게임 화면 크기 설정 (화면의 약 2/3 크기) */
+        body { 
+            margin: 0; 
+            padding: 0; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            background-color: #111; /* 게이밍 감성 다크 배경 */
+        }
+        canvas { 
+            background: #eee; 
+            box-shadow: 0 0 20px rgba(3, 199, 90, 0.5); /* 네이버 그린색 네온 효과 */
+            border-radius: 4px;
+            /* 커서를 없애서 게임 몰입도 UP */
+            cursor: none; 
+        }
+    </style>
+</head>
+<body>
+    
+    <canvas id="gameCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+
+        // === ⚙️ 설정 구역 (변수 초기화) ===
+
+        // 1. 캔버스 크기를 화면의 70% 정도로 동적 설정
+        canvas.width = window.innerWidth * 0.7;
+        canvas.height = window.innerHeight * 0.7;
+
+        // 2. 공 관련 변수
+        let ballRadius = 10;
+        let x, y, dx, dy; // 위치와 속도는 resetGame 함수에서 초기화
+
+        // 3. 판떼기(패들) 관련 변수
+        const paddleHeight = 15;
+        let paddleWidth = 120;
+        let paddleX = (canvas.width - paddleWidth) / 2; // 정중앙 시작
+
+        // 4. 벽돌 관련 변수 (3줄 세팅)
+        const brickRowCount = 3;   // 요청하신 3줄!
+        const brickColumnCount = 8; // 가로로 8개
+        const brickPadding = 10;
+        const brickOffsetTop = 50;
+        const brickOffsetLeft = 30;
+        // 벽돌 크기 자동 계산 (화면 꽉 차게)
+        const brickWidth = (canvas.width - brickOffsetLeft * 2 - brickPadding * (brickColumnCount - 1)) / brickColumnCount;
+        const brickHeight = 25;
+
+        // 벽돌 배열 생성 (2차원 배열: 맵 데이터)
+        let bricks = [];
+        function initBricks() {
+            for(let c=0; c<brickColumnCount; c++) {
+                bricks[c] = [];
+                for(let r=0; r<brickRowCount; r++) {
+                    // status: 1이면 살아있음, 0이면 깨짐
+                    bricks[c][r] = { x: 0, y: 0, status: 1 };
+                }
+            }
+        }
+        initBricks(); // 최초 실행
+
+        // 마우스 컨트롤 이벤트 리스너 (마우스 움직임 감지)
+        document.addEventListener("mousemove", mouseMoveHandler, false);
+        function mouseMoveHandler(e) {
+            // 마우스의 X좌표를 캔버스 기준으로 계산
+            const relativeX = e.clientX - canvas.offsetLeft;
+            if(relativeX > 0 && relativeX < canvas.width) {
+                // 패들 중앙이 마우스 커서에 오도록 위치 조정
+                paddleX = relativeX - paddleWidth / 2;
+            }
+        }
+
+        // === 🎨 그리기 함수들 (도형 렌더링) ===
+
+        // 공 그리기
+        function drawBall() {
+            ctx.beginPath();
+            ctx.arc(x, y, ballRadius, 0, Math.PI*2);
+            ctx.fillStyle = "#e50914"; // 넷플릭스 레드
+            ctx.fill();
+            ctx.closePath();
+        }
+        // 판떼기 그리기
+        function drawPaddle() {
+            ctx.beginPath();
+            ctx.rect(paddleX, canvas.height - paddleHeight - 10, paddleWidth, paddleHeight);
+            ctx.fillStyle = "#0095DD"; // 시원한 파란색
+            ctx.fill();
+            ctx.closePath();
+        }
+        // 벽돌 그리기 (살아있는 것만)
+        function drawBricks() {
+            for(let c=0; c<brickColumnCount; c++) {
+                for(let r=0; r<brickRowCount; r++) {
+                    if(bricks[c][r].status === 1) {
+                        // 벽돌 좌표 계산
+                        const brickX = (c * (brickWidth + brickPadding)) + brickOffsetLeft;
+                        const brickY = (r * (brickHeight + brickPadding)) + brickOffsetTop;
+                        bricks[c][r].x = brickX;
+                        bricks[c][r].y = brickY;
+                        
+                        ctx.beginPath();
+                        ctx.rect(brickX, brickY, brickWidth, brickHeight);
+                        // 줄마다 다른 색깔 (무지개 맛)
+                        if (r === 0) ctx.fillStyle = "#ff5722";
+                        else if (r === 1) ctx.fillStyle = "#ffc107";
+                        else ctx.fillStyle = "#4caf50";
+                        ctx.fill();
+                        ctx.closePath();
+                    }
+                }
+            }
+        }
+
+        // === 🧠 핵심 엔진 로직 (물리 & 충돌) ===
+
+        // 벽돌 충돌 감지 (히트박스 계산)
+        function collisionDetection() {
+            let blocksLeft = 0;
+            for(let c=0; c<brickColumnCount; c++) {
+                for(let r=0; r<brickRowCount; r++) {
+                    let b = bricks[c][r];
+                    if(b.status === 1) {
+                        blocksLeft++; // 남은 벽돌 카운트
+                        // 공이 벽돌 안으로 들어왔는가? (AABB 충돌 알고리즘 기초)
+                        if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) {
+                            dy = -dy; // 튕겨냄
+                            b.status = 0; // 벽돌 파괴!
+                        }
+                    }
+                }
+            }
+            // 승리 조건: 남은 벽돌이 0개면
+            if (blocksLeft === 0) {
+                // 약간의 딜레이 후 재시작
+                setTimeout(() => {
+                    resetGame("MISSION COMPLETE! 🎉");
+                }, 100);
+            }
+        }
+
+        // 게임 초기화/재시작 함수
+        function resetGame(message) {
+            if (message) alert(message);
+            x = canvas.width / 2;
+            y = canvas.height - 50;
+            dx = 6;  // 속도 약간 올림
+            dy = -6;
+            paddleX = (canvas.width - paddleWidth) / 2;
+            initBricks(); // 벽돌 재생성
+        }
+
+        // 메인 게임 루프 (1초에 60번 실행)
+        function draw() {
+            // 1. 화면 지우기
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // 2. 객체들 그리기
+            drawBricks();
+            drawBall();
+            drawPaddle();
+            
+            // 3. 충돌 계산
+            collisionDetection();
+
+            // 4. 벽 & 패들 충돌 로직
+            // 좌우 벽 튕기기
+            if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) { dx = -dx; }
+            // 천장 튕기기
+            if(y + dy < ballRadius) { dy = -dy; }
+            // 바닥 근처에 왔을 때
+            else if(y + dy > canvas.height - ballRadius - paddleHeight) {
+                // 패들 위에 공이 있는가? (세이브!)
+                if(x > paddleX && x < paddleX + paddleWidth) {
+                    dy = -dy; // 튕겨냄
+                    // 패들에 튕길 때마다 공 속도가 빨라지게 하려면?
+                    // dy = dy * 1.05; dx = dx * 1.05; // 이 주석을 풀면 하드코어 모드가 됩니다.
+                }
+                // 패들 밑으로 빠졌는가? (사망!)
+                else if (y + dy > canvas.height - ballRadius) {
+                    resetGame("GAME OVER! 다시 도전하세요. 💀"); // 게임 재시작
+                    return; // 리셋 후 이번 프레임 종료
+                }
+            }
+
+            // 5. 좌표 업데이트
+            x += dx;
+            y += dy;
+
+            // 6. 무한 반복
+            requestAnimationFrame(draw);
+        }
+
+        // 게임 최초 시작
+        resetGame();
+        draw();
+
+    </script>
+</body>
+</html>

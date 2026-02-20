@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>집가고싶다</title>
+    <style>
+        td {color: aqua;}
+        table > tr > td {color: purple;} /* 이러면 못알아들음 tbody가 없어서 */
+        table > tbody > tr > td {color: purple;}
+        table#tbl1 td {color: orange;} /* id를 사용해 여러 테이블들을 구분 */
+
+
+    </style>
+</head>
+<body>
+    <!-- ex06_selector.html -->
+    <h1>주소록</h1>
+    <!--
+        1. <table>
+        2. <tr>
+        3. <td>: table data <- 테이블에 데이터를 넣는 용도
+        4. <th>: table header <- 머릿말 역할
+        5. <thead>
+        6. <tbody>
+        7. <tfoot>: 5, 6, 7 모두 가독성을 위해 사용
+    -->
+    <!--
+    <table border="1" width="500">
+        테이블의 자식은 tr이 아니다. 숨겨진 자식 <thead>
+        <thead>
+        <tr>
+            <th>이름</th>
+            <th>나이</th>
+            <th>성별</th>
+            <th>주소</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>홍길동</td>
+            <td>20</td>
+            <td>남자</td>
+            <td>서울시 강남구 대치동</td>
+        </tr>
+        <tr>
+            <td>홍길동</td>
+            <td>20</td>
+            <td>남자</td>
+            <td>서울시 강남구 대치동</td>
+        </tr>
+        <tr>
+            <td>홍길동</td>
+            <td>20</td>
+            <td>남자</td>
+            <td>서울시 강남구 대치동</td>
+        </tr>
+        <tr>
+            <td>홍길동</td>
+            <td>20</td>
+            <td>남자</td>
+            <td>서울시 강남구 대치동</td>
+        </tr>
+        <tr>
+            <td>홍길동</td>
+            <td>20</td>
+            <td>남자</td>
+            <td>서울시 강남구 대치동</td>
+        </tr>
+        </tbody>
+
+        <tfoot>
+            <td colspan="4">2026-02-20</td>
+        </tfoot>
+    </table>
+    -->
+
+    <table border="1" width="500" id="tbl1">
+        <tr>
+            <th>이름</th>
+            <th>나이</th>
+            <th>성별</th>
+            <th>주소</th>
+        </tr>
+        <tr>
+            <td>홍길동</td>
+            <td>20</td>
+            <td>남자</td>
+            <td>서울시 강남구 대치동</td>
+        </tr>
+        <tr>
+            <td>홍길동</td>
+            <td>20</td>
+            <td>남자</td>
+            <td>서울시 강남구 대치동</td>
+        </tr>
+        <tr>
+            <td>홍길동</td>
+            <td>20</td>
+            <td>남자</td>
+            <td>서울시 강남구 대치동</td>
+        </tr>
+        <tr>
+            <td>홍길동</td>
+            <td>20</td>
+            <td>남자</td>
+            <td>서울시 강남구 대치동</td>
+        </tr>
+        <tr>
+            <td>홍길동</td>
+            <td>20</td>
+            <td>남자</td>
+            <td>서울시 강남구 대치동</td>
+        </tr>
+
+    </table>
+
+    <h2>다른 정보</h2>
+    <table border="1" width="500">
+        <tr>
+            <th>날짜</th>
+            <th>장소</th>
+
+
+
+
+        </tr>
+        <tr>
+            <td>2026.02.20</td>
+            <td>선릉역 1번 출구</td>
+        </tr>
+        <tr>
+            <td>2026.02.21</td>
+            <td>역삼역 3번 출구</td>
+        </tr>
+
+
+
+
+
+    </table>
+
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+        /* 
+            CSS 속성
+
+            HTML의 속성은 태그에 종속적이다.
+            - <body bgcolor="">: O
+            - <div bgcolor="">: X
+
+            CSS의 속성은 태그에 독립적이다.
+            - CSS 속성은 모든 태그에 적용할 수 있다.
+
+            background 속성
+
+            1. background-color
+            
+            2. background-image
+            
+            3. background-repeat
+            
+            4. background-position
+            
+            5. background-attachment
+        
+            CSS에서 색상을 표현하는 방법?
+            1. Color name: red, yellow, blue .. 140가지
+            2. RGB Color(HEX): #000000 ~ #FFFFFF
+            3. RGB Color(DEC): rgb(0,0,0) ~ rgb(255, 255, 255)
+            4. RGBA Color(DEC): rgb(0,0,0,1) -> Alpha Channel(불투명도 0~1)
+            5. RGBA Color(HEX): #RRGGBBAA
+
+            html, body
+            - 블럭 태그
+            - 블럭 태그의 너비 = 항상 100%
+            - 블럭 태그의 높이 = 내용물 만큼
+        
+        */
+        body
+        {
+            /* background-color: pink; */
+            /* background-color: #AE45FA; */
+            /* background-color: rgb(128, 128, 255); */
+            /* background-color: rgb(128, 128, 255, 0.5); */
+            background-color: #AE45FAAA;
+
+            /* background-image: url('images/catty01.png'); */
+
+            background-image: url('images/wall25.jpg');
+            /* background-repeat: repeat-x; */
+            /* background-repeat: repeat-y; */
+            background-repeat: no-repeat;
+            /* background-position: 300px 100px; */
+            /* background-position: 50% 50%; */
+            background-position: center center;
+            /* background-position: right bottom; */
+
+            /* background-attachment: scroll; */
+            background-attachment: fixed;
+
+            border: 10px solid hotpink;
+
+        }
+
+        html
+        {
+            border: 10px solid orange;
+
+        }
+        
+        div
+
+        {
+
+            /* background-image: url('images/catty03.png');
+            background-repeat: no-repeat; */
+            background: aquamarine url('images/catty06.png') no-repeat;
+            
+        }
+
+    </style>
+</head>
+<body>
+    <!-- ex10_background.html -->
+    <div>a<br>a<br>a<br>a<br>a<br>a<br>a<br></div><br>
+    안녕하세요. 엄준식입니다.
+    <!-- (p>lorem)*20 -->
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore nam impedit, repudiandae exercitationem numquam, voluptas molestiae architecto magni natus, quidem culpa illum placeat nisi cumque reprehenderit dicta quas recusandae explicabo?</p>
+    <p>Beatae, magnam. Modi nobis minima tempora ut error impedit laudantium voluptatem nam, fuga repellat facere, dicta quidem labore iusto eos perspiciatis, blanditiis dolorem officia magnam molestias! Quidem, obcaecati! Laboriosam, commodi!</p>
+    <p>Minima sit, ducimus rem aliquid maiores dolorem corrupti repellat asperiores maxime laborum sequi illum facilis nesciunt mollitia voluptatem quae nihil perspiciatis, ullam laudantium saepe odio labore totam vel. Deserunt, ratione?</p>
+    <p>Iste, hic. Eligendi possimus ut fugiat sunt optio ab pariatur dicta? Nesciunt nostrum autem, eum odit quas repellendus possimus eligendi. Repellat officia culpa minima beatae deleniti inventore recusandae facere. Error!</p>
+    <p>Nihil sed illo eos, architecto nesciunt facere id aliquid reiciendis culpa. Quisquam at officia odio fuga, rem modi incidunt molestias nulla. Magni porro aspernatur in hic dolorem nesciunt corporis natus.</p>
+    <p>Iusto officiis natus et sequi corrupti eaque amet dolores id, praesentium quisquam iste molestias soluta, voluptatem alias aspernatur nam fugit quas itaque voluptas cumque hic culpa! Soluta laboriosam dignissimos fugit?</p>
+    <p>Ipsa, ipsum nam ducimus repellat veritatis quidem suscipit id placeat nihil, vero unde sint, similique nobis excepturi nulla. Aliquid esse beatae perferendis commodi iure quidem, laborum incidunt dolor praesentium nisi.</p>
+    <p>Maiores ipsa consequuntur molestias. A assumenda mollitia doloribus iure quibusdam, labore accusamus similique recusandae, placeat suscipit, adipisci voluptatum ducimus quasi pariatur architecto voluptas. Facilis totam ea dolore explicabo, quae ex.</p>
+    <p>Odit dolorem ratione tempora nobis fugiat ab eum alias a laboriosam consequuntur. Iusto, vitae nostrum eius eos sequi debitis cum molestias possimus, sint sapiente delectus. Non voluptatibus molestiae maxime laboriosam.</p>
+    <p>Laudantium maxime sequi eos nobis! Dolor rerum dolore commodi deserunt consequuntur mollitia pariatur, vitae consequatur fuga neque, ducimus a. Ullam sed incidunt fugit commodi, expedita aliquam numquam delectus est ratione?</p>
+    <p>Ab commodi exercitationem ex cupiditate, in cumque accusantium aspernatur quasi iure rerum magnam facere sequi, illo ipsum ipsa dolor reprehenderit labore! Magni dolores dolorem natus ducimus libero impedit earum iure!</p>
+    <p>Ut qui quod repudiandae perferendis modi quia velit. Est nostrum ab temporibus neque doloribus vero qui totam, veniam consectetur sunt ullam distinctio aspernatur. Libero in, adipisci architecto quae quas quo?</p>
+    <p>Doloremque saepe corporis veritatis nulla eum! Laborum dolor modi non. Nihil quasi libero consequatur dolorem quidem in, voluptatum incidunt at adipisci vitae eligendi sint quaerat non. Ex nostrum laudantium atque.</p>
+    <p>Earum ut officiis totam possimus odit voluptatem minus cumque, distinctio itaque porro, minima quaerat veritatis illum tempora est! Provident soluta ipsa molestiae placeat nesciunt tempore enim sequi quam molestias doloribus?</p>
+    <p>Nulla eligendi laudantium necessitatibus ab unde, iste autem eveniet, nesciunt culpa quis, perspiciatis temporibus animi nisi inventore facilis consectetur aut iure tempora vero ut doloremque voluptatem tempore fuga. Maiores, unde!</p>
+    <p>Est illum nisi ipsam. Libero optio numquam eligendi assumenda est repellendus reprehenderit magni temporibus hic aut ipsam illo necessitatibus quibusdam pariatur nesciunt quia cupiditate laudantium, animi nam dolor ex omnis?</p>
+    <p>Minus libero rerum dicta quod alias eligendi culpa! Sit officia id minima deserunt dignissimos eum saepe quibusdam magnam, possimus esse, ipsum, voluptatum accusantium ab aliquam deleniti voluptate rem commodi distinctio.</p>
+    <p>Sit cumque voluptatum, dignissimos possimus perferendis commodi amet, ab nulla incidunt architecto saepe cum ratione ducimus mollitia facere molestiae repudiandae ipsam dolores harum quas? Nesciunt possimus totam atque mollitia itaque.</p>
+    <p>Delectus atque amet officia. Similique maxime minus numquam. Natus cupiditate obcaecati minima voluptate, provident veniam distinctio quos hic itaque accusantium quas eum inventore modi vel veritatis quae ratione quasi? Ad.</p>
+    <p>Molestiae saepe natus tenetur, architecto nemo distinctio nostrum placeat aliquam optio consequatur ratione libero officiis quidem animi quam facilis incidunt ad. Ex amet dolorum iusto ratione beatae asperiores cum earum?</p>
+</body>
+</html>
