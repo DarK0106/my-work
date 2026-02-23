@@ -1,0 +1,66 @@
+<!-- ex22_visibility.html -->
+<!-- Ctrl + Shift + P -->
+<!-- 코드 조각: 코드 조각 구성 -->
+<!-- visual studio snippet generator -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가시성</title>
+    <style>
+        /* 
+            visibility 속성
+            - visible, hidden
+            - 요소가 사라져도, 요소의 원래 영역은 남는다.
+
+
+            display 속성
+            - none
+            - 요소가 사라지면, 요소의 원래 영역도 사라진다.
+        
+        
+        
+        
+        */
+
+        /* #cat02
+        {
+            visibility: hidden;
+            display: none;
+        } */
+
+        /* #cat02:hover
+        {
+            visibility: hidden;
+        } */
+
+        /* #cat01:hover ~ #cat02
+        {
+            visibility: hidden;
+        } */
+        
+        /* img:hover ~ img
+        {
+            visibility: hidden;
+        } */
+
+        /* body:hover *
+        {
+            visibility: hidden;
+        } */
+
+    </style>
+</head>
+<body>
+    <h1>가시성</h1>
+    
+    <div id="box">
+        <img src="images/catty01.png" id="cat01">
+        <img src="images/catty02.png" id="cat02">
+        <img src="images/catty03.png" id="cat03">
+
+
+    </div>
+</body>
+</html>

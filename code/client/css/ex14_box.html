@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 
+        
+            CSS
+            1. 선택자를 통해 태그를 찾는 행위
+            2. 박스 모델(여기에 속하는 여러 속성들)
+
+            박스 모델, Box Model
+            - HTML의 모든 태그는 화면에 출력될 때 사각형으로 출력됨
+            - 이 특징을 기반으로 적용되는 CSS 속성 -> 박스 모델
+            
+            1. 테두리, border
+        
+        
+        
+        
+        */
+        #div2 
+        {
+            border-color: black; /* 테두리 색상 */
+            border-width: 5px; /* 테두리 두께 */
+            border-style: solid; /* 테두리 타입 (solid, dashed, dotted) */
+        }
+
+        #div1 
+        {
+            /* border-color: blue;
+            border-width: 10px;
+            border-style: solid; */
+            
+            /* border: 10px blue solid;
+
+            border-top-color: red;
+            border-top-width: 5px;
+            border-top-style: dashed;
+
+            border-bottom-color: orange;
+            border-bottom-width: 5px;
+            border-bottom-style: dashed;
+
+            border-right-color: purple;
+            border-right-width: 5px;
+            border-right-style: dashed;
+
+            border-left-color: aquamarine;
+            border-left-width: 5px;
+            border-left-style: dashed; */
+
+            border-top: blue 10px solid;
+            border-bottom: purple 10px dashed; 
+            border-left: orange 10px dashed; 
+            border-right: aquamarine 10px dashed; 
+        }
+
+        #div3
+        {
+            /* 
+                하나의 선택자 내에서는
+                속성 간의 우선순위가 없다.
+                - 무조건 덮어쓰기(마지막에 작성된 애가 적용)
+            
+            
+            
+            */
+            border: 5px blue dashed;
+
+            /* border-top-color: aquamarine;
+            border-bottom-color: red;
+            border-left-color: purple;
+            border-right-color: orange; */
+
+            /* 
+            이건 순서가 정해져있어서 외워야함
+            방향성을 가지는 속성이 있다
+            박스 모델에 관련된 애들은 방향성이 있다
+            시작은 12시를 시작으로 시계방향 순으로
+            top -> right -> bottom -> left
+            */
+            /* border-color: teal red green orange; */
+
+            /* 어정쩡하게 적다가 말았다? */
+            /* 값을 3개만 주면 위, 좌/우, 아래 라는 의미 */
+            /* 그래서 빨간색이 좌/우 에 들어가 있음 */
+            /* border-color: teal red green; */
+
+            /* 이번엔 2개만 적었다 */
+            /* 위/아래, 좌/우 로 적용 */
+            border-color: aquamarine hotpink;
+
+        }
+
+        /* html
+        {
+            border: 5px dashed crimson;
+
+        }
+
+        body
+        {
+            border: 5px solid gold; 드러나지 않음
+        }
+        
+        head
+        {
+            border: 5px solid lightgreen;            
+        } 
+        */
+
+        h1
+        {
+            /* 제목에 밑줄을 긋고 싶다 */
+            /* 이건 더 이상 수정을 못함 */
+            text-decoration: underline teal;
+
+            /* 그래서 테두리를 이용해 밑줄을 긋기 시작했다 */
+            /* 다채롭게 수정 가능해서 오래동안 사용했었음 */
+            border-bottom: 3px solid brown;
+
+            /* 근데 언어가 업데이트 되어서 이렇게 사용 */
+            text-decoration: underline 5px dashed grey;
+
+
+
+        }
+
+        .txt
+        {
+            background-color: blueviolet;
+            border: 1px solid black;
+            outline: none;
+        }
+
+
+    </style>
+</head>
+<body>
+    <!-- ex14_box.html -->
+     <h1>박스 모델</h1>
+     <!-- div#div$.box{상자$}*3 -->
+     <div id="div1" class="box">상자1</div>
+     <div id="div2" class="box">상자2</div>
+     <div id="div3" class="box">상자3</div>
+
+     <input type="text" class="txt"><br>
+     <input type="text" class="txt"><br>
+     <input type="text" class="txt"><br>
+    
+</body>
+</html>

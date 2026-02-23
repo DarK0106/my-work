@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>불투명도</title>
+    <style>
+        /* 
+        
+            rgba() 함수 -> 색상의 불투명도
+
+            Opacity, 불투명도
+            - 모든 객체에 대한 투명도
+            - 0(투명) ~ 1(불투명)
+        
+        
+        */
+
+        /*
+        #cat02
+        {
+            / * background-color: rgba(255, 255, 0, .1); * /
+            opacity: .5;
+        }
+        */
+
+        #box > img
+        {
+            opacity: .3;
+        }
+
+        /* #box:hover > img
+        {
+            opacity: 1;
+        } */
+
+        #box > img:hover
+        {
+            opacity: 1;
+            cursor: pointer;
+        }
+
+
+    </style>
+</head>
+<body>
+    
+    <h1>불투명도</h1>
+    <div id="box">
+        <img src="images/catty01.png" id="cat01">
+        <img src="images/catty02.png" id="cat02">
+        <img src="images/catty03.png" id="cat03">
+
+
+    </div>
+</body>
+</html>

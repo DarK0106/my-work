@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>float 예제 완벽 해결</title>
+    <style>
+
+        #menu {
+            background-color: orange;
+            width: 800px;
+            height: 100px;
+        }
+        #sub-menu {
+            background-color: yellow;
+            width: 200px;
+            height: 400px;
+            float: left; /* 공중에 띄워서 왼쪽으로 밀착 */
+        }
+        #content {
+            background-color: cornflowerblue;
+            width: 600px;
+            height: 400px;
+            float: left; /* 파란 박스도 띄워서 노란 박스 옆에 밀착! */
+        }
+        #footer {
+            background-color: green;
+            width: 800px;
+            height: 100px;
+            clear: both; /* 떠 있는 float 흐름을 여기서 차단! */
+        }
+
+        #main
+        {
+            width: 800px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <h1>float 예제</h1>
+    <div id="main">
+    <div id="menu">주메뉴(orange)</div>
+    <div id="sub-menu">보조메뉴(yellow)</div>
+    <div id="content">콘텐츠(blue)</div>
+    <div id="footer">하단부(green)</div>
+    <div id="main">
+    </div>
+</body>
+</html>

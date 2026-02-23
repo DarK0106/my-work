@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>float 예제</title>
+    <style>
+
+
+
+
+        .box
+        {
+            border: 1px solid black;
+            width: 150px; height: 150px;
+        }
+        #box1 {background-color: red;}
+        #box2 {background-color: orange;}
+        #box3 {background-color: yellow;}
+        #box4 {background-color: green;}
+        #box5 {background-color: blue;}
+
+        /* #box1 { float: right;}
+        #box2 { float: right;} */
+
+        /* 블럭태그를 인라인처럼 한줄에 배치 */
+        .box {float: left;}
+        /* 근데 의도와는 다르게 구분선이랑 다른요소까지 딸려옴 */
+        
+        #end
+        {
+            /* float 중단하고 원래 레이아웃 방식으로 돌아가라 */
+            /* left, right, both */
+            /* 블럭 태그들을 한줄로 출력하기 위해 사용하는 float */
+            clear:left;
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- ex26_float.html  -->
+    <h1>float 예제</h1>
+    <!-- div#box$.box{상자$}*5 -->
+    <div id="box1" class="box">상자1</div>
+    <div id="box2" class="box">상자2</div>
+    <div id="box3" class="box">상자3</div>
+    <div id="box4" class="box">상자4</div>
+    <div id="box5" class="box">상자5</div>
+    <!-- 다른 요소들까지 딸려오는것을 막기 위해 새로운 div 태그 생성 -->
+    <div id="end"></div>
+
+    <hr>
+
+    <div>다른 요소</div>
+    <div>다른 요소</div>
+    <div>다른 요소</div>
+    
+</body>
+</html>

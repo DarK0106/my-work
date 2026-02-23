@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>display 속성</title>
+    <style>
+        /* 
+        
+        display 속성
+        - 요소를 화면에 어떻게 출력하는지 제어
+
+        1. none
+        2. block
+        3. inline
+        4. inline-block(인라인 처럼 한줄로 출력하되 너비/높이 지정 가능)
+        
+        
+        */
+        .box
+        {
+            border: 1px solid black;
+            width: 100px;
+            height: 100px;
+            /* display: block; 기본값 */
+            display: inline;
+        }
+        
+        .link
+        {
+            border: 1px solid black;
+            /* display: inline; 기본값 */
+            display: block;
+            /* 위에거 하면 너비높이 조절가능함(원래안됨) */
+            width: 100px;
+            height: 100px;
+            
+        }
+
+        #menu
+        {
+            padding-left: 0px;
+        }
+        #menu li
+        {
+            border: 1px solid hotpink;
+            display: inline-block;
+            padding: 10px 15px;
+            width: 100px;
+            height: 50px; /* 인라인 태그로 고쳐버렸으니 너비높이를 지정하지못함 */
+            /* 인라인 태그는 내용의 크기가 영역의 크기 */
+            /* 그래서 inline 쓰지말고 inline-block을 쓰자 */
+        }
+
+        .txt2
+        {
+            display: block; /* 블럭 태그의 특징을 이용해 일일이 <br> 태그를 안 넣어도 된다 */
+            /* 블럭 태그들은 마진값이 0이 기본이라 여백이 없이 딱붙어있음, <br>한거랑 생긴게 좀 다름 */
+            margin-bottom: 3px; /* <br>로는 안되는 세밀한 간격 조절이 가능함 */
+        }
+    </style>
+</head>
+<body>
+    <!-- ex24_display.html  -->
+    <h1>display 속성</h1>
+
+    <ul id="menu">
+        <li>메뉴</li>
+        <li>조금 긴 메뉴</li>
+        <li>메뉴</li>
+        <li>메뉴</li>
+        <li>메뉴</li>
+        <li>메뉴</li>
+    </ul>
+
+    <h2>블럭태그</h2>
+    <!-- div#box$.box{상자$}*3 -->
+    <div id="box1" class="box">상자1</div>
+    <div id="box2" class="box">상자2</div>
+    <div id="box3" class="box">상자3</div>
+    <h2>인라인태그</h2>
+    <!-- a#link$.link[href]{링크$}*3 -->
+    <a href="#" id="link1" class="link">링크1</a>
+    <a href="#" id="link2" class="link">링크2</a>
+    <a href="#" id="link3" class="link">링크3</a>
+
+    <h2>입력</h2>
+
+    <input type="text" class="txt1"></input><br>
+    <input type="text" class="txt1"></input><br>
+    <input type="text" class="txt1"></input><br>
+    <input type="text" class="txt1"></input><br>
+
+    <h2>입력</h2>
+    
+    <input type="text" class="txt2"></input>
+    <input type="text" class="txt2"></input>
+    <input type="text" class="txt2"></input>
+    <input type="text" class="txt2"></input>
+    <input type="text" class="txt2"></input>
+    
+</body>
+</html>

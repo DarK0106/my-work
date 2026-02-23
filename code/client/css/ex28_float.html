@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>요소간의 공백 제거하기</title>
+    <style>
+        /* 
+        요소간의 공백 제거하기
+            1. 소스상의 공백 문자를 직접 제거 <- 비추천(list1)
+            2. font-size를 이용하기
+            3. float 이용
+        
+        
+        
+        */
+        img
+        {
+            display: inline-block;
+        }
+
+        #list2
+        {
+            font-size: 0em;
+        }
+
+        #list2 > span
+        {
+            font-size: 1rem;
+        }
+
+        #list3 > img
+        {
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <!-- ex28_float.html  -->
+    <h1>요소간의 공백 제거하기</h1> 
+    <!-- (div#list$>img[src=images/rect_icon0$.png]*5)*3 -->
+    <div id="list1">
+        <img src="images/rect_icon01.png" alt=""><img src="images/rect_icon02.png" alt=""><img src="images/rect_icon03.png" alt=""><img src="images/rect_icon04.png" alt=""><img src="images/rect_icon05.png" alt="">
+    </div>
+    <hr>
+    <div id="list2">
+        <img src="images/rect_icon01.png" alt="">
+        <img src="images/rect_icon02.png" alt="">
+        <span>홍길동</span>
+        <img src="images/rect_icon03.png" alt="">
+        <img src="images/rect_icon04.png" alt="">
+        <img src="images/rect_icon05.png" alt="">
+    </div>
+    <hr>
+    <div id="list3">
+        <img src="images/rect_icon01.png" alt="">
+        <img src="images/rect_icon02.png" alt="">
+        <img src="images/rect_icon03.png" alt="">
+        <img src="images/rect_icon04.png" alt="">
+        <img src="images/rect_icon05.png" alt="">
+        <div style="clear: both"></div>
+    </div>
+    <div>다른 내용</div>
+
+</body>
+</html>

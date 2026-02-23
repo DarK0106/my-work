@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>텍스트</title>
+    <style>
+        /* 
+        float
+        - 요소를 일반적인 문서 흐름(normal flow)에서 벗어나
+        컨테이너의 왼쪽(left)이나 오른쪽(right)으로 띄워 배치하는 위치 지정 속성입니다.
+
+        - 요소가 자기 위치에 출력되지 않고 자신이 속한 라인의 맨 왼쪽끝/오른쪽끝에 출력된다.
+        
+        
+        
+        
+        
+        
+        
+        */
+        #p1 > span
+        {
+            background-color: dodgerblue;
+            float: left;
+        }
+
+        #p2 > img
+        {
+            float: left;
+        }
+
+        h1
+        {
+            border-bottom: 1px dashed #555;
+            /* text-align: right; */
+        }
+
+        h1 > small
+        {
+            float: right;
+            /* 한글과 영어의 베이스라인 차이, 한글은 철저하게 베이스라인을 지킴, 영어는 그렇지 않음 */
+            /* float가 안되어있을때는 모든 글자를 베이스라인에 맞췄지만 */
+            /* float를 하는 순간 top에 맞춰버린다 그래서 붕뜨게 보이는데 */
+            /* 그걸 또 일일이 밑으로 끌어내려서 베이스라인에 맞춰야한다?;; */
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body>
+    <!-- ex25_float.html  -->
+    <h1>텍스트<small>float</small></h1>
+    <!-- p#p$ -->
+    <p id="p1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur culpa velit eveniet doloribus, ullam aliquid at ea, hic distinctio sunt commodi aspernatur ipsa quaerat, dolorem quod officiis sed sint tenetur voluptatem modi consequatur corrupti voluptas ut aperiam? Aspernatur voluptatum dolorum mollitia harum! **<span>홍길동</span>** Corrupti consectetur, odio, fugiat iure iste sunt quod quia repudiandae tempora sapiente quo mollitia deserunt aliquam quidem distinctio maxime accusamus. Eligendi beatae sed labore sit magnam! Error iste perspiciatis enim, similique nostrum sit mollitia atque commodi. Et cum tempora sapiente, molestias in ab aliquam soluta modi accusamus a officia magni hic rerum error dolore sunt aliquid blanditiis possimus.</p>
+</body>
+</html>

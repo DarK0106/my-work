@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 
+            text align 속성
+            - 부모가 자식을 수평 정렬하는 속성
+            - 이때 자식은 또다른 인라인 태그 또는 텍스트를 말한다
+
+            정렬, align
+            - 수평 정렬
+            - ex16.html과 이어지는 예제
+            
+            1. 인라인 태그
+                - 내용물의 수평 정렬이 불가능하다.(가능은 하지만 시각적인 변화가 존재하지 않음)
+                - text-align이 아무 소용이 없음
+                - 내용물의 크기가 영역이 크기이기 때문에 움직일 공간이 없기 때문
+                - 스스로 정렬 불가능 -> 부모(이때 부모는 반드시 블럭태그)의 text align을 사용한다
+
+            2. 블럭 태그
+                - 내용물의 수평 정렬이 가능하다.
+                - 내용물의 크기가 영역의 크기가 아니기 때문에 움직일 공간이 있다
+                - text-align 사용함
+                - width 지정 -> 한 라인을 독점 -> 부모에 의해서 수평 정렬이 불가능
+                - 공식적으로는 블럭 태그 그 자체는 수평 정렬이 불가능
+                - 블럭 태그의 내용물은 수평 정렬이 가능함
+                - 그래서 억지로 margin으로 움직임
+                - 스스로 수평 정렬 -> margin-left/margin-right -> auto(*중요)
+
+        
+        
+        
+        */
+        
+        #span1
+        {
+            background-color: gold;
+            text-align: center;
+        }
+        
+        #div1
+        {
+            background-color: skyblue;
+            text-align: center;
+            width: 100px;
+            /* 블럭 태그를 억지로 수평정렬하기 */
+            /* margin-left: calc(50% - 50px); */ /* 함수 사용해서 가운데 정렬, 띄어쓰기 필수 */
+            /* 문제: 너비가 바뀔때마다 계산도 다시 해야함 */
+
+            /* 결론: auto 쓰면 브라우저가 알아서 완벽히 가운데정렬해줌 */
+            /* 부모 영역에서 자식 영역에서 빼서 그걸 반반 나눔 그럼 가운데 정렬이 될 수 밖에 없음 */
+            /* margin-left: auto;
+            margin-right: auto; */
+
+            margin: 0px auto;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <!-- ex19_align.html -->
+    <h1>인라인 태그의 수평 정렬</h1>
+        <!-- span#span${강아지} -->
+        <!-- 강아지만 부모를 새로 만들어서 가운데 정렬을 해버림 -->
+        <div style="text-align: center;">
+        <span id="span1">강아지</span>
+        </div>
+
+
+
+    <h1>블럭 태그의 수평 정렬</h1>
+        <!-- div#div${고양이} -->
+        <div style="text-align: center; background-color: orange; padding: 5px;">
+        <div id="div1">고양이</div>
+        </div>
+</body>
+</html>
