@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <style>
+        #list1 > input[type="text"]
+        {
+            display: block;
+            margin-bottom: 5px;
+            outline: none;
+            background-color: #ffffff;
+            border: 1px solid #767676;
+            color: #333333;
+            padding: 3px;
+        }
+
+        /* #list1 > input:required {background-color: gold;}
+        #list1 > input:optional {background-color: olive;}
+        
+        #list1 > input:disabled {background-color: hotpink;}
+        #list1 > input:enabled {background-color: coral;} */
+        
+        /* #list1 > input:read-only {background-color: coral;}
+        #list1 > input:read-write {background-color: greenyellow;} */
+        
+        #list1 > input:read-only 
+        {
+            
+            background-color: #dedede;
+            cursor: not-allowed;
+        
+        
+        }
+
+        
+    </style>
+</head>
+
+<body>
+    <!-- ex36_selector.html  -->
+    <h1>Form</h1>
+    <!-- div#list1>input[type=text value="$"]*10 -->
+    <div id="list1">
+        <input type="text" value="1" required>
+        <input type="text" value="2" readonly>
+        <input type="text" value="3" readonly>
+        <input type="text" value="4">
+        <input type="text" value="5" required>
+        <input type="text" value="6" disabled>
+        <input type="text" value="7">
+        <input type="text" value="8">
+        <input type="text" value="9" disabled>
+        <input type="text" value="10" required>
+    </div>
+</body>
+
+</html>

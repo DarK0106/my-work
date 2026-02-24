@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I want to be a rich</title>
+    <style>
+        h1 {
+            transform: translate(150px, -10px);
+        }
+
+        .box {
+            border: 10px solid black;
+            width: 150px;
+            height: 150px;
+            margin: 10px;
+        }
+
+        #box1 {
+            background-color: crimson;
+        }
+
+        #box2 {
+            background-color: gold;
+        }
+
+        #box3 {
+            background-color: cornflowerblue;
+        }
+
+        #box2 {
+            /*
+                변형, transform
+                - 요소의 위치, 크기(배율), 회전, 비틀기(왜곡)
+                - transform: 값;
+
+                값(함수)
+                1. translate() : 위치 변형
+                2. scale()     : 크기(배율) 변형
+                    - transform 축이 있는데 그게 오른쪽으로 돌아가서 -n값을 주면 오른쪽으로 돌아감
+                    - -1 주면 뒤집어짐
+                    - y축에 -값주면 아래로 뒤집어짐
+                3. rotate()    : 회전 변형
+                4. skew()      : 비틀기(왜곡) 변형
+                    - skew 는 90도가 최대(90도는 눈에안보임)
+                    - 약간 x 축으로 값을 넣었을때에는 왼쪽으로 누워버리는느낌
+                    - y축으로 값 넣엇을때는 위아래로 잡아땡기는 느낌
+                5. matrix()    : 행렬
+            
+            
+            
+            */
+
+            /* transform: translate(300px, 0px); */
+            /* transform: scale(1, 1); */
+            /* transform: rotate(120deg); */
+            transform: skew(10deg, 50deg);
+
+        }
+
+        /* input[type=text]
+            {
+                font-size: 3rem;
+                padding: 10px;
+                / * transform: scale(-1, 1); * /
+                transform:rotate(270deg);
+            }
+
+        body
+        {
+            transform:rotate(32deg);
+        } */
+
+        /* #cat-list img:hover ~ img
+        {
+            transform: translate(0px, -15px);
+        } */
+
+        #cat-list img:hover
+        {
+            transform: scale(1.5, 1.5) translate(0px, -20px);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ex42_transform.html  -->
+    <h1>transform</h1>
+    <div id="box1" class="box">상자1</div>
+    <div id="box2" class="box">상자2</div>
+    <div id="box3" class="box">상자3</div>
+
+    <hr>
+
+    <input type="text">
+
+    <hr>
+
+    <!-- div#cat-list>(img[src = "images/catty0$.png"])*5 <-오답 -->
+    <!-- div#cat-list>(img[src="images/catty0$.png"])*5 <-정답 -->
+    <!-- 에밋은 맞았는데 띄어쓰기를 해서 틀림 -->
+    <div id="cat-list">
+        <img src="images/catty01.png">
+        <img src="images/catty02.png">
+        <img src="images/catty03.png">
+        <img src="images/catty04.png">
+        <img src="images/catty05.png">
+    </div>
+
+</body>
+
+</html>

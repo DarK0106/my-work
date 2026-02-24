@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>속성 선택자</title>
+    <style>
+        #list1 a
+        {
+            color: #333;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+
+        /* 
+            속성 선택자
+            - 기재된 속성 또는 속성값을 가지고 태글르 선택
+            1. 선택자[속성명]: 해당 속성을 명시한 태그
+            2. 선택자[속성명=값]: 해당 속성 + 특정한 값을 명시한 태그
+            3. 선택자[속성명^=값]: 시작(startsWith(), like '값%')
+            4. 선택자[속성명$=값]: 끝(endsWith(), like '%값')
+            5. 선택자[속성명*=값]: 포함(contains(), like '%값%')
+        
+        
+        */
+        /* #list1 > a[target] {background-color: gold;} */
+        /* #list1 > a[target=_blank] {background-color: gold;} */
+        /* #list1 > a[href^='https://'] {background-color: gold;} */
+        /* #list1 > a[href$='.com/'] {background-color: gold;} */
+        #list1 > a[href*='co'] {background-color: gold;}
+         
+    </style>
+</head>
+
+<body>
+    <!-- ex35_selector.html  -->
+    <h1>속성 선택자</h1>
+    <div id="list1">
+        <a href="https://www.naver.com/" target="_self">네이버</a>
+        <a href="https://www.yes24.com/" target="_blank">예스24</a>
+        <a href="https://www.daum.net/">다음</a>
+        <a href="https://www.coupang.com/">쿠팡</a>
+        <a href="https://www.11st.co.kr/" target="_self">11번가</a>
+    </div>
+</body>
+
+</html>

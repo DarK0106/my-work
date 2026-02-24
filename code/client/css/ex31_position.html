@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Position 예제</title>
+    <style>
+        /* 목표: 네이버 검색창에 무언가를 입력했을때 연관검색어 창 처럼 중앙정렬을 해보자 */
+        /* html, body
+        {
+            height: 100%;
+        } */
+
+        /* html
+        {
+            border: 10px solid red;
+            height: auto;
+        } */
+
+        body {
+            background-color: #DDDDDD;
+            margin: 0px;
+            /* border: 10px solid blue; */
+            height: 100%;
+        }
+
+        main {
+            background-color: #ffffff;
+            width: 800px;
+            /* height: 100%; */
+            height: 100vh;
+            /* viewport height: 눈에 보이는 창을 기준으로 하는 상대값 */
+            margin: 0px auto;
+
+            position: relative;
+            left: 0px;
+            top: 0px;
+
+        }
+
+        main>header {
+            border-bottom: 1px solid #999;
+            padding: 30px;
+            text-align: center;
+        }
+
+        main>header>#search {
+            border: 1px solid #999;
+            outline: none;
+            font-size: 1.5em;
+            padding: 5px;
+            width: 400px;
+        }
+
+        main>section {
+            padding: 0px 50px;
+        }
+
+        #search:focus + #list
+        {
+            display: block;
+        }
+
+        #list {
+            /* position: absolute;
+            left: 194px;
+            top: 69px; */
+
+            /* position: relative; / * relative 의 특징: 자기 공간을 차지함 * /
+            left: 164px;
+            top: -1px; */
+
+            /* 
+            
+                결론? absolute 와 relative를 같이 써라 
+                부모에는 relative + (0, 0)
+                자식에는 absolute + (194, 69(적절한 좌표))          
+            
+            
+            
+            */
+
+            position: absolute;
+            left: 194px;
+            top: 69px;
+
+
+            border: 1px solid #999;
+            width: 400px;
+            background-color: white;
+            padding: 5px;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ex31_position.html  -->
+
+    <main>
+        <header>
+            <input type="text" id="search">
+            <div id="list">
+                <div class="item">자바</div>
+                <div class="item">자바 설치</div>
+                <div class="item">자바 JDK 설치</div>
+                <div class="item">엄준식은 살아있다</div>
+                <div class="item">크리스티아누 호날두</div>
+            </div>
+        </header>
+        <section>
+            <h1>콘텐츠</h1>
+            <!-- lorem -->
+            <div>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus ut autem, non explicabo,
+                    exercitationem et quaerat cupiditate quidem ullam cum, beatae quibusdam? Exercitationem, eaque
+                    recusandae. Laboriosam quia expedita provident illo.</p>
+                <p>Deleniti perspiciatis quos placeat, officiis saepe dignissimos doloribus veniam recusandae unde
+                    laudantium voluptates error similique temporibus id sapiente minima tempore est itaque quod.
+                    Quibusdam eos, fugit officia quisquam neque vel!</p>
+                <p>Cupiditate libero facere nam non dicta magnam cum consequuntur repellat est alias iusto pariatur
+                    itaque laudantium dolorum quidem aliquid commodi numquam sint labore corrupti illum expedita,
+                    voluptatibus rem. Explicabo, a!</p>
+            </div>
+        </section>
+    </main>
+
+
+
+</body>
+
+</html>

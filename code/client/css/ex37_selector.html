@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>선택자</title>
+    <style>
+        p>span {
+            color: blue;
+        }
+
+        /* 
+            1. :first-child
+                - 가상 클래스
+            
+            2. :before(CSS2)  -> ::before(CSS3)
+                - 가상 클래스 -> 가상 요소(Element)
+                
+            전후 선택자
+            - before 와 after를 썼을때만 쓸 수 있는 특별한 속성 content
+            1. ::before
+            
+
+            2. ::after
+        
+        
+        
+        */
+
+        /* p > span::before
+        {
+            content: '홍길동';
+            color: cornflowerblue;
+        }
+
+        p > span::after
+        {
+            content: '엄준식';
+            color: crimson;
+        } */
+
+        p>span::before {
+            content: '[';
+            color: crimson;
+        }
+
+        p>span::after {
+            content: ']';
+            color: crimson;
+        }
+
+        p>a {
+            color: black;
+            text-decoration: none;
+        }
+
+        p>a:hover {
+            color: red;
+        }
+
+        p> ::before {
+            content: '🔗';
+        }
+
+        #list>div>span:nth-child(2)::after {
+            content: '원';
+        }
+
+        #list>div>span {
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ex37_selector.html  -->
+    <h1>선택자</h1>
+    <!-- lorem -->
+    <div>
+        <p>Lorem ipsum, <span>dolor</span> sit amet consectetur adipisicing elit. Quibusdam cum repellat esse modi.
+            Porro provident, dignissimos sint nesciunt <span>atque</span> sapiente <a
+                href="https://www.google.com/">google</a> facilis in recusandae excepturi <span>velit</span> repellat
+            quis rem similique laudantium!</p>
+    </div>
+
+    <hr>
+
+    <h2>목록</h2>
+    <div id="list">
+        <div><span>마우스</span><span>50000</span></div>
+        <div><span>키보드</span><span>70000</span></div>
+        <div><span>헤드셋</span><span>100000</span></div>
+        <div><span>모니터</span><span>120000</span></div>
+        <div><span>스피커</span><span>140000</span></div>
+    </div>
+
+    <hr>
+    <style>
+        .box {
+            border: 1px solid black;
+            width: 100px;
+            height: 100px;
+            float: left;
+        }
+
+        #list2::after {
+            content: ' ';
+            display: block;
+            color: red;
+            clear: both;
+        }
+    </style>
+    <!-- div.box{상자$}*5 -->
+    <div id="list2">
+        <div class="box">상자1</div>
+        <div class="box">상자2</div>
+        <div class="box">상자3</div>
+        <div class="box">상자4</div>
+        <div class="box">상자5</div>
+        <!-- <div style = "clear: both;"></div> -->
+    </div>
+
+    <div>다른 내용</div>
+
+    <script>
+        function calc() {
+            let price1 = document.getElementById("list").children
+            [0].children[1].textContent;
+            // alert(price1); // 5000원
+
+            let price2 = document.getElementById("list").children
+            [0].children[1].textContent;
+            // alert(price2); // 7000원
+        }
+
+    </script>
+</body>
+
+</html>

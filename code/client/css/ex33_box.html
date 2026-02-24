@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상자</title>
+    <style>
+
+        #hbar
+        {
+            background-color: dodgerblue;
+            width: 200px;
+            height: 10px;
+        }
+
+        #vbar
+        {
+            background-color: dodgerblue;
+            width: 10px;
+            height: 200px;
+            position: absolute;
+            left: -2px;
+            top: 99px;
+        }
+
+        #box
+        {
+            background-color: gold;
+            width: 200px;
+            height: 200px;
+
+            box-sizing: border-box;
+
+            /* 
+            
+                border, width, height, padding, margin
+
+                width, height 는 상자의 크기가 아니고, 컨텐츠 영역의 크기이다.
+
+                실제 눈에 보이는 객체의 크기는
+                - width + padding + border
+                - height + padding + border
+
+                box-sizing
+                - 객체 영역의 크기를 지정하는 정책
+                1. content-box(default)
+                    - width/ height 가 컨텐츠 영역의 크기가 된다.
+
+                2. border-box
+                    - width / height 가 컨텐츠 영역 + padding + border 가 된다
+                    - 실제 눈에 보이는 크기가 width + height 가 된다.
+            
+            */
+            padding: 20px;
+            border: 10px solid black;
+            /* margin: 20px; */
+        }
+    </style>
+</head>
+<body>
+    <!-- ex33_box.html  -->
+    <h1>상자</h1> 
+    <div id="hbar"></div>
+    <div id="vbar"></div>
+    <div id="box">상자상자상자상자상자상자상자상자상자상자상자상자상자상자상자상자상자상자상자상자상자상자상자상자</div>
+    <!-- 
+    
+        지금까지의 수업: CSS1~CSS2
+    
+    
+    -->
+
+
+
+</body>
+</html>
