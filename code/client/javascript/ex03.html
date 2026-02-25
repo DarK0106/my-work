@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자바스크립트 구문의 실행 순서</title>
+    <style>
+        h1 { color: cornflowerblue;}
+    </style>
+    <script>
+        /*
+        Uncaught TypeError: Cannot set properties of undefined (setting 'value')
+        at ex03.html:11:40
+        */
+
+        // 브라우저는 첫줄부터 아래로 쭉쭉 읽으면서 실행된다.
+        // 브라우저가 CSS도 바로 읽긴 하는데 일단 참았다가 한번에 보여준다
+        // 브라우저가 쭉 읽다가 자바스크립트 보면 실행함
+        // window.document.all.txt1.value = new Date();
+
+    </script>
+</head>
+<body>
+    <!-- ex03.html  -->
+    <h1>자바스크립트 구문의 실행 순서</h1> 
+    <input type="text" name="txt1" size="50">
+    <!-- 자바스크립트 코드는 위치가 중요하고 어느 시점에 적는지도 중요하다 -->
+    <script>
+        // (*중요) 자바스크립트는 대소문자를 구분한다.(C 계열 언어)
+        window.document.all.txt1.value = new Date();
+
+
+    </script>
+</body>
+</html>

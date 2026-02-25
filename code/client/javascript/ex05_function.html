@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자바스크립트에서의 함수</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <!-- ex05_function.html  -->
+    <h1>자바스크립트에서의 함수</h1> 
+
+    <script>
+        /*
+        (*중요) JavaScript에는 자료형이 있다.
+        변수에는 타입이 없었다.
+        (*중요) JavaScript는 자료형을 명시적으로 코드에 작성할 수 없다.
+        즉, 자료형을 코드상에서 표현할 수 없다.
+        - number, string, boolean, object 가 키워드가 아니다
+        JavaScript는 number 라는걸 모름 자료형은 존재함
+        자료형으로서는 존재하는 이름이지만 코드상에서는 존재하지 않음
+        
+        
+        
+        
+        
+        */
+
+        var n1; // variable
+        // number n2;
+        // string n3;
+
+        /*
+            Java Method
+            
+            public [static] int m1(int num)
+            {
+                return 10;
+            }
+
+            JavaScript Function
+            접근지정자(public 같은거) 없음(클래스가 없어서)
+            객체멤버냐 정적멤버냐 따지는 static? 없음
+            자료형? 표현할 수 있는 방법이 없어서 안적음
+            함수 이름 m1
+            매개변수에는 var이라는 키워드를 적을 수 없음
+            리턴은 똑같음
+            이렇게만 적으니까 파서가 읽기가 힘들었나봄
+            그래서 앞에 function 적어두기로 함
+
+            function m1(num)
+            {
+                return 10;
+            }
+        
+        
+        */
+
+        // 바깥쪽은 전역 공간(Global Area) 
+        function m1()
+        {
+            // 지역 공간(Local Area)
+            console.log('m1');
+        }
+
+        m1();
+
+        function m2(name)
+        {
+            console.log('name', name);
+            // 자바스크립트는 매개변수가 여러개면 매개변수 여러개를 만드는 방법이 있고
+            // 매개변수 자체를 아예 안만들어서 arguments로 받을 수 있다
+            // 결론: arguments 쓰지말고 FM대로 합시다
+            // 매개변수를 하나 넣은 함수는 하나만 넣어서 호출하라 ?
+            // 내장 배열 -> 자바스크립트가 스스로 만들어서 관리하는 배열
+            // arguments
+            // - 함수를 선언하면 자동으로 생성되는 내장 배열
+            console.log(arguments.length);
+            console.log(arguments[0]);
+            console.log(arguments[1]);
+            console.log(arguments[2]);
+            console.log('----------');
+        }
+
+        m2('홍길동'); // 1
+        m2(); // 0
+        m2('강아지', '고양이', '병아리'); // 3
+        console.clear();
+
+        function m3()
+        {
+            return 100;
+        }
+        var result = m3();
+        console.log('result', result);
+
+
+
+    </script>
+    
+</body>
+</html>

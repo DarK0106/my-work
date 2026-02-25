@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid</title>
+    <style>
+        #box
+        {
+            border: 10px solid black;
+        }
+        #box .item:nth-child(1)
+        {
+            background-color: tomato;
+        }
+        #box .item:nth-child(2)
+        {
+            background-color: orange;
+        }
+        #box .item:nth-child(3)
+        {
+            background-color: gold;
+        }
+        #box .item:nth-child(4)
+        {
+            background-color: greenyellow;
+        }
+        #box .item:nth-child(5)
+        {
+            background-color: cornflowerblue;
+        }
+        #box .item:nth-child(6)
+        {
+            background-color: rgb(47, 47, 189);
+        }
+
+        #box
+        {
+            display: grid;
+
+            /* 2행 3열 그리드 */
+            /* grid-template-rows: 100px 100px; */
+            /* grid-template-columns: 100px 100px 100px 100px 100px 100px; */
+            /* grid-template-columns: repeat(6,100px); */
+            /* grid-template-columns: 100px repeat(4,200px) 100px; */
+            /* grid-template-rows: repeat(2, 100px);
+            grid-template-columns: repeat(3, 100px); */
+
+            /* grid-template-rows: 50% 50%; */
+            /* grid-template-columns: 1fr 1fr; */
+            /* grid-template-columns: 33.33% 33.33% 33.33%; */
+            /* grid-template-columns: 1fr 1fr 1fr; */
+
+            /* grid-template-columns: 120px repeat(3,1fr) 2fr 10%; */
+            grid-template-rows: repeat(2, 100px);
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        #box .item:nth-child(1)
+        {
+            /* 셀병합 */
+            /* grid-column-start: 1;
+            grid-column-end: 3;
+            grid-row-start: 1;
+            grid-row-end: 3; */
+
+            grid-column: 1/3;
+            grid-row: 1/3;
+
+            grid-column-end: span 2;
+            grid-row-end: span 5;
+
+            /* grid-column-start: 3; */
+        }
+
+        .rgb-line 
+        {
+            width: 100%;
+            height: 5px;
+
+            /* 🚨 핵심: 무지개 7색을 똑같이 '2번' 연달아 적어줍니다. (총 14개) */
+            background: linear-gradient(90deg, 
+                red, orange, yellow, green, blue, indigo, violet,  /* 첫 번째 무지개 */
+                red, orange, yellow, green, blue, indigo, violet   /* 두 번째 무지개 (완벽한 복제본) */
+            );
+    
+            background-size: 200% 100%; /* 배경을 2배로 늘리기 */
+
+            /* 여기선 alternate 없이 그냥 한 방향(linear)으로만 쏩니다 */
+            animation: led-flow 2s linear infinite; 
+        }
+
+        @keyframes led-flow 
+        {
+            0% { background-position: 100% 0; }
+            100% { background-position: 0 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- ex50_grid.html  -->
+    <h1>Grid</h1> 
+    <div id="box">
+        <div class="item">a</div>
+        <div class="item">b</div>
+        <div class="item">c</div>
+        <div class="item">d</div>
+        <div class="item">e</div>
+        <div class="item">f</div>
+    </div>
+
+    <br>
+
+    <div class="rgb-line"></div>
+</body>
+</html>

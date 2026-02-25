@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transition</title>
+    <style>
+        #menu
+        {
+            font-size: 0;
+            margin: 0px auto;
+            width: 630px;
+            transform: translate(0px, -100px);
+        }
+        
+        #footer-menu
+        {
+            font-size: 0;
+            margin: 0px auto;
+            width: 630px;
+            position: absolute;
+            bottom: 0px;
+            /* 이걸 해야 margin auto 가 먹음 */
+            left: 0px;
+            right: 0px;
+            transform: translate(0px, 90px);
+        }
+        #footer-menu > img
+        {
+            transition-property: all;
+            transition-duration: 1s;
+            
+        }
+        #footer-menu > img:hover
+        {
+            transform: translate(0px, -90px);
+        }
+        #menu > img
+        {
+            transition-property: all;
+            transition-duration: 1s;
+            
+        }
+        #menu > img:hover
+        {
+            transform: translate(0px, 90px);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ex44_transition.html  -->
+    <!-- div#menu>(img[src="images/rect_icon0$.png"]*5) -->
+    <div id="menu">
+        <img src="images/rect_icon01.png">
+        <img src="images/rect_icon02.png">
+        <img src="images/rect_icon03.png">
+        <img src="images/rect_icon04.png">
+        <img src="images/rect_icon05.png">
+    </div>
+    
+    <div id="footer-menu">
+        <img src="images/rect_icon01.png">
+        <img src="images/rect_icon02.png">
+        <img src="images/rect_icon03.png">
+        <img src="images/rect_icon04.png">
+        <img src="images/rect_icon05.png">
+    </div>
+</body>
+
+</html>

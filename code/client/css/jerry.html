@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Squishy Jerry</title>
+  <style>
+    /* 컨테이너: 전체 제리 이미지의 틀 */
+    .jerry-container {
+      position: relative;
+      width: 500px;
+      height: 500px;
+      margin: 50px auto; /* 화면 중앙 정렬을 위해 추가 */
+      cursor: pointer; /* 마우스 올리면 손가락 모양으로 변경 */
+    }
+
+    /* 공통 스타일: 겹치기 위한 절대 위치 */
+    .jerry-body, .jerry-face {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%; /* 컨테이너 크기에 맞추기 */
+      height: auto;
+    }
+
+    /* 몸통 레이어 (뒤) */
+    .jerry-body {
+      z-index: 1;
+    }
+
+    /* 얼굴 레이어 (앞) */
+    .jerry-face {
+      z-index: 2;
+      /* 찌그러지는 기준점을 턱 밑(중앙 하단)으로 */
+      transition: transform 0.1s; /* 마우스 뗄 때 부드럽게 돌아오기 위함 */
+    }
+
+    @keyframes squish-jerry {
+      0% {
+        transform: scaleY(1); /* 시작: 정상 */
+      }
+      50% {
+        transform: scaleY(0.3); /* 중간: 찌그러짐 */
+      }
+      100% {
+        transform: scaleY(1); /* 끝: 다시 정상 */
+      }
+    }
+
+    /* 마우스를 컨테이너에 올렸을 때(:hover) 얼굴에 일어나는 일 */
+    .jerry-container:hover .jerry-face {
+      /* 애니메이션 이름 | 재생시간 | 속도곡선 | 반복횟수 */
+      animation: squish-jerry 0.4s ease-in-out infinite;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="jerry-container">
+    <img src="images/jerry-body2.png" class="jerry-body" alt="제리 몸통">
+    <img src="images/jerry-face.png" class="jerry-face" alt="제리 얼굴">
+  </div>
+
+</body>
+</html>

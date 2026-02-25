@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자바스크립트</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <!-- ex04.html  -->
+    <h1>자바스크립트</h1>
+    <!--
+        Java: 객체 지향 프로그래밍 언어
+        - 객체를 중심으로 업무를 구현하는 언어
+        - 원하는 객체를 생성하기 위해 클래스를 제작할 수 있다.
+
+        JavaScript: 객체 기반 프로그래밍 언어
+        - 객체를 중심으로 업무를 구현하는 언어
+        - 클래스 개념이 없음 -> 원하는 객체를 만들 수 없음(편법 사용해야 함?)
+        - ES6 에서 클래스가 생겼다? 근데 사실은 그것도 클래스가 아니다?
+
+        JavaScript 자료형
+
+        1. number
+            - 숫자형(정수, 실수)
+            - 10, 20, 30
+            - 3.14
+            - 오라클과 비슷
+        2. string
+            - 문자와 문자열 모두 포함
+            - "홍길동" 가능
+            - '홍길동' 가능
+        3. boolean
+            - 논리형
+            - true, false
+
+        4. object
+            - 객체형
+
+        5. 기타
+            a. null (null도 자료형 중 하나로 취급)
+            b. undefined
+            c. NaN(not a number, 사람들은 난 으로 읽음)
+            d. Symbol
+            e. BigInt
+
+
+        변수
+        - var 변수명; -> 이런 언어들을 동적 타입 언어라고 부른다
+            - 동적 타입 언어(인터프리터 언어, 주로 스크립트라고 불리는 언어들)
+            - 코드가 유연하다, 초보자들 입장에선 쉽다.
+                -> 단점: 문법만 보고서는 타입을 체크할 수 없다.
+                -> 오류를 미리 잡아내기 힘들다.
+
+        Java의 경우:
+            - int 변수명;
+            - 정적 타입 언어(주로 컴파일 언어들의 특징)
+            - 코드가 경직되어있다 라고 표현
+            - 타입 체크를 컴파일에서 미리 한다.
+                -> 컴파일 때 오류를 미리 발견할 수 있다.
+                -> 안정성이 높다.
+
+        - JavaScript에는 변수의 자료형이 없다.
+    
+    -->
+    <script>
+        
+        var num;
+        num = 100;
+        num = 3.14;
+        // num = "홍길동";
+
+        // 집어넣을 때 마다 변수의 타입이 바뀐다
+        // 자바의 Object 클래스 역할과 비슷하다
+        // alert(num); // Debug
+
+        // syso
+        console.log(num);
+        console.log('숫자: ' + num);
+        console.log('숫자', num);
+
+        /*
+            %d(%i) - 정수
+            %f - 실수
+            %s - 문자열
+            %o - 객체(모든 타입)
+        
+        */
+        console.log('숫자: %f', num);
+        console.warn('경고성 로그');
+        console.error('에러 로그');
+
+        console.clear();
+
+        var n1;
+
+        n1 = 100;       // number
+        console.log(typeof n1);
+        console.log(typeof 200);
+        n1 = '문자열';  // string
+        console.log(typeof n1);
+        console.log(typeof '홍길동');
+        n1 = true;      // boolean
+        console.log(typeof n1);
+        console.log(typeof 'false');
+        
+        n1 = new Date();
+        console.log(typeof n1);
+
+        var n2 = 10;
+        var n3, n4, n5;
+        var n6 = 10, n7 = 20;
+
+        // 변수 선언 했는데 또 선언(재정의)해도 자바스크립트는 에러가 안 남
+        var n2 = 20; // 당연히 절대 하지 말 것
+
+        var n8 = 30;
+        console.log('n8', n8);
+
+        var n9;
+        console.log('n9', n9); // undefined(=null)
+
+        var n10 = null;
+        console.log('n10', n10);
+
+        // undefined 와 null 은 같은 개념으로 생각하면 좋지만
+        // 뉘앙스(아무것도 없다)가 다르다
+        // undefined: 변수 생성 직후 초기 상태
+        // null: 의도적으로 비워둔 상태 
+        console.log(undefined == null); // true
+
+        // var n11 = undefined;
+        // console.log(n11);
+
+        /*
+            연산자
+            - 자바와 동일
+        
+        
+        
+        */
+
+        console.clear();
+
+        var n12 = 10;
+        var n13 = 10;
+        var n14 = '10';
+
+        // Java -> Strong Type -> 엄격한 자료형
+        // SQL -> Weak Type -> 느슨한(유연한) 자료형
+        // JavaScript -> Weak Type -> 느슨한(유연한) 자료형
+        // 왜 SQL, JavaScript는 이럴까? 스크립트 타입이라
+
+        console.log(10 + 20);
+        console.log('10' + 20); // '10' + '20' = '1020'
+        console.log('10' * 2); // 10 * 2 -> 20
+
+        // 연산자
+        // A == B
+        // 값만 비교하고, 자료형은 비교하지 않는다.
+        console.log(n12 == n13); // 10 == 10 -> true
+        // 자바였으면 말도안됨, 바로 false 박혀야하는데
+        // 숫자 10이랑 문자열 10이랑 어떻게 똑같음?
+        // 근데 자바스크립트는 true
+        console.log(n12 == n14); // 10 == '10' -> true
+        console.log(n12 != n14); // false
+        
+        // 우리가 알고있던 자바의 == 과 동일
+        // 값과 자료형을 모두 비교한다.
+        console.log(n12 === n13); // 10 === 10 -> true
+        console.log(n12 === n14); // 10 === '10' -> false
+        console.log(n12 !== n14); // 같지 않냐 라고 물어봐서 같지 않으니까 true
+
+        // 제어문
+        // 자바와 동일
+
+        // 이스케이프 문자
+        // 자바와 동일
+        console.log('C:\Ssangyong\code\client\javascript'); // C:Ssangyongcodeclientjavascript
+        // 역슬래시 2개 그어야함
+        console.log('C:\\Ssangyong\\code\\client\\javascript');
+
+    </script>
+    
+</body>
+</html>

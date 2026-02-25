@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flex</title>
+    <style>
+        #box
+        {
+            border: 10px solid black;
+        }
+        #box .item:nth-child(5n+1)
+        {
+            background-color: tomato;
+        }
+        #box .item:nth-child(5n+2)
+        {
+            background-color: orange;
+        }
+        #box .item:nth-child(5n+3)
+        {
+            background-color: gold;
+        }
+        #box .item:nth-child(5n+4)
+        {
+            background-color: greenyellow;
+        }
+        #box .item:nth-child(5n+5)
+        {
+            background-color: cornflowerblue;
+        }
+
+        #box
+        {
+            /* 
+                display: flex
+                - flex box, flexible box
+                - 레이아웃 -> 요소를 배치하는 역할
+            
+            
+            
+            */
+            width: 600px;
+            height: 300px;
+            display: flex;
+
+            /* 
+                기본 상태
+                - 메인축(아이템이 나열되는 방향): 가로(좌->우)
+                - 수직축(메인축의 직각 방향): 세로(상->하)
+                - 아이템의 너비: 내용물 만큼의 너비(auto)
+                - 아이템의 높이: 부모만큼(100%)
+            
+            
+            */
+            /* 
+            
+                flex direction
+                    - 메인축의 방향을 지정
+                    - 아이템을 나열한느 방향을 지정
+                    
+                    1. row: 행을 메인축으로
+                    2. column: 열을 메인축으로
+            
+            */
+            /* flex-direction: column-reverse; */
+
+            /* 
+                flex-wrap
+                - 자동 줄바꿈
+            
+            
+            
+            */
+            /* flex-wrap: nowrap; */ /* 기본값 */
+            /* flex-wrap: wrap-reverse; */
+
+            /* 
+                flex 관련 속성명
+                1. justify-ooo
+                    - 메인축과 관련된 속성
+
+                2. align-ooo
+                    - 수직축과 관련된 속성
+            
+            
+            */
+
+            /* 
+                justify- content
+                - 메인축 방향 + 아이템 정렬
+            
+            
+            */
+
+            /* justify-content: flex-start; */
+            /* justify-content: flex-end; */
+            /* justify-content: flex-center; */
+            /* justify-content: space-around; */
+            /* justify-content: space-between; */
+            /* justify-content: space-evenly; */
+            
+            
+            /* 
+            align-items
+            - 수직축 방향과 관련된 일을 한다 + 아이템 정렬
+            
+            */
+            
+            flex-direction: column;
+
+            /* 기본값 */
+            /* align-items: stretch; */
+            align-items: flex-start;
+            /* align-items: flex-end; */
+            /* align-items: stretch; */
+            /* align-items: flex-center; */
+        }
+    </style>
+</head>
+<body>
+    <!-- ex48_flex.html  -->
+    <h1>Flex</h1> 
+    <div id="box">
+        <div class="item">1. 딸기</div>
+        <div class="item">2. 바나나</div>
+        <div class="item">3. 귤</div>
+        <div class="item">4. 파인애플</div>
+        <div class="item">5. 포도</div>
+    </div>
+    <div>다른요소</div>
+</body>
+</html>

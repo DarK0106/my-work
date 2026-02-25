@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수직 정렬</title>
+    <style>
+        #box
+        {
+            background-color: gold;
+            width: 300px;
+            height: 300px;
+            font-size: 1.5rem;
+            font-weight: bold;
+
+            text-align: center;
+
+            /* 1. padding */
+            /* padding-top: 130px;
+            height: 170px;
+
+            box-sizing: border-box;
+            padding-top: 130px; */
+
+            /* 2. line-height */
+            /* 내용물이 딱 한줄일때만 유효한 방법 */
+            /* line-height: 300px; */
+
+            /* 3. position */
+            /* 변화에 완전 취약 */
+            /* 가장 최악, 쓰면 안됨 */
+
+            /* 4. table */
+            /* 이걸 주는 순간 #box는 td태그가된다? */
+            display: table-cell;
+            /* vertical-align: middle; */
+
+            /* 5. flex */
+        }
+    </style>
+</head>
+<body>
+    <!-- ex49_vertical.html  -->
+    <h1>수직 정렬</h1> 
+    <div id="box">홍길동</div>
+</body>
+</html>
