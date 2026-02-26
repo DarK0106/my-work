@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scope</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <!-- ex06_scope.html  -->
+    <h1>Scope(지역)</h1> 
+
+    <script>
+        /*
+            변수의 영역
+
+            자바
+            1. 멤버 변수 -> 클래스 전역에서 쓸 수 있음
+            2. 지역 변수 -> 메서드 or 제어문 안에서 쓸 수 있음
+
+            자바스크립트
+            1. 전역 변수(Global Variable)
+                - 현재 페이지(HTML) 안에서만 사용 가능
+                - 페이지와 페이지는 완전히 독립적이다
+            2. 지역 변수(Local Variable)
+                - 함수 내에서 선언한 변수
+
+            자바의 변수를 블럭 스코프 변수라고 함
+                - 클래스, 메서드, 제어문과 같은 모든 블럭을 자신의 영역으로 인식
+
+            자바스크립트의 변수는 함수 스코프(Function-Scoped) 변수라고 함
+                - 함수의 블럭만을 영역으로 인식
+                - 제어문은 인식 못함        
+        */
+
+        // 전역 영역 
+        // 스크립트의 영역 자체가 전역 영역
+        var a = 10; // 전역 변수
+        console.log('a', a);
+        
+        function m1()
+        {
+            var b = 20; // m1 영역의 지역 변수
+            console.log('b', b);
+            console.log('a', a);
+
+            if (a > 0)
+            {
+                var c = 30; // m1 영역의 지역 변수(if 영역의 지역 변수 아님)
+                console.log('c', c);
+            }
+            console.log('c', c); // if 벗어나도 c 접근 가능
+        }
+        m1();
+        
+        console.log('b', b); // 함수가 종료되면 b로 접근 불가능
+        
+        var d = 40;
+        
+        if (a > 0)
+        {
+            var e = 50; // 전역 변수
+        }
+        
+        console.log('e', e); // 전역 변수니 출력 가능
+        
+        for (var i = 0; i < 10; i++)
+        {
+            console.log(i);
+        }
+        
+        console.log(i); // 보통 i는 for문 다 돌면 죽는데 자바스크립트에서는 안 죽음
+
+        console.clear();
+
+        var f = 50; // 전역 변수
+        g = 60; // 선언문이 없어도 변수 선언할 수 있음, g는 전역 변수
+        // 하지만 가독성이 너무 떨어져 이런 식으로 변수를 선언하는건 추천하지 않음
+
+        function m2()
+        {
+            var h = 70; // 지역 변수(m2)
+            i = 80; // 지역 변수(m2) 인 줄 알았으나 전역 변수
+
+            // 예) 어떤 업무를 진행하던 중..
+            i = 100; // 리턴값 역할
+            j = 200;
+            k = 300; // 값을 넘기거나 돌려주는게 너무 쉬워서 옛날엔 썼었다?
+
+            // 작성한 사람은 의도를 아니까 덜 헷갈리겠지만 제3자가 보면 이해를 하기 힘듦
+            // 초보일때나 좋고 코드의 규모가 커지면 곤란해짐 
+        }
+
+        m2();
+
+        console.log('h', h); // m2 빠져나왓으니까 접근할 수 없음
+        console.log('i', i); // var을 안 붙이고 선언한 i는 무조건 전역 변수
+
+        
+
+
+    </script>
+
+    
+    
+</body>
+</html>

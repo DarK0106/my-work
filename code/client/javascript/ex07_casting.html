@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>형변환 Casting</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <!-- ex07_casting.html  -->
+    <h1>형변환 Casting</h1> 
+
+    <script>
+        
+        /*
+            자바
+            - 캐스트 연산자
+            - (자료형) 연산자
+
+            SQL
+            - to_char(), to_date(), to_number() ...
+
+
+            자바스크립트
+            - 자바스크립트에선 형변환 함수를 제공함
+            - parseInt(), parseFloat()
+
+            형변환 함수
+            1. number parseInt(value)
+
+            2. number parseFloat(value)
+        
+        
+        
+        
+        */
+
+        var n1 = 3.14; // 자바로 치면 (int) n1
+        console.log(parseInt(n1));
+
+        var n2 = '200';
+        console.log('200');
+        console.log(parseInt(n2));
+        
+        var n3 = '홍길동';
+        console.log(parseInt(n3)); // 홍길동을 정수로 바꿔달라 -> 될리가 없음 -> 에러는 안 남
+        // 에러는 안 나고 NaN을 반환함
+        
+        var n4 = '100점';
+        console.log(parseInt(n4)); // 당연히 안될 줄 알았는데 점 이라는 글자가 사라지고
+        // 알아서 100으로 형변환됨
+        
+        n4 = '100점이 아니라 90점입니다.'; // 다른 언어였으면 형변환 하려는 시도조차 안하는
+        // 행위인데 자바스크립트는 해줌
+        console.log(parseInt(n4)); // 100
+        
+        n5 = '점수 100점';
+        console.log(parseInt(n5)); // parseInt가 딱 보니까 점 부터 나와서 n5 얘는 그냥 NaN 반환함
+
+
+        // parseInt는 처음에 연속된 숫자를 찾는다, 처음에 글자가 나오면 NaN 반환함
+        // 처음부터 연속적으로 나온 숫자까지만 가져감
+        // 그래서 n4가 100으로 형변환이 됐던것, 1 0 0 이후에 점 나왔으니까 나머지들은 다 버림
+
+        // 이것도 나름 목적이 있음 -> CSS 조작
+        var width = '200px'; // +100px 할 일이 생김
+        console.log(width + 100); // 될 리가 없음. 200px100
+
+        console.log(parseInt(width) + 100); // 이러면 100px 더할 수 있음
+
+        var fontSize = '1.5em';
+        console.log(parseFloat(fontSize)); // 1.5
+
+        // boolean isNaN(value)
+        // - is not a number?
+        // - value가 숫자가 아닙니까?
+        // - 자료형은 검사 안하고 형식(모양)만 검사함
+        console.log(isNaN('홍길동'));
+        console.log(isNaN(100));
+        console.log(isNaN('100'));
+
+        // 이 안 알맹이에 숫자가 아닌 요소가 들어갔습니다 = true
+        console.log(isNaN('100점')); // 사용자한테 숫자만 입력 요구(점수)
+
+
+
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>날짜 / 시간</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <!-- ex09_date.html  -->
+    <h1>날짜 / 시간</h1>
+    <!-- 자바스크립트는 위에서 아래로 차례대로 읽는다는걸 주의할것 -->
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.19/dayjs.min.js"></script>
+
+    <script>
+        /*
+            Calendar, Date, LocalDate, LocalTime ..
+
+            자바스크립트는 클래스가 없다. -> 기본적으로 제공되는 객체가 있다.
+            -> 자바스크립트 내장 객체
+        
+            자바스크립트 내장 객체
+            - 날짜 객체 -> Date
+        
+        
+        
+        */
+
+        // 현재 시각
+        new Date();
+
+
+        var now = new Date();
+        console.log(now);
+        console.log(now.toString());
+        console.log(typeof now); // 자료형이 object 하나뿐이다
+
+        // 요소 추출
+        // - c.get(Calendar.상수)
+
+        // 밀레니엄 버그(년도 표기: 2자리)
+        console.log(now.getYear()); // 126, 안씀
+        console.log(now.getFullYear()); // 2026
+        console.log(now.getMonth()); // 1(0부터)
+        console.log(now.getDate()); // 26
+        console.log(now.getHours()); // 10
+        console.log(now.getMinutes()); // 25
+        console.log(now.getSeconds()); // 57
+        console.log(now.getMilliseconds()); // 623
+        console.log(now.getTime()); // 1772069156510
+        console.log(now.getDay()); // 4, 일요일(0) ~ 토(6)
+
+        // 출력 -> %tF, %tT, %tA
+        console.log(now.toString());
+        console.log(now.toLocaleString()); // 2026. 2. 26. 오전 10:27:42
+        
+        // 우린 2026-02-26 10:27:22 로 보고 싶은데 아쉽게도 이런 포맷은 없음
+        // 2026-02-26 10:27:22 이렇게 보려면 하나씩 꺼내서 직접 만들어야함
+        console.log(now.toDateString());
+        console.log(now.toLocaleDateString());
+        
+        console.log(now.toTimeString());
+        console.log(now.toLocaleTimeString());
+
+        // Day.js 를 써보자
+        // 외부서버에 돌고 있는걸 쓴다?
+        // 이런걸 컨텐츠 딜리버리 네트워크 CDN이라고 한다
+        
+        console.clear();
+        console.log(dayjs(now).format()); // 2026-02-26T10:40:09+09:00
+        console.log(dayjs(now).format('YYYY-MM-DD HH:mm:ss')); // 2026-02-26 10:40:43
+        // dayjs(now) 에 now 가 빠지면 무조건 현재시간
+        
+        // 특정 시각 만들기
+        var christmas = new Date();
+        
+        christmas.setFullYear(2026);
+        christmas.setMonth(11); // 0부터 센다
+        christmas.setDate(25);
+        christmas.setHours(12);
+        christmas.setMinutes(0);
+        christmas.setSeconds(0);
+        console.log(dayjs(christmas).format('YYYY-MM-DD HH:mm:ss'));
+
+        // 연산
+        // 시각 - 시각 = 시간(ms 단위)
+        console.log(christmas - now); // 26097110001
+        console.log((christmas - now) / 1000 / 60 / 60 / 24); // 302.04988427083333 약 302일
+
+        // 시각 + 시간 = 시각
+        // 시각 - 시간 = 시각
+        console.log(now + 100000); // 이렇게 되면 좋은데
+
+        // 시각에 시간을 더하거나 빼는건 연산자로 지원해주지 않음
+        now.setTime(now.getTime() + (3 * 24 * 60 * 60 * 1000));
+        console.log(now); // 이런 과정이 너무 귀찮아서 사람들이 본인들이 직접 만들어둔
+        // 함수를 재사용하는 식으로 쓰고는 한다
+
+    </script>
+    
+</body>
+</html>

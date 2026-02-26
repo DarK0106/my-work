@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOM, Browser Object Model</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <!-- ex11_bom.html  -->
+    <h1>BOM, Browser Object Model</h1> 
+    <div>자바스크립트로 HTML을 조작하기 위한 API(기능들)</div>
+
+    <hr>
+
+    <div>
+        <!-- form[name=form]>input[type=text name=txt1] -->
+        <!-- form[name=form]>input[name=txt1] -->
+        <form name = "form1">
+            <span>
+                <input type="text" name="txt1">
+            </span>
+        </form>
+    </div>
+
+    <form name = "form2">
+            <input type="text" name="txt2">
+    </form>
+    <script>
+        // window.close();
+        // 이 window가 창 자체에 대한 참조 객체이다
+
+        /*
+            CSS -> 선택자(*중요) -> HTML 태그 검색 -> 접근 -> 조작
+
+            JavaScript -> 검색도구(*중요) -> HTML 태그 검색 -> 접근 -> 조작
+
+            BOM(할 수 있는 범위가 좀 좁음)
+            - 초창기 모델 ~ 현재까지 사용
+            - 선택적 모델 -> 일부 태그만 접근 가능
+            - 폼태그 조작, 이미지 태그 조작, 링크(+ Anchor) 조작
+
+            - 계층구조 매우 중요 + name 식별자 사용
+            - id, class 는 인식 불가능
+        
+        
+        */
+
+        window.document.form1.txt1.value  = '텍스트 박스';
+        window.document.form2.txt2.value  = 'TextBox';
+    </script>
+    
+</body>
+</html>

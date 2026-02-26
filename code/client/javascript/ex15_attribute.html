@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript로 HTML 태그에 접근해서 속성을 조작하기</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <!-- ex15_attribute.html  -->
+    <h1>JavaScript로 HTML 태그에 접근해서 속성을 조작하기</h1> 
+    <!-- form[name=form1]>input[name=txt1]+input[type=button value=버튼1 name=btn1] -->
+    <form name="form1">
+        <input type="text" name="txt1">
+        <input type="button" value="버튼1" name="btn1">
+    </form>
+
+    <script>
+        var txt1 = window.document.form1.txt1;    
+        var btn1 = window.document.form1.btn1;
+        
+        btn1.onclick = m1;
+        function m1() {
+            /*
+                HTML 속성 제어하기
+                1. HTML 태그가 가지는 모든 속성은 이미 자바스크립트의
+                프로퍼티로 구현되어있다.
+
+                - HTML 속성명 -> (거의 대부분) -> JavaScript 프로퍼티명
+
+                2. HTML 속성명이 복합어 -> 프로퍼티명은 캐멀 표기법으로
+                ex) input maxLength="5"
+                    txt1.maxLength = 5;
+
+                3. HTML 속성값이 플래그 타입
+                ex) <input readonly>
+                    txt1.readOnly = true;
+
+                4. HTML 속성값이 열거형/문자열/색상/URL -> 문자열로 취급해서 조작
+                ex) <p align="center">
+                    p.align = 'center';
+
+                    <body bgcolor="yellow">
+                    body.bgColor = 'yellow';
+            
+            
+            
+            
+            */
+
+            // 대부분의 프로퍼티는 getter / setter 모두 지원됨
+
+            // txt1.value = '홍길동';
+            // alert(txt1.value);
+            // txt1.maxLength = 5;
+
+            // txt1.readOnly = true;
+
+            // window.document.body.bgColor = 'cornflowerblue';
+
+            // 되도록이면 하지 말것
+            // txt1.type = 'checkbox';
+            
+            // 절대 금지!! (SQL 로 치면 PK 이름 바꾼것)
+            // txt1.name = 'txt2';
+
+            // 버튼 1개로 -> On / Off -> 토글 버튼(Toggle Button)
+            if (window.document.body.bgColor != 'black') {
+                window.document.body.bgColor = 'black';
+                btn1.value = '켜기';
+            } else {
+                window.document.body.bgColor = 'white';
+                btn1.value = '끄기';
+            }
+        }
+    </script>
+    
+</body>
+</html>

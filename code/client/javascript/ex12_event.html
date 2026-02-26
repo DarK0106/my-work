@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <!-- ex12_event.html  -->
+    <h1>Event</h1>
+    <!-- form[name=form1]>input[name=txt1]+hr+input[type=button value="버튼$" name=btn$]*3 -->
+        <form name="form1">
+            <input type="text" name="txt1">
+            <hr>
+            <!-- 온클릭은 무조건 한줄로 치는게 국룰 -->
+            <input type="button" value="버튼1" name="btn1"
+            onclick="window.document.form1.txt1.value = 100;">
+            <input type="button" value="버튼2" name="btn2"
+            onclick="m2();">
+            <input type="button" value="버튼3" name="btn3">
+        </form>
+    <script>
+        /*
+        
+            JavaScript Event
+            - 사건
+            - 객체에서 발생하는 사건
+
+            JavaScript Event Handling(오라클에서의 트리거와 비슷)
+            1. 이벤트 처리기 등록(정의)
+            2. 지켜보기
+            3. 이벤트 발생 -> 처리해야 할 코드(1번)를 자동으로 실행
+
+            정적 이벤트 등록
+            - 태그에 직접 + onXXX 속성 사용
+
+            동적 이벤트 등록
+            - 런타임 시 태그 객체 + 이벤트 프로퍼티 추가
+        
+        
+        
+        
+        */
+        
+        function m2()
+        {
+            window.document.form1.txt1.value = 200;
+            window.document.form1.btn3.onclick = m3;
+        }
+        
+        // 함수 주소값 대입
+        // window.document.form1.btn3.onclick = m3;
+        
+        function m3()
+        {
+            window.document.form1.txt1.value = 300;
+            return 100;
+        }
+
+    </script>
+    
+</body>
+</html>

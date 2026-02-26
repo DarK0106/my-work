@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>window 객체</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <!-- ex16_window.html  -->
+    <h1>window 객체</h1>
+    <!-- form[name="form1"]>fieldset>legend{창 제어하기}+input[type=button value="자식창 띄우기" name=btn1]+input[type=button value="자식창 닫기" name=btn2] -->
+    <form action="" name="form1">
+        <fieldset>
+            <legend>창 제어하기</legend>
+            <input type="button" value="자식창 띄우기" name="btn1">
+            <input type="button" value="자식창 닫기" name="btn2">
+        </fieldset>
+        <fieldset>
+            <legend>자식창 자원에 접근하기</legend>
+            <!-- input[type=button value="자식창에 있는 텍스트 박스에 접근하기" name=btn3] -->
+            <input type="button" value="자식창에 있는 텍스트 박스에 접근하기" name="btn3">
+            <hr>
+            <input type="button" value="SIUUUUUUUUUU" name="btn4">
+            <hr>
+            <input type="text" name="txt1">
+
+        </fieldset>
+    </form>
+    <script>
+        var btn1 = window.document.form1.btn1;
+        var btn2 = window.document.form1.btn2;
+        var btn3 = window.document.form1.btn3;
+        var btn4 = window.document.form1.btn4;
+
+        btn1.onclick = m1;
+        btn2.onclick = m2;
+        btn3.onclick = m3;
+        btn4.onclick = m4;
+
+        function m1() {
+            // (자식)창 띄우기
+            // - object window.open(URL, name, options);
+            // window.open('ex15_attribute.html', 'child', '');
+            // window.open('https://www.naver.com/', 'child', '');
+
+            window.open('ex16_child.html', 'child', 'width=500, height=600, left=0, top=0');
+
+            child = window.open('ex16_child.html', 'child', 'width=500, height=600, left=0, top=0');
+            console.log(child);
+        }
+
+
+        function m2() {
+            child.close();
+        }
+
+        function m3() {
+            child.document.form1.txt1.value = '엄준식';
+        }
+
+        function m4() {
+           
+            var targetImg = child.document.getElementById('siuImg');
+
+            targetImg.src = "images/Ronaldo.jpg";
+
+            targetImg.style.width = "300px";  // 너비 300px
+            targetImg.style.height = "auto";  // 높이는 비율에 맞게 자동 조절
+
+            // 방법 B: 자식창 너비의 퍼센트(%)로 지정하기
+            // targetImg.style.width = "90%"; // 자식창 너비의 90% 꽉 차게
+            // targetImg.style.height = "auto";
+        }
+
+
+    </script>
+
+</body>
+
+</html>

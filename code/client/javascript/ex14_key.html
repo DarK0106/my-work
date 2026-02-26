@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>키 이벤트</title>
+    <style>
+        form>* {
+            display: block;
+            margin-bottom: 10px;
+            outline: none;
+            padding: 5px;
+            resize: none;
+            width: 300px;
+        }
+
+        textarea {
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ex14_key.html  -->
+    <h1>이벤트 <small>키</small></h1>
+    <!-- form[name=form1]>(input[name=txt$]*2)+textarea[name=txt3] -->
+    <form name="form1">
+        <input type="text" name="txt1">
+        <input type="text" name="txt2">
+        <textarea name="txt3"></textarea>
+    </form>
+    <script>
+        var txt1 = window.document.form1.txt1;
+        var txt2 = window.document.form1.txt2;
+        var txt3 = window.document.form1.txt3;
+
+        /*
+            키 이벤트
+            - onkeyXXX
+
+            1. onkeydown
+                - 키를 눌렀을 때 발생
+                - 물리키에 반응
+                - 찍힌 글자는 구분 불가능
+            2. onkeyup
+                - 키를 뗐을 때 발생
+            3. onkeypress
+                - 키를 눌렀을 때 발생
+                - 문자키에 반응
+
+            키가 입력되는 과정?
+            1. 물리적 키를 누른다.
+            2. keydown 이벤트가 발생한다.
+            3. 입력된 문자가 텍스트 박스에 입력한다.
+            4. keyup 이벤트가 발생한다.
+
+            키 이벤트 선택?
+            1. 일반적인 경우 -> keydown
+            2. 방금 입력한 값을 이벤트에서 바로 사용해야 하는 경우? -> keyup
+        
+        */
+
+        txt1.onkeydown = m1;
+        txt1.onkeyup = m2;
+        txt1.onkeypress = m3;
+
+        // HTML의 속성과 CSS 속성이 충돌하면 무조건 CSS가 적용
+        function m1(event) {
+            console.log(event.altKey);
+            console.log(event.shiftKey);
+            console.log(event.ctrlKey);
+
+            console.log('keydown > ' + event.keyCode);
+            if (event.keyCode == 37 && event.altKey) {
+                txt1.size--;
+            }
+            if (event.keyCode == 39 && event.altKey) {
+                txt1.size++;
+            }
+
+
+            // if (event.keyCode == 37) {
+            //     txt3.cols--;
+            // } else if (event.keyCode == 39) {
+            //     txt3.cols++;
+            // } else if (event.keyCode == 38) {
+            //     txt3.rows--;
+            // } else if (event.keyCode == 40) {
+            //     txt3.rows++;
+            // }
+
+            console.clear();
+                                        // a        b       c       Ctrl
+            console.log(event.keyCode); // 65       66      67      17
+            console.log(event.key);     // a        b       C       Control
+            console.log(event.code);    // keyA     keyB    keyC    ControlLeft
+
+            // 키를 누를 때 마다 현재 텍스트 박스에 입력한 값을
+            // 두번째 텍스트 박스에 복사해보자
+
+            // 근데 왜 한글자씩 모자라게 복사될까?
+            
+            
+        }
+        function m2(event) {
+            console.log('keyup');
+            txt2.value = txt1.value;
+        }
+        function m3(event) {
+            console.log('keypress > ' + event.keyCode);
+        }
+
+
+    </script>
+
+</body>
+
+</html>

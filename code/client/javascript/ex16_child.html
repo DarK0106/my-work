@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자식 창</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <!-- ex16_child.html  -->
+    <h1>자식 창</h1>
+    <form name="form1">
+    <input type="text" name="txt1">
+    <hr>
+    <input type="button" value="부모창에 있는 자원에 접근하기" name="btn1">
+    </form>
+
+    <hr>
+    <img id="siuImg" src="" style="border: 1px solid #ccc;">
+
+
+    <script>
+        window.document.form1.btn1.onclick = m1;
+
+        function m1() {
+            // 부모 페이지의 자원을 접근
+            // 부모창 window 객체 얻기
+
+            // opener라는 이름의 예약어: 부모창의 window 객체
+            opener.document.form1.txt1.value = '아무개';
+        }
+    </script>
+    
+</body>
+</html>

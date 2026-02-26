@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse Event</title>
+    <style>
+        textarea,
+        input {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        textarea {
+            width: 500px;
+            height: 300px;
+            outline: none;
+            resize: vertical;
+            font-size: 2em;
+            font-family: "Noto Sans KR";
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ex13_mouse.html  -->
+    <h1>이벤트 <small>마우스</small></h1>
+
+    <!-- form[name = "form1"]>textarea[name = "txt1"]+input[type ="button" value = "버튼" name = "btn1"] -->
+    <!-- form[name=form1]>textarea[name=txt1]+input[type=button value=버튼 name=btn1] -->
+    <form name="form1">
+        <textarea name="txt1" id=""></textarea>
+        <input type="button" value="버튼" name="btn1">
+        <input type="text" name="txt2" size="20">
+    </form>
+
+    <script>
+        /*
+            마우스 관련 이벤트
+            - onmouseXXX
+
+            1. onmouseover / onmouseenter
+                - 해당 객체의 영역 내에 마우스 커서가 진입하는 순간 발생
+                
+            2. onmouseout / onmouseleave
+                - 해당 객체의 영역 내에 마우스 커서가 나가는 순간 발생
+                
+            3. onmousedown
+                - 해당 객체의 영역 내에 마우스를 클릭하는 순간 발생
+                
+            4. onmouseup
+                - 해당 객체의 영역 내에 마우스를 클릭을 떼는 순간 발생
+                
+            5. onmousemove
+                - 해당 객체의 영역 내에 마우스 커서가 움직이는 순간 발생
+
+            6. onmousewheel
+                - 해당 객체의 영역 내에서 휠 버튼을 돌릴 때 발생
+                
+        
+        
+        
+        */
+
+        var txt1 = window.document.form1.txt1;
+        txt1.value = '박스';
+
+        var btn1 = window.document.form1.btn1;
+
+        txt1.onmouseover = m1;
+        txt1.onmouseout = m2;
+        txt1.onmousedown = m3_1;
+        txt1.onmouseup = m4;
+        // txt1.onmousemove = m5;
+        txt1.onmousewheel = m6;
+
+
+        function m1() {
+            // console.log('mouseover');
+            window.document.body.bgColor = 'cornflowerblue';
+            message('mouseover');
+        }
+
+        function m2() {
+            window.document.body.bgColor = 'white';
+            message('mouseout');
+        }
+        function m3() {
+            window.document.body.bgColor = 'crimson';
+            message('mousedown');
+        }
+
+        //
+        // 개발자가 직접 호출하지 않고 시스템이나 환경이 호출하는 함수 = 콜백 함수
+        function m3_1(event) {
+            // 어떤 버튼을 눌렀는가? -> 이벤트 함수 내에서 예약어처럼 제공되는 객체
+            // message(event.buttons);
+            /*
+                1. 왼쪽 클릭
+                2. 오른쪽 클릭
+                4. 휠 클릭
+                5. 왼쪽 클릭 + 휠 클릭
+                6. 오른쪽 클릭 + 휠 클릭
+                7. 왼쪽 클릭 + 오른쪽 클릭 + 휠 클릭
+                8. 뒤로 가기
+                16. 앞으로 가기
+
+            
+            */
+
+            // if (event.buttons == 2)
+            // {
+            //     alert('오른쪽 버튼 클릭 금지!!');        
+            // }
+
+            /*
+                이벤트가 발생할 당시의 마우스 커서의 좌표를 알아내자
+                1. x, y
+                    - 문서의 좌측 상단이 (0,0)
+                    - 비표준, MS가 만든것 <- 권장되지 않음
+
+                2. clientX, clientY (*중요)
+                    - client 영역(문서)의 좌측 상단이 (0,0)
+                    - 표준, 권장됨
+
+                3. screenX, screenY
+                    - 모니터 좌측 상단이 (0,0)
+                    - 다루기 어려움(페이지 바깥으로 벗어나는 환경까지 고려해야 함)
+
+
+                4. offsetX, offsetY (*중요)
+                    - 이벤트를 발생한 객체의 좌측 상단이 (0, 0)
+
+
+                */
+
+            message(event.screenX + ',' + event.screenY);
+
+        }
+        function m4() {
+            window.document.body.bgColor = 'orange';
+            message('mouseup');
+        }
+        function m5() {
+            // window.document.body.bgColor = 'orange';
+            message('mousemove');
+        }
+
+        function m6(event) {
+            // 올리면 음수(-), 내리면 양수(+)
+            message('mousewheel > ' + event.deltaY);
+
+            if (event.deltaY > 0) {
+                // 내릴 때 (양수) -> 스크롤 다운
+                window.document.form1.txt2.size--;
+            }
+            else {
+                // 올릴 때 (음수) -> 스크롤 업
+                window.document.form1.txt2.size++;
+            }
+        }
+
+        // 클릭 이벤트 -> 마우스 이벤트가 아니다
+        btn1.onclick = m7;
+        function m7() {
+            alert('여석이 없습니다.');
+            // 클릭 이벤트가 마우스 이벤트인 줄 알고 마우스 정보를 알아내려
+            // event.buttons, event.clientY를 쓰는데 그러면 안된다.
+        }
+
+        function message(txt) {
+            txt1.value = new Date().toLocaleTimeString()
+                + ' > ' + txt + '\n' + txt1.value;
+        }
+
+    </script>
+
+</body>
+
+</html>

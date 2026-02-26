@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원 가입</title>
+    <style>
+        #errorMsg
+        {
+            color: tomato;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ex17_loginEx.html  -->
+    <h1>회원 가입</h1>
+    <form name="form1">
+        아이디: <input type="text" name="txt1">
+        <input type="button" value="회원가입" name="txt2">
+        <div id="errorMsg"></div>
+    </form>
+    <script>
+
+        var txt1 = window.document.form1.txt1;
+        var txt2 = window.document.form1.txt2;
+        
+        txt1.onkeyup = m1;
+        txt2.onclick = m2;
+
+
+
+        function m1(event) {
+            if (window.document.form1.txt1.value.length < 4) {
+                document.getElementById('errorMsg').innerText = "아이디가 너무 짧습니다."
+            } else if (window.document.form1.txt1.value.length > 12) {
+                document.getElementById('errorMsg').innerText = "아이디가 너무 깁니다."
+            }
+            else { // 아이디 생성 규칙에 적합한 순간에는 메세지를 숨긴다.
+                document.getElementById('errorMsg').innerText = ""
+            }
+
+        }
+
+        function m2(event) {
+            if (window.document.form1.txt1.value.length < 4) {
+                alert('아이디가 너무 짧습니다. 4자리 이상으로 입력해주십시오.')
+            } else if (window.document.form1.txt1.value.length > 12) {
+                alert('아이디가 너무 깁니다. 12자리 이하로 입력해주십시오.')
+            }
+            else { // 아이디 생성 규칙에 적합한 아이디를 입력받았을 때 
+                alert('회원가입 기념 200BTC를 지급합니다.')
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
