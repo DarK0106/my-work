@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screen</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <!-- ex18_screen.html  -->
+    <h1>Screen</h1>
+
+    <script>
+        // screen 객체
+        // - window 객체의 자식
+        // - 화면 정보 제공
+
+        console.log(window.screen.width);
+        console.log(window.screen.height);
+
+        console.log(window.screen.availWidth);
+        console.log(window.screen.availHeight);
+
+        // 'left=' 뒤에 0을 빼고 바로 계산식을 연결합니다! (띄어쓰기 진공 포장 유지)
+        // window.open('ex16_child.html', 'child', 'width=200,height=200,top=0,left=' + (window.screen.availWidth - 200));
+
+        console.log(window.screen.colorDepth); // 현재 화면이 지원하는 색상 수
+
+        console.log(window.screen.orientation); // ScreenOrientation 라는 객체를 반환
+        // angle과 type 멤버 변수를 확인하기 위해 활용
+        // angle: 보고 있는 디스플레이의 각도
+
+        // ScreenOrientation {angle: 0, type: 'landscape-primary', onchange: null} <- 객체
+    </script>
+
+</body>
+
+</html>

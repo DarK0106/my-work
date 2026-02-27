@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <!-- ex24_link.html  -->
+    <h1>Link</h1>
+    <a href="https://naver.com" name="link1">네이버</a>
+    <hr>
+    <input type="button" value="버튼1" name="btn1">
+
+    <script>
+        document.all['btn1'].onclick = m1;
+        function m1() {
+            // - document.links[0]
+            // document.links.link1
+            // document.links['link1']
+
+            document.links['link1'].href = 'https://google.com';
+            document.links['link1'].target = '_blank';
+            document.links['link1'].title = '구글로 이동합니다.';
+
+            // PCDATA를 BOM 모델에서는 조작하지 못한다.
+            // PCDATA를 DOM 모델에서는 조작할 수 있다.
+            document.links['link1'].innerText = '구글';
+
+        }
+    </script>
+
+</body>
+
+</html>

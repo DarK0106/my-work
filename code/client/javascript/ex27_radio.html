@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>라디오 버튼</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <!-- ex27_radio.html  -->
+    <h1>라디오 버튼</h1> 
+    <label>
+        <input type="radio" name="rb">흰색</input>
+        <input type="radio" name="rb">검은색</input>
+    </label>
+    <script>
+        // alert(document.all['rb'].length);
+        document.all['rb'][0].onchange = m1;
+        function m1() {
+            alert('흰색');
+        }
+        document.all['rb'][1].onchange = m2;
+        function m2() {
+            alert('검은색');
+        }
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,259 @@
+@font-face {
+   font-family: 'GmarketSansMedium';
+   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+   font-weight: normal;
+   font-style: normal;
+}
+/*
+@font-face {
+   font-family: 'Pretendard-Regular';
+   src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+   font-weight: 400;
+   font-style: normal;
+}
+*/
+
+* {
+   font-family: 'GmarketSansMedium';
+   color: #777;
+}
+
+html,
+body {
+   height: 100%;
+}
+
+html {
+   overflow-y: scroll;
+}
+
+main {
+   height: 110%;
+}
+
+main>header {
+   height: 50px;
+   border-bottom: 1px solid #CCC;
+   box-shadow: 0 0 12px #DEDEDE;
+   display: flex;
+   align-items: center;
+   padding-left: 20px;
+   background-color: #686E80;
+   color: #FFF;
+   cursor: pointer;
+}
+
+main>header>span {
+   font-size: .74rem;
+   margin-top: 3px;
+   color: #FFF;
+}
+
+main>header>small>span {
+   font-size: .74rem;
+   color: #FFF;
+}
+
+main>header>small {
+   font-size: .74rem;
+   margin-top: 3px;
+   margin-left: 20px;
+   color: #FFF;
+}
+
+main>section {
+   display: flex;
+   height: calc(100% - 50px);
+}
+
+main>section>nav {
+   width: 313px;
+   min-width: 313px;
+   border-right: 1px dashed #CCC;
+   padding: 20px;
+   text-align: right;
+   padding-top: 25px;
+   height: 100%;
+}
+
+@media screen and (max-width: 1024px) {
+   main>section>nav {
+      width: 200px;
+   }
+}
+
+main>section>section {
+   flex-grow: 1;
+   padding: 20px;
+}
+
+
+main>section>section>iframe {
+   width: 100%;
+   height: 100%;
+}
+
+#iframe1 {
+   padding-left: 25px;
+}
+
+.list-subject,
+.alert-list {
+   width: 500px;
+}
+
+.list-subject-container {
+   display: flex;
+}
+
+.list-subject-container #btncheckall {
+   height: 38px;
+   margin-left: 15px;
+   margin-top: 10px;
+}
+
+.list-question {
+   width: 800px;
+}
+
+.list-subject,
+.list-question {
+   margin-top: 10px;
+}
+
+.list-subject input[type=checkbox],
+.list-question input[type=checkbox] {
+   transform: scale(1.25, 1.25);
+}
+
+.list-question .list-question-title:hover,
+.list-question .list-question-title:hover small {
+   color: cornflowerblue;
+   cursor: pointer;
+}
+
+.list-question li:nth-child(odd) {
+   background-color: #f3f3f3;
+}
+
+.list-question li:hover {
+   position: relative;
+   left: 0;
+   top: -3px;
+   box-shadow: 0px 0px 5px #777;
+}
+
+.list-question .list-question-item input[type=text]:read-write {
+   background-color: rgb(217, 228, 248);
+}
+
+.btns {
+   margin-top: 15px;
+   padding-bottom: 150px;
+}
+
+.updown {
+   cursor: pointer;
+   font-size: 1.5rem;
+   padding: 5px;
+   font-weight: bold;
+}
+
+.updown:hover {
+   color: cornflowerblue;
+   background-color: #DDD;
+}
+
+.badge input[type=checkbox] {
+   transform: scale(1.7, 1.7);
+   opacity: .6;
+}
+
+.item-question {
+   cursor: pointer;
+   opacity: .6;
+}
+
+.item-question:hover {
+   opacity: 1;
+}
+
+.item-question:hover .selected-question {
+   display: inline;
+}
+
+.selected-question {
+   display: none;
+}
+
+
+
+.form-control:focus {
+   border-color: #CCC;
+   outline: 0;
+   -webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+   box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+}
+
+
+html::-webkit-scrollbar {
+   width: 12px;
+}
+
+html::-webkit-scrollbar-thumb {
+   background-color: #FFF;
+   border-radius: 3px;
+   background-clip: padding-box;
+   border: 1px solid transparent;
+}
+
+html::-webkit-scrollbar-track {
+   background-color: #686E80;
+}
+
+
+#total,
+#step,
+#remain {
+   opacity: .5;
+}
+
+
+#hidekey {
+   /* font-size: .7rem; */
+   position: absolute;
+   left: 7px;
+   top: 60px;
+   opacity: .74;
+}
+
+#hidekey>span {
+   font-size: .67rem;
+   position: absolute;
+   left: 23px;
+   top: 4px;
+}
+
+
+
+.noselect {
+   -webkit-touch-callout: none;
+   -webkit-user-select: none;
+   -khtml-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+}
+
+
+
+@media screen and (max-width: 1200px) {
+   #bar {
+      display: none;
+   }
+}
+
+
+
+
+

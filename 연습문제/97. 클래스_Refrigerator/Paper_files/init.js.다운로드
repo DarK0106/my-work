@@ -1,0 +1,55 @@
+
+
+function resizeIframe(obj) {
+   
+   var height = null;
+   
+   if (obj != null) {
+	   height = obj.contentWindow.document.body.scrollHeight;
+   } else {
+	   height = document.body.scrollHeight;
+   }
+
+   obj.style.height = height + 100 + 'px';
+
+if (document.getElementById('bar') != null && document.documentElement.clientHeight < height) {
+      document.getElementById('bar').style.height = height + 110 + 'px';
+   }
+
+	if (document.getElementById('iframe1') == null) {
+	   window.onresize = function () { 
+		  document.getElementById('bar').style.height = height + 110 + 'px';
+	   };
+	}
+}
+
+if (document.getElementById('bar') != null) {
+   document.getElementById('bar').style.height = document.body.scrollHeight + 100 + 'px';
+}
+
+
+function showquestion(url) {
+   document.getElementById('iframe1').src = url.toLowerCase();
+   resizeIframe(document.getElementById('iframe1'));
+
+   let itemlist = document.getElementsByClassName('item-question');
+   let selectedlist = document.getElementsByClassName('selected-question');
+   
+   for (let i = 0; i < itemlist.length; i++) {
+      itemlist[i].style.opacity = '.5';
+   }
+   for (let i = 0; i < selectedlist.length; i++) {
+      selectedlist[i].style.display = 'none';
+   }
+
+   event.target.style.opacity = '1';
+   event.target.children[0].style.display = 'inline';
+
+}
+
+
+
+//헤더 외부 링크
+function moveOuter(url) {
+   window.open(url, '', '');
+}

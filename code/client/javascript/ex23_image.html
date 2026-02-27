@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message Box</title>
+    <style>
+    </style>
+</head>
+
+<body>
+    <!-- ex23_image.html  -->
+    <h1>메시지 박스</h1>
+    <form action="" name="form1">
+        <input type="button" value="버튼1" name="btn1">
+        <input type="button" value="버튼2" name="btn2">
+        <input type="button" value="버튼3" name="btn3">
+    </form>
+
+    <script>
+        // 상투적인 코드 -> 축제 코드, 보일러플레이트 코드(*중요)
+        document.form1.btn1.onclick = m1;
+        document.form1.btn2.onclick = m2;
+        document.form1.btn3.onclick = m3;
+
+        /*
+            메시지 박스, 대화 상자(Dialog Box)
+            1. void alert(message)
+            2. boolean confirm(message)
+            3. string prompt(message, default);
+        
+        
+        
+        */
+
+        function m1() {
+            alert('메시지');
+        }
+        
+        function m2() {
+            var result = confirm('메시지');
+            if (result) {
+                document.body.bgColor = 'gold';
+            } else {
+                document.body.bgColor = 'white';
+            }
+        }
+
+        function m3() {
+            prompt('메시지', '기본값');
+            var value = prompt('비밀번호를 입력하세요.', '');
+
+            if (value == '1234') {
+                location.href = 'https://google.com';
+            } else {
+                alert('비밀번호가 일치하지 않습니다.');
+            }
+        }
+    </script>
+
+</body>
+
+</html>

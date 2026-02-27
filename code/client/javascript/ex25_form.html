@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <style>
+        #tbl1 {
+            border: 1px solid #767676;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+
+        #tbl1 th,
+        #tbl1 td {
+            border: 1px solid #767676;
+            padding: 5px 10px;
+        }
+
+        #tbl1 th {
+            background-color: #eeeeee;
+        }
+
+        #tbl1 input {
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ex25_form.html  -->
+    <h1>회원 가입 <small>유효성 검사</small></h1>
+    <!-- form[name=form1 action=ex24_ok.jsp method=POST]+table+div>input[type=submit value=가입하기 name=btnRegister] -->
+    <!-- form[name=form1 action=ex24_ok.jsp method=POST]>table#tbl1+div>input[type=submit value=가입하기 name=btnRegister] -->
+    <form action="ex24_ok.jsp" name="form1" method="POST">
+        <table id="tbl1">
+            <tr>
+                <th>이름</th>
+                <td><input type="text" name="txtName" value="홍길동"></td>
+            </tr>
+            <tr>
+                <th>나이</th>
+                <td><input type="number" name="txtAge" min="0" value="20"></td>
+            </tr>
+            <tr>
+                <th>아이디</th>
+                <td><input type="text" name="txtID" value="hong"></td>
+            </tr>
+            <tr>
+                <th>비밀번호</th>
+                <td><input type="password" name="txtPW"></td>
+            </tr>
+            <tr>
+                <th>비밀번호 확인</th>
+                <td><input type="password" name="txtPWc"></td>
+            </tr>
+        </table>
+        <div>
+            <input type="submit" value="가입하기" name="btnRegister">
+
+            <input type="button" value="클릭" name="btn1">
+        </div>
+    </form>
+
+    <script>
+        var form1 = document.form1;
+
+        // var txtName = document.form1.txtName;
+        var txtName = form1.txtName;
+        var txtAge = form1.txtAge;
+        var txtID = form1.txtID;
+        var txtPW = form1.txtPW;
+        var txtPWc = form1.txtPWc;
+
+        var btnRegister = form1.btnRegister;
+
+        // btnRegister.onclick = m1;
+        // function m1() {
+        //     alert();
+        //     // 유효성 검사를 하기 위한 이벤트
+        //     // 유효성 검사는 항상 잘못된걸 찾아라
+        //     var name = '홍길동'; // 이름을 2~5자 이내로 입력해야하는 프로그램이다?
+        //     if (name.length < 2 || name.length > 5) {
+        //         alert('이름 유효하지 않음');
+        //         // 검사만 하고 전송을 막아야함
+        //         // 전송을 막아야하는데 막을 방법이 없다?
+        //     }
+        // }
+
+        // 폼이 전송되기 직전에 발생
+        // 이벤트 함수가 false를 반환하면 이벤트가 취소된다(없었던 일이 됨).
+        // form1.onsubmit = m2;
+        // form1.onsubmit = m4;
+        form1.onsubmit = m5;
+
+        function m2() {
+            // alert();
+            var name = '동'; // 이름은 2~5 자 이내로 해야하는데 조건에 맞지 않음
+            if (name.length < 2 || name.length > 5) {
+                alert('이름 유효하지 않음');
+                // 전송 막기!!
+                event.preventDefault();
+                return false;
+            }
+        }
+
+        // return false 의 의미는 뭘까?
+        // document.form1.btn1.onclick = m3;
+        // function m3() {
+        //     location.href = 'https://google.com';
+        //     return false;
+        // }
+
+        // return false 의 의미는 뭘까?
+        // 이벤트를 취소시키는 역할
+        // txtName.onkeydown = m3;
+        // function m3() {
+        //     event.preventDefault(); // 얘도 이벤트를 없었던일로 취소하는 코드, 표준
+        //     // return false; // 비표준
+        // }
+
+        function m4() {
+            // 조건:
+            // 이름
+            // - 필수값
+            // - 2~5자 이내
+            // - 한글만
+
+            if (txtName.value.trim() == '') {
+                alert('이름을 입력하십시오.')
+                txtName.focus();
+                return false;
+            }
+
+            if (txtName.value.trim().length < 2
+                || txtName.value.trim().length > 5) {
+                alert('2~5글자 이내의 이름을 입력하십시오.');
+                // txtName.value = '';
+                // txtName.focus();
+                txtName.select();
+                return false;
+            }
+
+            for (var i = 0; i < txtName.value.trim().length; i++) {
+                var c = txtName.value.trim().charAt(i);
+                if (c < '가' || c > '힣') {
+                    alert('이름을 한글로 입력하십시오.')
+                    txtName.select();
+                    return false;
+                }
+            }
+        }
+
+        function m5() {
+            // 정규 표현식
+            // 조건:
+            // 이름
+            // - 필수값
+            // - 2~5자 이내
+            // - 한글만
+            var regex = /^[가-힣]{2,5}$/;
+
+            // 홍길동
+            // a홍길동
+            // 홍길동a
+            // alert(regex.test(txtName.value.trim()));
+            // 문제: 홍길동2 는 우리가 원한 이름이 아닌데 true가 출력됨
+            // var regex = /^[가-힣]{2,5}$/; <- ^, $ 활용
+
+            if (!regex.test(txtName.value.trim())) {
+                alert('올바르지 않은 이름입니다.');
+                txtName.select();
+                return false;
+            }
+
+            // 나이
+            // 조건:
+            // 1. 나이는 필수값
+            // 2. 숫자만
+            // 3. 범위(0~120)
+            // 이미 number를 써서 2,3 은 해결했기 때문에 1만 하면 됨
+            if (txtAge.value.trim() == '') {
+                alert('나이를 입력하십시오.');
+                txtAge.select();
+                return false;
+            }
+
+            // 아이디 -> 정규식
+            // 조건:
+            // 1. 필수값
+            // 2. 4~12자 이내ㅐ
+            // 3. 아이디는 영어 + 숫자 + _
+            // 4. 숫자로 시작하지 않음
+            regex = /^[A-Za-z_][A-Za-z0-9_]{3,11}$/;
+            if (!regex.test(txtID.value.trim())) {
+                alert('올바르지 않은 아이디입니다.');
+                txtID.select();
+                return false;
+            }
+
+            // 암호
+            // 1. 필수값
+            // 2. 길이 4~12자 이내
+            // 3. 암호 확인
+            // 정규식으로 할만한건 아니다
+            if (txtPW.value.trim() == '') {
+                alert('비밀번호를 입력하십시오.');
+                txtPW.focus();
+                return false;
+            }
+            if (txtPWc.value.trim() == '') {
+                alert('비밀번호 확인은 필수입니다.');
+                txtPWc.focus();
+                return false;
+            }
+            if (txtPW.value.trim().length < 4
+                || txtPW.value.trim().length >12) {
+                alert('4~12자 이내의 비밀번호로 입력해주십시오.');
+                txtPW.value = '';
+                txtPW.focus();
+                return false;
+            }
+            if (txtPW.value != txtPWc.value) {
+                alert('암호가 불일치합니다.')
+                txtPW.value = '';
+                txtPWc.value = '';
+                txtPW.focus();
+                return false;
+
+            }
+
+            // 여기까지 하나도 안 걸리고 도착하면 폼 전송
+            // 프로젝트 -> 모든 입력 폼에 유효성 검사 구현 필수
+            // 작년 초까지만 해도 개발자가 직접 짰는데 이젠 LLM 몫?
+
+
+        }
+
+
+    </script>
+
+</body>
+
+</html>

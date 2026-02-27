@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>집합 이벤트</title>
+    <style>
+        .item {
+            border: 1px solid #cccccc;
+            background-color: #eeeeee;
+            padding: 10px;
+            width: 300px;
+            text-align: center;
+            margin: 15px;
+        }
+
+        .item>input {
+            border: 1px solid #cccccc;
+            background-color: #ffffff;
+            width: 90px;
+            height: 50px;
+            margin: 3px;
+            outline: none;
+        }
+
+        .item>input:hover {
+            box-shadow: 0px 0px 3px gray;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ex28_event.html  -->
+    <h1>집합 이벤트</h1>
+
+    <!-- 정적 이벤트 -->
+    <!-- <div class="item">
+        <input type="button" name="btnRed" value="빨강">
+        <input type="button" name="btnYellow" value="노랑">
+        <input type="button" name="btnBlue" value="파랑">
+    </div> -->
+
+    <div class="item">
+        <input type="button" name="btnRed" value="빨강" onclick="m1();">
+        <input type="button" name="btnYellow" value="노랑" onclick="m2();">
+        <input type="button" name="btnBlue" value="파랑" onclick="m3();">
+    </div>
+
+    <div class="item">
+        <input type="button" name="btnRed2" value="빨강" onclick="m4('tomato');">
+        <input type="button" name="btnYellow2" value="노랑" onclick="m4('gold');">
+        <input type="button" name="btnBlue2" value="파랑" onclick="m4('cornflowerblue');">
+    </div>
+
+    <div class="item">
+        <input type="button" name="btnRed3" value="빨강" onclick="m5(this);">
+        <input type="button" name="btnYellow3" value="노랑" onclick="m5(this);">
+        <!-- this는 이벤트가 소속된 태그를 가리키는 표현 -->
+        <input type="button" name="btnBlue3" value="파랑" onclick="m5(this);">
+    </div>
+
+    <div class="item">
+        <input type="button" name="btnRed4" value="빨강" onclick="m6(this);" aaa="홍길동" data-bbb="아무개" data-color="tomato">
+        <input type="button" name="btnYellow4" value="노랑" onclick="m6(this);" data-color="gold">
+        <input type="button" name="btnBlue4" value="파랑" onclick="m6(this);" data-color="cornflowerblue">
+    </div>
+
+    <!-- 동적 이벤트 -->
+    <div class="item">
+        <input type="button" name="btnRed5" value="빨강">
+        <input type="button" name="btnYellow5" value="노랑">
+        <input type="button" name="btnBlue5" value="파랑">
+    </div>
+
+    <div class="item">
+        <input type="button" name="btnRed6" value="빨강" data-color="tomato">
+        <input type="button" name="btnYellow6" value="노랑" data-color="gold">
+        <input type="button" name="btnBlue6" value="파랑" data-color="cornflowerblue">
+    </div>
+
+    <div class="item">
+        <input type="button" name="btn7" value="빨강">
+        <input type="button" name="btn7" value="노랑">
+        <input type="button" name="btn7" value="파랑">
+    </div>
+
+
+    <script>
+        function m1() {
+            document.body.bgColor = 'tomato';
+        }
+        function m2() {
+            document.body.bgColor = 'gold';
+        }
+        function m3() {
+            document.body.bgColor = 'cornflowerblue';
+        }
+
+        function m4(color) {
+            document.body.bgColor = color;
+        }
+
+        function m5(obj) {
+            // this: 이 함수를 호출한 이벤트 주체(태그)
+            // console.log(obj);
+            // alert(obj.name);
+            // alert(obj.value);
+
+            // this == window 객체
+            // console.log(this);
+
+            // <input type="button" name="btnRed3" value="빨강>
+
+            if (obj.value == '빨강') {
+                document.body.bgColor == 'tomato';
+            } else if (obj.value == '노랑') {
+                document.body.bgColor == 'gold';
+            } else if (obj.value == '파랑') {
+                document.body.bgColor == 'cornflowerblue';
+            }
+        }
+
+        function m6(obj) {
+            // <input type="button" name="btnRed4" value="빨강" 
+            // onclick="m6(this);" aaa="홍길동" data-bbb="아무개">
+
+            // data-XXX 속성?
+            // 사용자 정의 데이터
+
+            // alert(obj.aaa); // 홍길동
+            // alert(obj.dataset['bbb']);
+            // alert(obj.dataset['color']);
+            document.body.bgColor = obj.dataset['color'];
+        }
+
+
+        document.all['btnRed5'].onclick = m7;
+        document.all['btnYellow5'].onclick = m8;
+        document.all['btnBlue5'].onclick = m9;
+
+        function m7() {
+            document.body.bgColor = 'tomato';
+        }
+        function m8() {
+            document.body.bgColor = 'gold';
+
+        }
+        function m9() {
+            document.body.bgColor = 'cornflowerblue';
+
+        }
+
+        document.all['btnRed6'].onclick = m10;
+        document.all['btnYellow6'].onclick = m10;
+        document.all['btnBlue6'].onclick = m10;
+
+        function m10(event) {
+            document.body.bgColor = 'tomato';
+            // alert();
+
+            // 문제: 3개의 버튼 중 누가 m10을 호출했는지 모른다.
+            // this와 같은 역할
+            console.log(event.srcElement); // 비표준
+            console.log(event.target); // 표준
+
+            document.body.bgColor = event.target.dataset['color'];
+        }
+
+        // alert(document.all['btn7'].length); <- 자동으로 배열이 되어서 3 출력
+        for (var i = 0; i < document.all['btn7'].length; i++) {
+            document.all['btn7'][i].onclick = m11;
+        }
+
+        function m11() {
+            document.body.bgColor = event.target.dataset['color'];
+        }
+
+    </script>
+
+
+</body>
+
+</html>

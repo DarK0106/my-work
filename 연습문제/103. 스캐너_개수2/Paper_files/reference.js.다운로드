@@ -1,0 +1,24 @@
+
+document.getElementsByClassName('colorscripter-code')[0].style.display = 'none';
+
+document.getElementsByClassName('reference')[1].onclick = function() {
+    if (document.getElementsByClassName('colorscripter-code')[0].style.display == 'none') {
+        document.getElementsByClassName('colorscripter-code')[0].style.display = 'block';
+    } else {
+        document.getElementsByClassName('colorscripter-code')[0].style.display = 'none';
+    }
+
+    top.resizeIframe(top.document.getElementById('iframe1'));
+};
+
+
+document.getElementsByClassName('order')[0].style.display = 'none';
+
+document.getElementsByClassName('reference')[0].onclick = function() {
+    if (document.getElementsByClassName('order')[0].style.display == 'none') {
+        document.getElementsByClassName('order')[0].style.display = 'block';
+    } else {
+        document.getElementsByClassName('order')[0].style.display = 'none';
+    }
+    top.resizeIframe(top.document.getElementById('iframe1'));
+};
