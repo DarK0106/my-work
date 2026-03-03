@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>타이머 문제1</title>
+    <style>
+        #div1 {
+            text-align: center;
+            font-size: 500px;
+            font-weight: bold;
+            border: transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- question_timer1.html  -->
+    <form name="form1">
+        <fieldset>
+            <!-- 타이머는 10초부터 시작 -->
+            <div id="div1">10</div>
+        </fieldset>
+    </form>
+
+    <script>
+        var myTime = 10;
+        var id = 0; // 타이머 번호표를 담을 변수를 미리 준비
+
+        function m1() {
+            id = setInterval(f1, 1000);
+        }
+
+        function f1() {
+            myTime--;
+            document.getElementById('div1').innerText = myTime;
+            if (myTime == 0) {
+                // 타이머가 0초가 되면 구글로 가는 코드
+                location.href = 'https://google.com';
+                // 타이머는 멈춤
+                clearInterval(id);
+            }
+
+        }
+
+        window.onkeydown = function (event) {
+            if (event.key == 'Escape') {
+
+                // id가 0이 아니라는 건 타이머가 돌아가고 있다는 것
+                if (id !== 0) {
+                    clearInterval(id); // 1. ESC 입력 -> 타이머 중단
+                    id = 0;            // 2. 멈췄으니 id를 0으로 비워둔다.
+                }
+                // id가 0이라는 건 타이머가 멈춰있다는 것
+                else {
+                    id = setInterval(f1, 1000); // 다시 1초마다 f1 함수를 실행
+                }
+
+            }
+        }
+
+        m1();
+    </script>
+
+</body>
+
+</html>

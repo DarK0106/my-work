@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM 조작</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <!-- ex36_manipulation.html  -->
+    <h1>DOM 조작(*매우중요) <small>콘텐츠, 속성 조작</small></h1>
+    <!-- input:b[value=버튼$ id=btn$]*5 -->
+    <input type="button" value="버튼1" id="btn1">
+    <input type="button" value="버튼2" id="btn2">
+    <input type="button" value="버튼3" id="btn3">
+    <input type="button" value="버튼4" id="btn4">
+    <input type="button" value="버튼5" id="btn5">
+    <hr>
+    <div id="div1"></div>
+
+
+
+
+    <!-- 최종적으로는 이걸 만들고싶음 -->
+    <!-- <div id="div1">
+        <input type="text" size="10">
+        <hr>
+        <p align = "center">나는 엄준식이다.</p>
+    </div> -->
+
+    <script>
+        var div1 = document.getElementById('div1');
+
+        document.getElementById('btn1')
+            .addEventListener('click', function () {
+                /*
+                    동적으로 태그를 생성하기
+                    
+                    1. innerHTML (편법, FM이 아님)
+                        - 쉽다
+                        - 비용이 저렴하다
+                        - 치명적 단점: 모든걸 문자열로 처리한다 
+                            <- 복잡한 조작을 할 때 힘들다
+    
+                    2. 표준 기능
+                        - 복잡하다.
+                        - 코드가 길다.(비용이 크다)
+                        - 모든걸 객체로 처리함 <- 복잡한 조작이 아주 쉬워진다
+                    
+                    
+                    
+                */
+
+                var size = 10;
+
+                // 쉬운 방법
+                // 우리 눈에나 텍스트박스로 보이지 Js 입장에선 아무 의미 없는 문자열
+                // 세밀하게 조작할 기능이 제공되지 않음 -> 개발자가 한땀한땀 수정해야함
+                // div1.innerHTML = '<input type="text" size="10">';
+
+                // 태그 객체 생성하기
+                var input = document.createElement('input'); // 메모리에 input 태그를 만들어준다
+
+                // 속성 생성하기
+                var type = document.createAttribute('type'); // type=""
+                type.value = 'text'; // type='text'
+                input.setAttributeNode(type); // <input type="text">
+
+                var attrSize = document.createAttribute('size'); // size=""
+                attrSize.value = 10; // size="10"
+                input.setAttributeNode(attrSize); // <input type="text" size="10">
+
+                div1.appendChild(input); // 자식으로 추가
+
+                // <hr> 태그 만들기
+                var hr = document.createElement('hr'); // <hr>
+                div1.appendChild(hr);
+
+                // <p align = "center">나는 엄준식이다.</p> 를 만들자
+                var p = document.createElement('p'); // <p></p>
+                p.setAttribute('align', 'center'); // <p align="center"></p>
+
+                // PCDATA 도 만들어야함(= TextNode)
+                // var txt = document.createTextNode('나는 엄준식이다.');
+                // p.appendChild(txt);
+
+                // 근데 너무 힘들어서 이렇게 함
+                p.textContent = '나는 엄준식이다.';
+
+                div1.appendChild(p);
+
+
+            });
+
+        document.getElementById('btn2')
+            .addEventListener('click', function () {
+
+                // <div id="div1">
+                //     <input type="button" value="버튼">
+                // </div>
+
+                div1.innerHTML = '<input type="button" value="버튼" onclick="m1();">';
+                div1.innerHTML = '<input type="button" value="버튼" id = "btn6">';
+
+                document.getElementById('btn6').onclick = function () {
+                    alert();
+                }
+
+                // *매우중요*
+                // 가장 많이 쓰는 방법 중 하나
+                // <input type="button" value="버튼"> 만들기
+                var input = document.createElement('input');
+
+                input.setAttribute('type', 'button');
+                input.setAttribute('value', '버튼');
+
+                input.onclick = function () {
+                    alert();
+                }
+
+                div1.appendChild(input);
+
+
+            });
+
+        function m1() {
+            alert('동적으로 생성된 버튼입니다.');
+        }
+
+        // 3번째 버튼: 태그 삭제하기
+        document.getElementById('btn3')
+            .addEventListener('click', function () {
+                // 태그 삭제하기
+
+                // innerHTML
+                // div1.innerHTML = '';
+
+                // 요구사항: <hr>만 지워주세요
+                // innerHTML로 하기 매우 힘듦
+
+                // 내가 삭제하려는 <hr>
+                var hr = document.querySelector('#div1 > hr');
+
+                // div.appendChild(hr);
+                div1.removeChild(hr);
+
+            });
+
+        document.getElementById('btn4')
+            .addEventListener('click', function () {
+
+                // 이미지 5개 만들고 클릭 이벤트도 만들기
+                for (var i = 0; i < 5; i++) {
+                    div1.innerHTML += '<img src="images/catty0' + (i + 1) + '.png" onclick="m2();">';
+                }
+            });
+
+        document.getElementById('btn5')
+            .addEventListener('click', function () {
+
+                // 이미지 5개 만들고 클릭 이벤트도 만들기
+                for (var i = 0; i < 5; i++) {
+                    var img = document.createElement('img');
+                    img.setAttribute('src', 'images/catty0' + (i + 1) + '.png');
+
+                    img.onclick = m2;
+
+                    div1.appendChild(img);
+                }
+            });
+
+        function m2() {
+            // 클릭한 고양이 삭제하기
+            // div1.innerHTML = '<img><img><img><img><img>'; <- 매우 힘듦
+
+            div1.removeChild(event.target);
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>

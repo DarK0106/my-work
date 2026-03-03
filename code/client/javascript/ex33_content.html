@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>테이블 생성하기</title>
+    <style>
+        fieldset {
+            width: 200px;
+        }
+
+        fieldset>label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        #tbl1 {
+            border: 1px solid gray;
+            border-collapse: collapse;
+            margin-top: 20px;
+            margin-left: 5px;
+        }
+
+        #tbl1 td {
+            border: 1px solid gray;
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ex33_content.html  -->
+    <h1>테이블 생성하기</h1>
+    <fieldset>
+        <legend>행*열</legend>
+        <label for="">행: <input type="number" id="row" min="1" max="100" value="1">
+
+
+        </label>
+        <label for="">열: <input type="number" id="col" min="1" max="100" value="1">
+
+
+        </label>
+
+        <input type="button" value="생성하기" id="btn1">
+
+
+    </fieldset>
+
+    <table id="tbl1"></table>
+    <script>
+        document.getElementById('btn1').onclick = function () {
+            // 1. 입력된 행과 열의 값을 가져옵니다.
+            var row = document.getElementById('row').value;
+            var col = document.getElementById('col').value;
+            var tbl1 = document.getElementById('tbl1');
+
+            var temp = ''; // 누적 변수 준비
+
+            // 2. 사용자가 입력한 row, col 값만큼 반복문을 돌며 HTML을 조립합니다.
+            for (var i = 0; i < row; i++) {
+                temp += '<tr>';
+
+                for (var j = 0; j < col; j++) {
+                    temp += '<td>';
+                    temp += (i + ',' + j);
+                    temp += '</td>';
+                }
+
+                temp += '</tr>';
+            }
+
+            // 3. 조립이 끝난 텍스트(temp)를 테이블의 내용물로 한 번에 집어넣습니다.
+            tbl1.innerHTML = temp;
+        }
+    </script>
+
+</body>
+
+</html>

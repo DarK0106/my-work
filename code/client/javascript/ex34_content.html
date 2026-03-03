@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #tbl1 {
+            border: 1px solid grey;
+            border-collapse: collapse;
+            width: 630px;
+            height: 630px;
+        }
+
+        #tbl1 td {
+
+            border: 1px solid grey;
+            width: 126px;
+            height: 126px;
+        }
+
+        #tbl1 td img {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ex34_content.html  -->
+    <h1>Document</h1>
+    <!-- table#tbl1>tr*5>td*5 -->
+    <table id="tbl1">
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+
+    <script>
+        // <td> + onmousedown
+        // document.getElementsByTagName('td');
+        // document.querySelectorAll('#tbl1 td');
+
+        var list = document.querySelectorAll('#tbl1 td');
+        // alert(list.length);
+
+        // (*중요) 자바스크립트의 변수는 함수 스코프를 갖는다
+        // 제어문을 자기 지역으로 인식하지 못한다
+        // i가 for문 안에서 쓰는 지역변수가 아니고 전역변수임
+        // 이 for문이 끝나도 i가 살아있음
+        // 이 전역변수는 계속 살아있음
+        // (*중요) 자바스크립트의 전역변수의 생명주기는 현재 페이지를 닫을 때 까지이다
+
+        for (var i = 0; i < list.length; i++) {
+            // list[i].textContent = i;
+            // 함수를 만들어서 집어넣기만했지 실행하진 않았음
+            // 이 함수가 언제 실행될까? 나중에 미래에 어떤 사람이 클릭할 때
+            // 이벤트를 거는 시점과 이벤트를 호출하는 시점이 달라서 생긴 문제이다
+            list[i].onmousedown = function (event) {
+                // 어떤 <td>가 이 함수를 호출했는지?
+                // i번째 td가 이 함수를 호출했음
+                // list[i].textContent = '클릭'; // 얘가 null이라 에러남
+
+                // 작동하지 않음
+                // Cannot set properties of undefined
+                // 자바의 NullPointerException과 유사
+
+
+                // event.target.textContent = '클릭';
+                // event.target.bgColor = 'gold';
+
+                if (event.buttons == 1) {
+                    event.target.innerHTML = '<img src="images/rect_icon01.png">';
+                } else if (event.buttons == 2) {
+                    event.target.innerHTML = '<img src="images/rect_icon02.png">';
+                }
+            }
+        }
+
+        console.log(i);
+
+        // 상황에 맞는 메뉴인 Context Menu가 방해되니까 없애버리자
+        // contextmenu가 실행되기 직전에 발생하는 이벤트인 oncontextmenu
+        document.getElementById('tbl1').oncontextmenu = function () {
+            // alert();
+            return false;
+        }
+
+
+    </script>
+
+</body>
+
+</html>

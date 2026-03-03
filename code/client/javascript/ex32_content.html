@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>콘텐츠 조작</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <!-- ex32_content.html  -->
+    <h1>콘텐츠 조작</h1>
+    <input type="button" value="버튼1" id="btn1">
+    <input type="button" value="버튼2" id="btn2">
+
+    <hr>
+
+    <div id="div1" class="divs">홍길동</div>
+    
+    <script>
+        /*
+            BOM/DOM
+            1. 태그 검색(BOM으로 가능, DOM으로 가능)
+            2. 속성 조작(BOM으로 가능, DOM으로 가능)
+            3. 콘텐츠 조작(BOM으로 불가능, DOM으로 가능)
+            4. 이벤트 조작(BOM으로 가능, DOM으로 가능)
+            5. CSS 조작(BOM으로 불가능, DOM으로 가능)
+
+            Content
+            - 시작 태그와 끝 태그 사이의 내용물(PCDATA or Element)
+            1. innerText
+                - 시작 태그와 끝 태그 사이의 내용물을 읽기/쓰기
+                - 내용물을 순수한 문자열로 취급하여 파싱을 하지 않음(= 태그를 인식하지 않음)
+                    <- escape를 시켜버린다?
+                - 비표준(MS)
+
+            2. innerHTML
+                - 시작 태그와 끝 태그 사이의 내용물을 읽기/쓰기
+                - 내용물을 구문으로 인식(태그 실행)
+                - 표준
+
+            3. textContent
+                - 시작 태그와 끝 태그 사이의 내용물을 읽기/쓰기
+                - 내용물을 순수한 문자열로 취급하여 파싱을 하지 않음(= 태그를 인식하지 않음)
+                    <- escape를 시켜버린다?
+                - 표준
+
+            --------------
+            얘네는 잘 안씀
+            4. outerText
+            5. outerHTML
+        
+        
+        
+        
+        
+        
+        
+        
+        */
+
+        var div1 = document.getElementById('div1');
+
+        document.getElementById('btn1').onclick = function() {
+            // alert('div1.innerText');
+            // div1.innerText = '아<u>무</u>개'; // u 태그가 적용되지 않음
+
+            // alert(div1.innerHTML); // 홍길동 반환
+            // div1.innerHTML = '아<u>무</u>개'; // u 태그가 적용됨
+
+            // innerHTML -> 동적으로 태그 생성하기
+            // div1.innerHTML = '<input type="text">' // = 라서 덮어쓰기
+            // div1.innerHTML += '<input type="text">' // += 로 누적시키면 계속 늘어남
+            div1.innerHTML += '<img src="images/catty01.png">';
+        }
+
+        // 2번 버튼을 누르면 이미지가 지워지게 만들자
+        document.getElementById('btn2').onclick = function() {
+            div1.innerHTML = '';
+        }
+
+
+
+
+    </script>
+
+</body>
+
+</html>

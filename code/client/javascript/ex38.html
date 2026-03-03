@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문제 풀이용 샘플</title>
+    <style>
+        #tbl1 {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        #tbl1 td {
+            border: 1px solid black;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ex38.html  -->
+    <h1>문제 풀이용 샘플</h1>
+    <!-- table#tbl1>tr*5>td*5 -->
+    <table id="tbl1">
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    <script>
+        var list = document.querySelectorAll('#tbl1 td');
+        var index = 0;
+
+        list[index].bgColor = 'gold';
+        
+        // 전역 이벤트 걸기(window한테 걸면 전역 이벤트임)
+        window.onkeydown = function(event) {
+            if (event.key == 'ArrowRight') { // 39
+                list[index].bgColor = 'transparent';
+                index++;
+                if (index >= list.length) {
+                    // index--;
+                    // 이거 아니면
+                    index = 0;
+                }
+                list[index].bgColor = 'gold';
+            } else if (event.key == 'ArrowLeft') { // 37
+                list[index].bgColor = 'transparent';
+                index--;
+                if (index < 0) {
+                    // index++;
+                    // 이거 아니면
+                    index = list.length - 1;
+                }
+                list[index].bgColor = 'gold';
+            }
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axis</title>
+    <style>
+        div {
+            border: 1px solid black;
+            padding: 10px;
+            margin: 10px;
+        }
+
+        #me {
+            border: 10px solid dodgerblue;
+        }
+
+        .check {
+            outline: 10px solid orange;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ex37_axis.html  -->
+    <h1>Axis</h1>
+    <!-- 
+        DOM -> 태그 검색
+        1. getXXX(): 절대 기준
+        2. 상대 기준
+    
+    
+    -->
+
+    <input type="button" value="버튼" id="btn1">
+    <hr>
+
+    <div>
+        할아버지
+        <div>
+            큰아버지
+            <div>사촌</div>
+        </div>
+        <div>
+            아버지
+            <div>
+                큰형
+                <div>조카</div>
+            </div>
+            <div>작은형</div>
+            <div id="me">
+                <!-- 중심 -->
+                나
+                <div>자식</div>
+                <div>
+                    자식
+                    <div>손자</div>
+                </div>
+                <div>자식</div>
+            </div>
+            <div>
+                동생
+                <div>조카</div>
+            </div>
+            <div>막내동생</div>
+        </div>
+        <div>
+            작은아버지
+            <div>사촌</div>
+        </div>
+    </div>
+
+
+    <script>
+        /*
+        
+        ** 나를 중심으로 상대적으로 태그를 찾는 방법 **
+        
+        */
+
+
+        document.getElementById('btn1').onclick = function () {
+            // 부모 태그를 찾아 클래스 부여 (m3 함수 내용)
+            me.parentElement.className = 'check';
+        };
+
+        // document.getElementById('btn1').onclick = function () {
+        //     // 엔터/공백을 무시하는 firstElementChild 사용 (m2 함수 내용)
+        //     me.firstElementChild.className = 'check';
+        // };
+
+        // document.getElementById('btn1').onclick = function () {
+        //     // 두 번째 자식(인덱스 1)의 첫 번째 자식(인덱스 0) 찾기
+        //     me.children[1].children[0].className = 'check';
+        // };
+
+        var me = document.getElementById('me');
+
+        function m4() {
+            me.parentElement.firstElementChild.className = 'check';
+
+            // me.previousSibling -> 바로 위의 형제
+            // me.nextSibling -> 바로 밑의 형제
+
+            me.previousElementSibling
+            me.nextElementSibling
+
+            // 작은형 찾기
+            me.previousElementSibling.className = 'check';
+            
+            // 형의 형인 큰형 찾기
+            me.previousElementSibling.previousElementSibling.className = 'check';
+
+            // 내 바로 밑 동생(넷째) 찾기
+            me.nextElementSibling.className = 'check';
+            
+            // 막내 동생 찾기
+            me.nextElementSibling.nextElementSibling.className = 'check';
+
+        }
+
+        function m3() {
+            // 부모 탐색하기
+            // 직계 조상만 찾을 수 있음 (방계는 못찾음)
+
+            // me.parentNode
+            // me.parentElement // <- 부모는 거의 대부분 태그라서
+            // 둘이 사실상 같은거라고 보면됨
+
+            // 아빠 태그 찾기
+            // me.parentNode.className = 'check';
+            // me.parentElement.className = 'check';
+
+            // 할아버지 태그 찾기
+            // me.parentNode.parentNode.className = 'check';
+
+            // 증조할아버지 태그 찾기(= body 태그)
+            me.parentNode.parentNode.parentNode.className = 'check';
+
+            // 한단계 더 위인 html 태그 찾기
+            alert(me.parentNode.parentNode.parentNode.parentNode.nodeName);
+
+            // html의 부모는 document 객체
+            alert(me.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName);
+            alert(me.parentNode.parentNode.parentNode.parentNode.parentNode === window.document); // true
+
+            // BOM: document 의 부모는 window 객체
+            // DOM: document 의 부모는 없음
+            alert(me.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode == null); // true
+
+        }
+
+        function m2() {
+            // 자식
+            // me.childNodes -> 모든 자식 노드들
+            // me.children -> 모든 자식 태그들(*중요)
+
+            // alert(me.children.length);
+
+            // for (var i=0; i<me.children.length; i++) {
+            //     me.children[i].className = 'check';
+            // }
+
+            // 첫째
+            // me.childNodes[0] -> me.firstChild
+            // me.children[0] -> me.firstElementChild
+
+            // me.firstElementChild.className = 'check';
+
+            // 막내
+            // me.childNodes[length-1] -> me.lastChild
+            // me.children[length-1] -> me.lastElementChild
+
+            // me.lastElementChild.className = 'check';
+
+            me.children[1].children[0].className = 'check';
+
+            // (*중요) me.children 이거 하나만 기억하면 다 찾을 수 있음
+
+        }
+
+        function m1() {
+            // me -> 검색 ->
+
+            // <div class="check">
+            // me.class = 'check';
+            // me.title = '나';
+            // me.className = 'check';
+
+            // (친)자식 탐색
+            // me.childNodes
+            // alert(me.children.length); // <- 9
+
+            for (var i = 0; i < me.childNodes.length; i++) {
+                //console.log(me.childNodes[i]);
+                /* 
+                
+                    DOM 노드 타입
+                    - 태그(1)
+                    - 속성(2)
+                    - PCDATA(3)
+                    -------------
+                    - 주석(8)
+                    - 선언문(13)
+                    ...
+
+                    DOM 노드 프로퍼티
+                    1. nodeType <- 노드의 종류를 나타내는 말
+                    2. nodeName <- 노드 이름
+                                - 태그(태그명을 반환, 대문자로 반환함) *중요
+                                - 속성(속성명을 반환, 대문자로 반환함) *중요
+                                - PCDATA(#text)
+                                - 주석(#comment)
+                    3. nodeValue <- 노드 값
+                                 - 태그(null)
+                                 - 속성(속성값) (*중요)
+                                 - PCDATA(문자열) (*중요)
+                
+                */
+                console.log('nodeType', me.childNodes[i].nodeType);
+                console.log('nodeName', me.childNodes[i].nodeName);
+                console.log('nodeValue', me.childNodes[i].nodeValue);
+
+                if (me.childNodes[i].nodeType == 1) {
+                    me.childNodes[i].className = 'check';
+                }
+            }
+
+
+        }
+    </script>
+
+</body>
+
+</html>

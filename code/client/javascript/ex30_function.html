@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Function 함수</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <!-- ex30_function.html  -->
+    <h1>Function 함수</h1>
+
+    <input type="button" value="버튼1" name="btn1">
+    <input type="button" value="버튼2" name="btn2">
+
+    <script>
+        /*
+            JavaScript Function
+            - "자바스크립트의 함수는 1급 객체이다."
+
+            - 함수를 객체처럼 취급한다 > 값으로 사용할 수 있다(*중요)
+
+            1. 함수를 변수나 데이터 구조애 담을 수 있다(저장)
+            2. 함수를 매개변수로 전달할 수 있다
+            3. 함수를 반환값으로 사용할 수 있다
+            
+            JavaScript 에서 함수를 선언하는 방법
+            1. 함수 선언문
+            2. 함수 표현식(= 리터럴)
+            
+            */
+
+
+        // 함수 선언문
+        // function m1() {
+        //     alert('m1');
+        // }
+
+        // m1();
+
+        // 함수 표현식
+        // 이름이 없는 함수 = 익명 함수
+        (function () {
+            alert('익명 함수');
+        })(); // 즉시 호출(1회용임, 재사용 불가능)
+
+        var f1 = function () {
+            alert('익명 함수 2');
+        }; // 함수를 값으로 사용했기 때문에 맨마지막에 ; 를 붙여야함
+        // 함수 자체는 이름이 없지만 함수를 가지고 있는 변수는 f1이라는 이름이 있다
+
+        // 자바스크립트에서의 변수는 그 안에 뭐가 들어가냐에 따라 타입이 바뀐다
+        console.log(typeof f1); // function
+        f1();
+
+        var f2 = f1;
+        // f2();
+
+        // 함수 선언문(= 실명 함수) 사용
+        document.all['btn1'].onclick = m2;
+        // 다수의 이벤트들이 동일한 객체를 활용할 때 강점이 있음
+        document.all['btn3'].onclick = m2;
+
+        // 실명 함수의 단점: 목적이 애매해짐
+        // 이 상황을 모르는 다른 개발자가 m2(); 해버리면 호출됨
+        // 쓸만해보여서 호출했는데 그러면 의도하지 않은 클릭이벤트가 호출됨
+        function m2() {
+            alert('btn1');
+        }
+
+        // 함수 표현식(= 익명 함수) 사용
+        // onclick이 변수니까 onclick에 함수를 넣었다
+        // 대부분의 이벤트는 익명 함수 스타일로 사용한다
+        document.all['btn2'].onclick = function () {
+            alert('btn2');
+        }
+
+        console.log(typeof document.all['btn2'].onclick);
+
+
+        // ------------------
+        // setTimeout(m3, 1000);
+
+        // function m3() {
+        //     alert();
+        // }
+
+        setTimeout(function () {
+            alert();
+        }, 1000);
+
+        function f3() {
+            alert('f3');
+        }
+        function f4() {
+            alert('f4');
+        }
+        function f5(param) {
+            param();
+        }
+        // 매개변수로 함수 그 자체를 넘긴 것
+        // param이 f3 함수다
+        // f5(f3);
+        // f5(f4);
+        // f5(function () {
+        //     alert('익명 함수');
+        // });
+
+        // 3. 함수를 반환값으로 사용할 수 있다
+        function f6() {
+            alert('f6');
+        }
+        function f7() {
+            return f6;
+        }
+
+        // var result = f7();
+        // result();
+
+        // f7()();
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>타이머</title>
+    <style>
+        fieldset {
+            border: 1px solid #666666;
+            border-radius: 5px;
+            width: 200px;
+        }
+
+        fieldset>input[type=text] {
+            display: block;
+            margin-bottom: 10px;
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ex29_timer.html  -->
+    <h1>타이머</h1>
+    <form name="form1">
+        <fieldset>
+            <legend>setTimeout/setInterval</legend>
+            <input type="text" name="txt1">
+            <input type="button" value="시작" name="btn1">
+            <input type="button" value="멈춤" name="btn2">
+        </fieldset>
+    </form>
+
+    <hr>
+
+    <img src="images/catty01.png" name="cat1">
+
+
+
+    <script>
+        /*
+            타이머, Timer
+            - 비동기 방식 업무 구현 도구
+
+            1. id setTimeout (할일, 시간)
+                - 1회용 타이머
+                - 정해진 시간을 지나고 나서 한번 호출하면 그걸로 끝
+            
+            2. id setInterval (할일, 시간)
+                - 재사용 가능한 타이머
+
+            - 문제: 시작 버튼을 계속 누르면 타이머가 점점 빨라지고, 멈춤 버튼을 눌러도
+            타이머가 멈추지 않음
+            1. 시작 버튼을 딱 한번만 누를 수 있게 -> 일반적인 경우
+
+            2. 시작 버튼을 사용자 맘대로 누르도록
+            
+            
+            
+            
+            */
+        var txt1 = document.form1.txt1;
+        var btn1 = document.form1.btn1;
+        var btn2 = document.form1.btn2;
+
+        var id = 0;
+        var n = 1;
+        var list = [];
+
+        btn1.onclick = m1;
+        btn2.onclick = m2;
+
+        function m1() {
+            // 단위: ms
+            // setTimeout(f1, 3000); // 첫번째칸에 함수 이름만 작성하면 된다?
+            // setInterval(f1, 3000);
+
+            // setInterval(f1, 1000);
+
+            // 기존 타이머가 실행중이 아니라면
+            // if (id == 0) {
+            //     id = setInterval(f1, 100);
+            //     console.log(id);
+            // }
+
+            // btn1.disabled = true;
+            // btn1.disabled = false;
+
+            // 2. 시작 버튼을 사용자 맘대로 누르도록 타이머를 만들자
+            id = setInterval(f1, 100);
+            list.push(id);
+        }
+
+        function f1() {
+            // alert();
+
+            // 1초 간격으로 현재 시간을 얻어온다
+            // 보통 이렇게 함
+            // txt1.value = new Date().toLocaleTimeString();
+
+            txt1.value = n;
+            n++;
+        }
+
+        function m2() {
+            clearInterval(id);
+            id = 0;
+            // btn1.disabled = false;
+            // btn1.disabled = true;
+
+            // 2. 시작 버튼을 사용자 맘대로 누르도록 타이머를 만들자
+            // list 안의 모든 타이머를 중지시키도록 코드를 작성
+            while (list.length > 0) {
+                id = list.pop();
+                clearInterval(id);
+            }
+        }
+
+        document.images['cat1'].onclick = m3;
+
+        function m3() {
+            if (id == 0) {
+                id = setInterval(f3, 10);
+            } else {
+                clearInterval(id);
+                id = 0;
+            }
+        }
+
+        function f3() {
+            n++;
+            if (n > 9) {
+                n = 1;
+            }
+            document.images['cat1'].src
+                = 'images/catty0' + n + '.png';
+        }
+
+    </script>
+
+</body>
+
+</html>

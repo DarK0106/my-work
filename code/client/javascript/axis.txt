@@ -1,0 +1,54 @@
+<input type="button" value="버튼" id="btn1">
+    <hr>
+
+    <div>
+        할아버지
+        <div>
+            큰아버지
+            <div>사촌</div>
+        </div>
+        <div>
+            아버지
+            <div>
+                큰형
+                <div>조카</div>
+            </div>
+            <div>작은형</div>
+            <div id="me">
+                <!-- 중심 -->
+                나
+                <div>자식</div>
+                <div>
+                    자식
+                    <div>손자</div>
+                </div>
+                <div>자식</div>
+            </div>
+            <div>
+                동생
+                <div>조카</div>
+            </div>
+            <div>막내동생</div>
+        </div>
+        <div>
+            작은아버지
+            <div>사촌</div>
+        </div>
+    </div>
+
+
+
+
+div {
+            border: 1px solid black;
+            padding: 10px;
+            margin: 10px;
+        }
+
+        #me {
+            border: 10px solid dodgerblue;
+        }
+
+        .check {
+            outline: 10px solid orange;
+        }

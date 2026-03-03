@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Event</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <!-- ex35_event.html  -->
+    <h1>DOM Event</h1>
+    <!-- input:button#btn1[value="버튼(BOM)"]+input:button#btn2[value="버튼(DOM)"] -->
+    <input type="button" value="버튼(BOM)" id="btn1">
+    <input type="button" value="버튼(DOM)" id="btn2">
+    <input type="button" value="버튼" id="btn3">
+    <input type="button" value="버튼" id="btn4">
+    <script>
+        var btn1 = document.getElementById('btn1');
+        var btn2 = document.getElementById('btn2');
+        var btn3 = document.getElementById('btn3');
+        var btn4 = document.getElementById('btn4');
+
+        // BOM Event
+        btn1.onclick = function () {
+            alert('btn1');
+        }
+
+        // DOM Event
+        // obj.addEventListener(이벤트 종류, 함수)
+        // 익명 함수
+        btn2.addEventListener('click', function () {
+            alert('btn2');
+        });
+
+        // BOM
+        btn1.onclick = m1;
+        btn2.onclick = m2;
+        btn3.onclick = m3;
+        btn4.onclick = m4;
+
+        function m1() {
+            alert('m1');
+        }
+        function m2() {
+            alert('m2');
+        }
+        function m3() {
+            // m1() + m2 () 동시에 호출하고싶다?
+            m1();
+            m2();
+        }
+
+        function m4() {
+            // btn3가 호출하던 m1()과 m2() 중 m1()만 제거하고 m2()만 호출하도록 바꾸고 싶다.
+            btn3.onclick = m5; // 이걸 이벤트 재정의라고 표현
+        }
+
+        function m5() {
+            m2();
+        }
+
+        // DOM
+        // - 이벤트 함수를 따로 관리하는 목록이 있다 -> Invocation List 지원
+        btn3.addEventListener('click', m6);
+        btn3.addEventListener('click', m7);
+
+        function m6() {
+            alert('m6');
+        }
+        function m7() {
+            alert('m7');
+        }
+
+        btn4.onclick = function () {
+
+            btn3.removeEventListener('click', m6);
+        };
+
+
+
+    </script>
+
+</body>
+
+</html>
