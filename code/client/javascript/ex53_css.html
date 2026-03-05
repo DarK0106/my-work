@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>위치 조작</title>
+    <style>
+        .box {
+            width: 150px;
+            height: 150px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        }
+
+        #box1 {
+            background-color: tomato;
+        }
+
+        #box2 {
+            background-color: gold;
+        }
+
+        #box3 {
+            background-color: cornflowerblue;
+        }
+
+        #box4 {
+            background-color: yellowgreen;
+        }
+
+        #box5 {
+            background-color: plum;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ex53_css.html  -->
+    <div id="box1" class="box">상자1</div>
+    <div id="box2" class="box">상자2</div>
+    <div id="box3" class="box">상자3</div>
+    <div id="box4" class="box">상자4</div>
+    <div id="box5" class="box">상자5</div>
+    <script>
+
+        /*
+        const box5 = document.getElementById('box5');
+        window.onmousedown = event => {
+            // 사용자가 클릭한 좌표로 상자를 이동시키자
+            // event.x
+            // even.clientX
+
+            // even.screenX
+            // even.offsetX
+
+            box5.style['left'] = event.clientX + 'px';
+            box5.style['top'] = event.clientY + 'px';
+        };
+        */
+
+        const list = document.getElementsByClassName('box');
+        let index = 0;
+        let zindex = 1;
+
+        window.onmousedown = event => {
+            list[index].style['left'] = event.clientX - 75 + 'px';
+            list[index].style['top'] = event.clientY - 75 + 'px';
+            list[index].style['z-index'] = zindex;
+
+            index++;
+            zindex++;
+
+            if (index >= list.length) index = 0;
+        }
+
+    </script>
+
+</body>
+
+</html>

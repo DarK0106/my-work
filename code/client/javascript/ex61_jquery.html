@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Event</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+
+    <h1>jQuery Event</h1>
+    <input type="button" value="버튼1" id="btn1" class="btns">
+    <input type="button" value="버튼2" id="btn2" class="btns">
+    <input type="button" value="버튼3" id="btn3" class="btns">
+
+    <script src="https://code.jquery.com/jquery-4.0.0.js"></script>
+    <script>
+        /*
+            1. BOM으로 이벤트를 거는 방법
+                - 정적으로 걸기
+                <input onclick="">
+
+                - 동적으로 걸기
+                btn.onclick = fn
+
+                - 이벤트 해제하기
+                btn.onclick = null
+
+            2. DOM으로 이벤트를 거는 방법
+
+                - btn.addEventListner('click', fn)
+                - btn.removeEventListner('click', fn)
+
+            3. jQuery
+                - 이벤트 함수
+                    3.1 전용 함수
+                    - 객체.이벤트함수(콜백함수)
+                        
+                    3.2 범용 함수
+                    - 객체.on(이벤트명, 콜백 함수)
+                    - 객체.off(이벤트명)
+        
+        
+        
+        
+        
+        */
+
+        /*
+            function aaa() {
+            }
+
+            aaa();
+
+            const b = aaa;
+            b();
+
+            function jQuery() {}
+
+            const $ = jQuery;
+
+        
+        
+        */
+
+        // 둘이 같은것($가 jQuery의 별칭 같은 느낌)
+        // 왜?
+        /*
+        function jQuery() {}
+        const $ = jQuery;
+        */
+        jQuery('#btn1')
+        $('#btn1')
+
+        /*
+        // 전용 함수(onclick -> click)
+        $('#btn1').click(() => {
+            alert();
+        });
+
+        // 범용 함수
+        $('#btn2').on('click', () => {
+            alert();
+        });
+
+
+        // 이벤트 제거
+        $('#btn3').on('click', () => {
+            $('#btn1').off('click');
+            $('#btn2').off('click');
+        });
+
+        // 버튼 3개 -> 동일한 클릭 이벤트
+        document.querySelectorAll('.box').forEach(btn => {
+            btn.onclick = event => {
+                alert(event.target.value);
+            };
+        });
+        */
+
+        $('.btns').click(() => {
+            alert(event.target.value);
+        });
+
+    </script>
+
+</body>
+
+</html>

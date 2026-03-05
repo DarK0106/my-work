@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery Effect</title>
+    <style>
+        #box1 {
+            width: 200px;
+            height: 200px;
+            border: 1px solid black;
+            background-color: gold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>jquery Effect</h1>
+    <input type="button" value="버튼1" id="btn1">
+    <input type="button" value="버튼2" id="btn2">
+    <input type="button" value="버튼3" id="btn3">
+    <hr>
+
+
+    <div id="box1">상자</div>
+    <script src="https://code.jquery.com/jquery-4.0.0.js"></script>
+    <script>
+        /*
+            jQuery Effect
+            - CSS 일부 조작 Set
+            1. hide(time), show(time), toggle(time)
+            2. fadeOut(time), fadeIn(time), fadeToggle(time)
+            3. slideUp(time), slideDown(time), slideToggle(time)
+            4. animate() <- 사용자 정의형
+        
+        
+        
+        
+        
+        */
+
+        $('#btn1').click(() => {
+            // $('#box1').hide(1000);
+            // $('#box1').fadeOut(1000);
+            // $('#box1').slideUp(1000);
+
+            // $('#box1').animate ({
+            //     width: '400px',
+            //     height: '400px',
+            //     opacity: 0
+            // })
+
+            // 버튼을 누를 때 마다 상자의 크기를 50px씩 늘리는 animate 코드
+            // jQuery에서 수치 단위를 생략한다면 -> px로 설정
+            // $('#box1').animate({
+            //     width: '+=50px',
+            //     height: '+=50'
+            // });
+
+            // 시간을 조절하고 싶다면?
+            // $('#box1').animate({
+            //     width: '+=100px',
+            // }, 3000);
+
+            // 애니메이션이 끝나는 순간 호출되는 함수를 넣고 싶다면?
+            // $('#box1').animate({
+            //     width: '+=100px',
+            // }, 3000, function () {
+            //     $('#box1').css('background-color', 'cornflowerblue');
+            //     alert('으하하');
+            // });
+
+            // 콜백 지옥 -> 들여쓰기 문제
+            // $('#box1').animate({
+            //     width: '+=100px',
+            // }, 3000, function () {
+            //     $('#box1').animate({
+            //         height: '+=100'
+            //     }, 3000, function () {
+            //         $('#box1').animate({
+            //             'font-size': '+=5rem'
+            //         }, 3000);
+            //     })
+            // });
+
+            // $('#box1').animate({
+            //     width: '+=100'
+            // }, 2000);
+            // 앞의 애니메이션이 끝날 때 까지 알아서 기다림
+            // 굳이 콜백으로 안 걸어도 된다
+            // $('#box1').animate({
+            //     height: '+=100'
+            // }, 2000);
+
+            // 모든 jQuery 관련 함수들은 반환값으로 원본 객체를 리턴한다
+            // $('#box1')
+            //     .animate({
+            //         width: '+=100'
+            //     }, 2000)
+            //     .animate({
+            //         height: '+=100'
+            //     }, 2000);
+
+            // 메서드 체이닝
+            // $('#box1')
+            //     .slideUp()
+            //     .slideDown()
+            //     .fadeOut()
+            //     .fadeIn()
+            //     .animate({
+            //         width: '+=200'
+            //     })
+            //     .animate({
+            //         width: '-=200'
+            //     });
+
+            $('#box1')
+                .mouseover(function () {
+                    $('#box1').css('background-color', 'tomato')
+                })
+                .mouseout(function () {
+                    $('#box1').css('background-color', 'cornflowerblue')
+                });
+
+
+        });
+
+
+
+
+        $('#btn2').click(() => {
+            // $('#box1').show(1000);
+            // $('#box1').fadeIn(1000);
+            // $('#box1').slideDown(1000);
+        });
+        $('#btn3').click(() => {
+            // $('#box1').toggle(1000);
+            // $('#box1').fadeToggle(1000);
+            // $('#box1').slideToggle(1000);
+
+            // CSS 조작
+            // 인자의 개수로 읽기와 쓰기를 구분함
+            // - obj.css(prop, value)   : 쓰기
+            // - obj.css(prop)          : 읽기
+
+            // getXXX()
+            // setXXX()
+
+            // alert(document.getElementById('box1').style.width);
+            // alert($('#box1').css('width')); // 200px
+
+            // $('#box1').css('width', '400px')
+            //     .css('color', 'blue')
+            //     .css('font-size', '5rem');
+
+            // 다른 방법으로도 쓸 수 있다
+            $('#box1').css({
+                width: '400px',
+                color: 'blue',
+                'font-size': '5rem'
+            });
+
+            $('#box1').mouseover(() => { })
+                .mouseout(() => { });
+
+            $('#box1').on({
+                mouseover: () => {
+                    // 마우스가 올라갔을 때 실행할 코드
+                },
+                mouseout: () => {
+                    // 마우스가 벗어났을 때 실행할 코드
+                }
+            });
+        });
+
+
+    </script>
+
+</body>
+
+</html>

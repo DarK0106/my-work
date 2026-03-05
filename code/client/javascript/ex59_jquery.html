@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <!-- ex59_jquery.html -->
+    <h1>jQuery</h1>
+
+    <input type="text" name="txt1" id="txt1">
+    
+    <!-- <script src="js/jquery-4.0.0.js"></script> -->
+    <script src="https://code.jquery.com/jquery-4.0.0.js"></script>
+    <script>
+        /* 
+        
+            jQuery
+            - 자바스크립트 라이브러리(프레임워크)
+
+            Angular, React, Vue
+            - 
+
+
+
+            자바스크립트
+            1. 순수 자바스크립트
+                - 바닐라 스크립트
+
+            2. 예전 세대 라이브러리
+                - jQuery, dozo, protype
+
+            3. 최근 세대 라이브러리
+                - angular, vue, react
+
+
+            
+            jQuery 설치
+            - jQuery 사용하려는 페이지에 적용
+            - *.js 배포
+
+            1. 로컬 설치
+                - *.js 직접 다운로드 + 사이트 추가
+
+            2. CDN
+                - 다른 서버 자원 + 사이트 추가
+
+        */
+
+        //console.log(jQuery); //jQuery()
+
+
+        //1. BOM
+        window.document.all['txt1'].value = 'BOM';
+
+        //2. DOM
+        document.getElementById('txt1').value = 'DOM';
+
+        //3. jQuery
+        //- document.querySelector('CSS 선택자')
+        jQuery('#txt1').val('jQuery');
+
+    </script>
+    
+</body>
+</html>

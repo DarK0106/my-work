@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery() 함수</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <h1>jQuery() 함수</h1>
+    <!-- ex60_jquery.html  -->
+    <input type="button" value="버튼1" id="btn1" name="btn1">
+    <hr>
+    <div id="box1" class="box">상자1</div>
+    <div id="box2" class="box">상자2</div>
+    <div id="box3" class="box">상자3</div>
+    <script src="https://code.jquery.com/jquery-4.0.0.js"></script>
+    <script>
+        /*
+            jQuery 함수
+            1. CSS 선택자를 사용해서 태그를 검색한다.
+            2. 자바스크립트 객체를 jQuery 객체로 변환한다.
+            3. 동적으로 태그를 생성한다.
+
+            jQuery 특징
+            1. jQuery()로 검색한 모든 결과는 항상 배열(컬렉션)dlek.
+            2. jQuery() 결과에 어떤 업무(함수)를 적용하면 자동으로 일괄 처리한다.
+            (자동으로 루프를 돌면서 각각의 요소에 업무)
+        
+        
+        */
+
+        document.getElementById('btn1').onclick = m3;
+
+        function m1() {
+            // getElements~ 에서 foreach는 바로 못쓰고 Array.from 으로 묶어야함
+            // document.getElementsByClassName().forEach
+            // document.querySelectorAll().forEach
+
+            Array.from(document.getElementsByClassName('box')).forEach(box => {
+                //alert();
+                box.style['color'] = 'gold';
+            });
+        }
+
+        // jQuery로 해보자
+        function m2() {
+            // alert(jQuery('.box').length);
+            // const list = jQuery('.box');
+
+            // for (let i=0; i<list.length; i++) {
+            //     list[i].style['color'] = 'orange';
+            // }
+
+            // 진짜 jQuery 스타일
+            // 클래스 선택자
+            // jQuery('.box').css('color', 'blue');
+
+            // 태그 선택자
+            // jQuery('div').css('color', 'red');
+
+            // 아이디 선택자
+            // jQuery('#box2').css('color', 'gold');
+
+            jQuery('div:nth-child(even)').css('color', 'blue');
+        }
+
+        function m3 () {
+
+            // 셋 다 btn1 찾은건 맞지만 jQuery가 반환하는 자료형은 다르다
+            const a = document.all.btn1; // BOM
+            const b = document.getElementById('btn1'); // DOM
+            const c = jQuery('#btn1'); // jQuery
+
+            // alert(a === b); // true
+            // a.title = '버튼'; // BOM 코드
+            a.setAttribute('title', '버튼'); // DOM 코드
+
+            // alert(a === c); // false
+
+            // BOM으로 CSS를 조작할 때
+            a.style['color'] = 'blue';
+            a.value = 'Button';
+
+            // jQuery 방식으로 찾은 c는 자료형이 달라 조작할 수 없음
+            // c.style['color'] = 'blue';
+            // c.value = 'Button';
+
+            // jQuery 방식으로 CSS를 조작해보자
+            c.css('color', 'blue');
+            
+            // BOM(DOM) 객체를 어떻게든 변환시켜서 jQuery 객체로 만들거나
+            // jQuery 객체를 BOM(DOM) 객체로 변환시킬 때가 있다
+            
+            // BOM(DOM) -> jQuery
+            jQuery(a).css('color', 'blue');
+
+            // jQuery -> BOM(DOM)
+            // jQuery로 검색한 모든 결과는 배열이니까
+            // c 하나밖에 없으니 0번에 있는걸 꺼낸다
+            // 꺼내면 바로 자바스크립트 객체로 변환된다
+            c[0].style.color = 'gold';
+
+        }
+    </script>
+
+</body>
+
+</html>

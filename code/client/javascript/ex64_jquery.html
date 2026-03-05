@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axis</title>
+    <style>
+        div {
+            border: 1px solid black;
+            padding: 10px;
+            margin: 10px;
+        }
+
+        #me {
+            border: 10px solid dodgerblue;
+        }
+
+        .check {
+            outline: 10px solid orange;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Axis</h1>
+    <input type="button" value="버튼" id="btn1">
+    <hr>
+
+    <div>
+        할아버지
+        <div>
+            큰아버지
+            <div>사촌</div>
+        </div>
+        <div>
+            아버지
+            <div>
+                큰형
+                <div>조카</div>
+            </div>
+            <div>작은형</div>
+            <div id="me">
+                <!-- 중심 -->
+                나
+                <div class="one">자식</div>
+                <div>
+                    자식
+                    <div class="one">손자</div>
+                    <div>손자</div>
+                </div>
+                <div>자식</div>
+            </div>
+            <div>
+                동생
+                <div>조카</div>
+            </div>
+            <div>막내동생</div>
+        </div>
+        <div>
+            작은아버지
+            <div>사촌</div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-4.0.0.js"></script>
+    <script>
+        $(window).click(() => {
+            // 자식
+            // - childNodes, children
+
+            // jQuery는?
+            // 자식들
+            // $('#me').children().addClass('check');
+
+            // 자식들 중 첫째
+            // $('#me').children().first().addClass('check');
+
+            // 자식들 중 막내
+            // $('#me').children().last().addClass('check');
+
+            // "index equals n"
+            // $('#me').children().eq(1).addClass('check');
+
+            // 손자: 나의 자식의 첫째의 자식의 첫째
+            // $('#me').children().eq(1).children().eq(0).addClass('check');
+
+            // 모든 손자
+            // $('#me').children().children().addClass('check');
+
+            // (method) JQuery.children(selector?: string): JQuery
+            // 모든 친자식을 찾아줌
+            // 자식들 중에서 선택자를 만족한 애들만
+            // $('#me').children('.one').addClass('check');
+            
+            // 자손 탐색 -> find() (*중요)
+            // 나로부터 파생된 모든 자손들 중에 이 조건을 만족하는 애들을 모두 찾아라
+            // $('#me').find('.one').addClass('check');
+
+            // 부모 탐색
+            // - parentNode, parentElement
+            // $('#me').parent().addClass('check');
+            // $('#me').parent().parent().addClass('check');
+
+            // 부모들 중에 body 찾기 전까지만 찾아라
+            // $('#me').parentsUntil('body').addClass('check');
+            
+            // div 태그를 가진 부모만 찾아라
+            // $('#me').parents('div').addClass('check');
+
+            // 형제
+            // previousSibiling, nextSibiling
+            // $('#me').prev().addClass('check');
+            
+            // 내 바로 밑의 동생
+            // $('#me').next().addClass('check');
+            
+            // 내 모든 형들
+            // $('#me').prevAll().addClass('check');
+
+            // 기타
+            // $('#me').prevUntil(조건).addClass('check');
+            // $('#me').nextAll().addClass('check');
+            
+            // 나와 같은 부모를 둔, 같은 레벨(촌수)에 있는 모든 요소
+            $('#me').siblings().addClass('check');
+
+
+
+        });
+    </script>
+
+</body>
+
+</html>

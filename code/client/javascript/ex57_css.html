@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        #menu {
+            /* border: 1px solid black; */
+            width: 630px;
+            display: flex;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+
+            margin: 0 auto;
+            transform: translateY(-100px);
+        }
+
+        #menu>img {
+            transition: all .5s;
+        }
+
+
+        /* #menu>img:hover {
+            transform: translateY(90px);
+        } 
+        */
+    </style>
+</head>
+
+<body>
+    <!-- ex57_css.html  -->
+    <div id="menu">
+        <img src="images/rect_icon01.png">
+        <img src="images/rect_icon02.png">
+        <img src="images/rect_icon03.png">
+        <img src="images/rect_icon04.png">
+        <img src="images/rect_icon05.png">
+    </div>
+    <script>
+        const items = document.querySelectorAll('#menu img');
+        let oldItem = null;
+
+        items.forEach(item => {
+            item.onclick = event => {
+
+                // 기존에 열려있는 아이템을 닫기
+                if (oldItem != null) {
+                    oldItem.style['transform']
+                        = 'translateY(0px)';
+                }
+                // 방금 누른 아이템을 열기
+                if (event.target != oldItem) {
+                    event.target.style['transform']
+                        = 'translateY(90px)';
+                    oldItem = event.target;
+                }
+            };
+        });
+    </script>
+
+</body>
+
+</html>

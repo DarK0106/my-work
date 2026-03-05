@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배경 이미지 조작</title>
+    <style>
+        #heart {
+            background-image: url(images/heart.png);
+            border: 1px solid black;
+            width: 300px;
+            height: 300px;
+        }
+
+        #puma {
+            background-image: url(images/puma.png);
+            background-repeat: no-repeat;
+            /* background-size: contain; */
+            border: 1px solid black;
+            width: 512px;
+            height: 256px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ex58_css.html  -->
+    <h1>배경 이미지 조작</h1>
+    <div id="heart"></div>
+    <hr>
+    <div id="puma"></div>
+    <input type="button" value="버튼1" id="btn1">
+    <script>
+        let x = 0;
+
+        document.getElementById('btn1').onclick = event => {
+
+            x -= 300;
+
+            if (x < -600) {
+                x = 0;
+            }
+
+            document.getElementById('heart')
+                .style['background-position'] = x + 'px 0px';
+
+        };
+
+        // canvas
+
+        let x2 = 0;
+        let y2 = 0;
+        let timer = 0;
+
+        document.getElementById('puma').onclick = event => {
+
+            if (timer == 0) {
+                timer = setInterval(run, 100);
+            } else {
+                clearInterval(timer);
+                timer = 0;
+            }
+
+        };
+
+        function run() {
+            x2 -= 512;
+
+            if (x2 < -(512 * 3)) {
+                x2 = 0;
+                y2 -= 256;
+
+                if (y2 < -256) {
+                    y2 = 0;
+                }
+            }
+
+            document.getElementById('puma').style['background-position']
+                = `${x2}px ${y2}px`;
+        }
+    </script>
+
+</body>
+
+</html>

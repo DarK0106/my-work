@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ex51_css.html</title>
+    <style>
+        body {
+            text-align: center;
+        }
+
+        #div1 {
+            border: 1px solid grey;
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+        }
+
+
+        .one {
+            font-size: 5rem;
+        }
+
+        .two {
+            color: orange;
+        }
+
+        .three {
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ex51_css.html  -->
+    <h1>ex51_css.html</h1>
+    <input type="button" value="버튼1" id="btn1">
+    <input type="button" value="버튼2" id="btn2">
+    <input type="button" value="버튼3" id="btn3">
+    <input type="button" value="버튼4" id="btn4">
+    <input type="button" value="버튼5" id="btn5">
+    <input type="button" value="버튼6" id="btn6">
+    <input type="button" value="버튼7" id="btn7">
+    <hr>
+    <div id="div1" style="width: 200px;">상자</div>
+    <script>
+        const div = document.getElementById('div1');
+        document.getElementById('btn1').onclick = function () {
+            // JavaScript로 CSS 조작하기
+            // 모든 태그는 style 속성을 보유
+            // 자바스크립트도 style 프로퍼티 제공
+            // 우리가 알고 있는 모든 CSS 속성 이름들은 자바스크립트 style 프로퍼티의
+            // 하위 프로퍼티로 제공한다
+
+            // div1.style.color
+            // div1.style.fontSize // font-size 에서 - 를 지우고 캐멀 표기법으로 바꾸면 된다
+
+            // 이 상자에 글자색을 주고싶다
+            // <div>상자</div>
+            // <div style="color:blue;">상자</div>
+            div1.title = '상자';
+            // 이렇게 하는건 비추천
+            div1.style = 'color:blue; font-size:2rem;';
+
+
+        }
+        document.getElementById('btn2').onclick = function () {
+            // JS의 .style 프로퍼티를 사용하는 방식은 
+            // HTML 태그에 직접 <div style="...">을 넣는 '인라인 스타일' 방식이다.
+
+            // 외부나 임베디드 CSS의 값을 직접 '읽어올 수는' 없지만,
+            // 인라인 스타일은 우선순위가 가장 높으므로 기존 디자인을 덮어쓰며 '조작'할 수 있다.
+
+            // 표기법 1: 카멜 케이스 (권장)
+            // div1.style.color = 'blue';
+            // div1.style.fontSize = '3rem';
+
+            // 표기법 2: 대괄호 표기법 (CSS 속성명을 그대로 쓸 때)
+            div1.style['color'] = 'blue';
+            div1.style['font-size'] = '3rem';
+            div1.style['text-decoration'] = 'underline';
+        }
+        document.getElementById('btn3').onclick = function () {
+            // <div id="div1" class="one">상자</div>를 하고 싶다
+            // div1.className = 'one';
+
+            // 클래스 .one 과 .two를 동시에 적용하고 싶다
+            // <div id="div1" calss="one two">상자</div>
+            // div1.className = 'one two';
+
+            // 이런 방식은 비추천
+            // 3개의 클래스를 하나의 덩어리로 취급한 것
+            // 관리하기 힘듦, 조작이라고 볼 수 없음
+            // div1.className = 'one two three';
+
+            // classList를 사용할 것
+            div.classList.add('one');
+            div.classList.add('two');
+            div.classList.add('three');
+
+            // 특정 클래스를 포함하고 있는지 확인하는 contains
+            // div.classList.contains('one');
+
+        }
+        document.getElementById('btn4').onclick = function () {
+            div.classList.remove('two');
+        }
+        document.getElementById('btn5').onclick = function () {
+            // 현재 상자의 너비를 버튼을 클릭할 때 마다 +50px씩 늘리고 싶다
+            // 태그가 가진 css값을 읽어와야 함
+            // 이 방식은 인라인 스타일 시트에 width가 있어야 동작함
+            // 실무에서는 사용하지 않음
+            // alert(parseInt(div.style.width + 50));
+            // px 붙여야함
+            div.style.width = parseInt(div1.style.width) + 50 + 'px';
+        }
+        document.getElementById('btn6').onclick = function () {
+            // user agent, 인라인, 임베디드, 외부 스타일 시트 -> 적용된 모든 CSS를 읽기
+            const list = window.getComputedStyle(div1);
+            // console.log(list);
+            // alert(list.getPropertyValue('width'))
+            alert(list.getPropertyValue('padding'))
+
+        }
+        document.getElementById('btn7').onclick = function () {
+
+        }
+    </script>
+
+</body>
+
+</html>

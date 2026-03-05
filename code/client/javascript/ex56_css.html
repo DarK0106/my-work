@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box1 {
+            width: 150px;
+            height: 150px;
+            background-color: gold;
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ex56_css.html -->
+    <h1>Drag & Drop <small>relative</small></h1>
+
+    <div id="box1"></div>
+
+    <p>위의 상자를 클릭해서 이동해보세요.</p>
+
+    <script>
+
+        const box1 = document.getElementById('box1');
+        let isDown = false;
+        let offsetX;
+        let offsetY;
+        let orginX = box1.getBoundingClientRect().x;
+        let orginY = box3.getBoundingClientRect().Y;
+
+        window.onmousedown = event => {
+            //움직일 대상을 클릭할 때만 반응
+            if (event.target.id == 'box1') {
+                isDown = true;
+
+                //상자의 어느 부위를 눌렀는지?
+                offsetX = event.offsetX;
+                offsetY = event.offsetY;
+            }
+        };
+
+        window.onmousemove = event => {
+            if (isDown) {
+                box1.style['left'] = event.clientX - offsetX + 'px';
+                box1.style['top'] = event.clientY - offsetY + 'px';
+            }
+        };
+
+        window.onmouseup = event => {
+            isDown = false;
+        };
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상자에 CSS 적용하기</title>
+    <style>
+        .box {
+            border: 1px solid black;
+            width: 150px;
+            height: 150px;
+            position: absolute;
+            /* background-color: gold; */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ex54_css.html  -->
+    <h1>상자에 CSS 적용하기</h1>
+
+    <script>
+        /*
+            사용자가 어떤 행동을 하느냐에 따라 상자를 동적으로 만들자
+            화면 클릭: 상자 생성 -> 그 상자를 클릭한 위치로 이동
+            생성된 상자의 색상은 랜덤
+    
+        
+        
+        */
+
+        window.onmousedown = event => {
+            if (event.buttons == 1) {
+                const box = document.createElement('div');
+
+                // box.style['border'] = '1px solid black';
+                // box.style['width'] = '150px';
+                // box.style['height'] = '150px';
+                // box.style['position'] = 'absolute';
+
+                box.className = 'box';
+                box.style['left'] = event.clientX - 75 + 'px';
+                box.style['top'] = event.clientY - 75 + 'px';
+
+                let r = parseInt(Math.random() * 256);
+                let g = parseInt(Math.random() * 256);
+                let b = parseInt(Math.random() * 256);
+
+                box.style['background-color'] = `rgb(${r},${g},${b})`;
+
+                document.body.appendChild(box);
+            } else if (event.buttons == 2) {
+                // 우클릭 했을 경우 상자를 삭제하자
+                // 어떤 상자를 클릭했는지 알아내는 코드를 작성해야 함
+                // alert(event.target.nodeName);
+
+                if (event.target.nodeName == 'DIV' && event.target.classList.contains('box')) {
+                    document.body.removeChild(event.target);
+                }
+            }
+        };
+
+        window.oncontextmenu = event => event.preventDefault();
+    </script>
+
+</body>
+
+</html>

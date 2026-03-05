@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Context 조작</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    
+    <h1>Context 조작</h1> 
+    <input type="button" value="버튼1" id="btn1">
+    <hr>
+    <div id="box1">상자</div>
+    <hr>
+    <input type="text" id="txt1">
+
+    <script src="https://code.jquery.com/jquery-4.0.0.js"></script>
+    <script>
+        $('#btn1').click(() => {
+            // 콘텐츠 조작
+            // - innerText/textContent -> text()
+            // - innerHTML             -> html() 
+            // - value                 -> val()
+
+
+            // alert($('#box1').text()); // 읽기
+            // $('#box1').text('Box');
+
+            // $('#box1').text('<b>안녕</b>하세요.');
+            // $('#box1').html('<b>안녕</b>하세요.');
+            
+            // $('#box1').html('<input type="text">');
+
+            // alert($('#btn1').val());
+            // $('#btn1').val('Button1');
+
+            // HTML 속성 조작
+            // 1. BOM
+            //  - obj.prop          -> 읽기
+            //  - obj.prop = value  -> 쓰기
+
+            // 2. DOM
+            //  - obj.getAttribute('prop')          -> 읽기
+            //  - obj.setAttribute('prop', value)   -> 쓰기
+
+            // 3. jQuery
+            //  - obj.attr('prop')              -> 읽기(HTML 속성)
+            //  - obj.attr('prop', value)       -> 쓰기
+            //  - obj.prop('prop')              -> 읽기(JavaScript 속성)
+            //  - obj.prop('prop', value)       -> 쓰기
+
+            // $('#txt1').attr('size', 50);
+            // $('#txt1').prop('size', 50);
+            
+            $('#txt1').prop('size', 50)
+                      .prop('placeholder', '이름 입력')
+                      .prop('maxlength', 10);
+
+            // $('#txt1').prop({
+            //     size: 50,
+            //     placeholder: '이름 입력',
+            //     maxlength: 10
+            // })
+
+            // size라는 속성은 HTML과 JavaScript에 동시에 존재하는 속성이구나 <- 대부분 이렇다
+
+            // 태그 -> 동적으로 추가/ 삭제
+            // document.createElement('img') -> appendChild(img)
+
+            // box1.innerHTML = '<img src="images/catty01.png">';
+            // $('#box1').html($('#box1').html() + '<img src="images/catty01.png">');
+            
+            // html() -> 누적 버전
+            // $('#box1').append('<img src="images/catty01.png">');
+            // $('#box1').prepend('<img src="images/catty01.png">');
+
+            // DOM
+            // - 부모태그.removeChild(자식태그)
+
+            // jQuery
+            // - 태그.remove()
+            // $('#box1').remove();
+
+            // 모든 태그를 다 삭제하자
+            $('*').remove();
+
+
+        })    
+    </script>
+    
+</body>
+</html>
