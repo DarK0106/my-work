@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactions Draggable</title>
+    <style>
+        #box1 {
+            border: solid 1px black;
+            width: 400px;
+            height: 400px;
+            background-color: gold;
+        }
+        img {
+            outline: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>Interactions Draggable</h1>
+    <img src="images/catty01.png" id="cat1">
+    
+    <div id="box1">
+        <img src="images/catty02.png" id="cat2">
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-4.0.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.14.2/jquery-ui.js"></script>
+    <script>
+
+        $('#cat1').draggable({
+            // axis: 'x'
+            // grid: [128, 128]
+        });
+        $('#cat2').draggable({
+            // containment:'#box1'
+            snap: '#box1'
+        });
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,101 @@
+1. 톰캣 설치 경로 매핑
+window -> preferences
+server 
+runtime environments
+아파치 10.1
+브라우즈 해서 dev -> 아파치폴더
+
+2. 톰캣 인스턴스 생성
+밑에 servers 눌러서 아파치 10.1
+
+프로젝트 만들기
+dynamic web project
+context root 이름 간결하게 servlet
+밑에 generate web.xml 체크
+
+웹 페이지
+1. 정적 페이지 
+	-> 요청할 때 마다 소스가 변함없는 페이지
+	ex) webapp -> "test01.html"
+	ex) 한국(홍길동), 미국(마이콜) 둘이 똑같은 정적 페이지에 접속함
+	-> 어느 누가 어떤 시간대에서 보던지 내용이 똑같은게 정적 페이지
+	
+2. 동적 페이지
+	-> 요청할 때 마다 상황에 따라 소스가 변하는 페이지
+	ex) webapp -> "test02.jsp"	
+	
+Servlet, 서블릿
+- 웹 서버(= 톰캣)에서 자바를 사용한 프로그램을 생산/동작시키는 기술
+- 서블릿에서 제작한 프로그램으로 웹 페이지 생성 가능
+- 서블릿이 뭔가요? -> WAS / 서블릿 컨테이너 측에서 동적으로 웹 페이지를 생성하는 기술
+
+커피를 마시고 싶어요
+1. 자판기 or 마트 에서 커피 구매 <- 정적 페이지(미리 만들어놓은 커피를 고객은 소비만 함,
+옵션을 바꿀 수 없음)   
+2. 스타벅스에서 커피 구매 <- 동적 페이지(주문받으면 알바가 만들어줌)
+
+Servlet > JSP > Servlet + JSP > ... > Spring
+
+Servlet Class
+- 서블릿 기술을 적용한 자바 클래스
+- 알바생
+- * 클라이언트(브라우저)의 요청 발생 -> 동적으로 웹 페이지 제작
+
+Servlet Container(= Servlet Engine)
+- 서버측에서 Servlet을 실행/관리할 수 있도록 해주는 환경(Runtime)
+- Servlet 객체 생성, 실행, 소멸 등.. 전반적인 관리
+- 대표 서블릿 컨테이너: 톰캣(Tomcat)
+
+Servlet Class 작성 규칙(알바생을 만들기 위한 규칙)
+1. 서블릿 클래스 선언
+	a. javax.servlet.Servlet 인터페이스를 구현한다. -> 복잡함, 고비용
+	a. javax.servlet.http.HttpServlet 클래스를 상속받는다. -> 단순함, 가벼움
+	
+	class Test implements Servlet {
+	
+	}
+	
+	class Test exntends HttpServlet {
+	
+	}
+	
+2. doGet.doPost 메서드 선언
+	- 둘 중 하나 선언 or 둘 다 선언
+	- 클라이언트(브라우저)의 요청이 들어오면 자동으로(톰캣이) 호출하는 메서드
+	-> 주문하기
+	- 카페로 치면 커피를 만드는 메서드
+	- 개발자 입장에선 HTML 페이지 만드는 메서드
+	- 메서드 작성 규칙
+		a. 매개 변수가 반드시 있음
+			반드시 인자값이 2개로 정해져있음
+			1. javax.servlet.http.HttpServletRequest
+			2. javax.servlet.http.HttpServletResponse
+			
+		b. 예외 미루기
+			1. java.io.IOExpetion
+			2. javax.servlet.ServletException
+			
+3. 동적으로 HTML 페이지 만들기
+	- doGet/doPost 내부에서 HTML 문서를 작성하기 위한 자바 코드를 작성한다.
+(개발자)
+	- HttpServletResponse 객체의 getWriter() 메서드 호출 -> PrintWriter 객체 반환
+	- PrintWriter 객체 == 페이지를 제작하는 도구
+		- .printXXX("HTML/CSS/JavaScript 코드 작성"); -> HTML 페이지 생성
+	- 페이지 완성 -> 브라우저에게 반환
+
+- ServletTest > Java Resources > src/main/java > "com.test.java"
+	-"Ex01.java"
+	
+4. 서블릿 호출
+	- 자바는 웹 기술이 아니다. -> 웹에서는 자바 프로그램을 호출할 수 없다.
+	- 톰캣(웹서버)이 클라이언트의 요청을 받아서 대신 자바 프로그램을 호출한다.
+	(Servlet Container 역할 중 하나)
+	- 자바 프로그램(서블릿)을 호출하기 위한 가상 주소를 생성(가상 주소와 자바를 연결)
+	- 가상주소가 호출되면 톰캣이 가상주소와 연결된 진짜 클래스를 연결
+	- 가상 주소는 어떻게 관리할까? -> webapp -> WEB-INF -> web.xml(톰캣이 관리하는 톰캣 환경 설정 파일)
+
+- ServletTest > Java Resources > src/main/java > "com.test.java"
+	- "Ex03.java -> 데이터 입력 페이지
+	- "Ex03Ok.java -> 데이터 수신 페이지
+	
+서블릿은 생산성이 매우 떨어진다

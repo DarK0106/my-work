@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.2/themes/base/jquery-ui.css">
+    <title>Interactions Sortable</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+
+    <h1>Interactions <small>Sortable</small></h1>
+    <ul id="list1">
+        <li>강아지</li>
+        <li>고양이</li>
+        <li>병아리</li>
+        <li>돼지</li>
+        <li>타조</li>
+    </ul>
+
+    <h1>팀원 구성</h1>
+    <div id="member">
+        <img src="images/man_01.png" data-name="홍길동" data-buseo="영업부">
+        <img src="images/man_02.png" data-name="아무개" data-buseo="총무부">
+        <img src="images/man_03.png" data-name="강아지" data-buseo="기획부">
+        <img src="images/woman_01.png" data-name="고양이" data-buseo="영업부">
+        <img src="images/woman_02.png" data-name="병아리" data-buseo="개발부">
+        <img src="images/woman_03.png" data-name="거북이" data-buseo="인사부">
+    </div>
+
+    <hr>
+
+    <div id="output"></div>
+
+    <script src="https://code.jquery.com/jquery-4.0.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.14.2/jquery-ui.js"></script>
+    <script>
+        $('#list1').sortable();
+        $('#member').sortable({
+            stop: function (event, ui) {
+                list();
+            }
+        });
+        // $('body').sortable();
+
+        function list() {
+            // 배치가 바뀐 직원들의 이름을 순서대로 출력하기
+            $('#output').html('');
+
+            // document.querySelectorAll('#member img').forEach((item, index) => {})
+
+            // jQuery 방식
+            $('#member img').each((index, item) => {
+                // alert(item.dataset['name']);
+
+                $('#output').append(`
+                    <span>
+                        ${item.dataset['name']}
+                        (${item.dataset['buseo']})
+                    </span>
+                    ➡️
+                `);
+            });
+
+        }
+    </script>
+
+</body>
+
+</html>

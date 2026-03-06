@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactions droppable</title>
+    <style>
+        #box1 {
+            border: solid 1px black;
+            width: 400px;
+            height: 400px;
+            background-color: gold;
+        }
+        img {
+            outline: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>Interactions <small>droppable</small></h1> 
+    <div id="box1"></div>
+    <img src="images/catty01.png" id="cat1" class="cats">
+    <img src="images/catty02.png" id="cat2" class="cats">
+    <img src="images/catty03.png" id="cat3" class="cats">
+    <script src="https://code.jquery.com/jquery-4.0.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.14.2/jquery-ui.js"></script>
+    <script>
+        $('.cats').draggable();
+        $('#box1').droppable ({
+
+            // tolerance: 'fit',   
+            // tolerance: 'pointer',   
+            tolerance: 'touch',   
+
+            // 이벤트 역할
+            // jQuery는 이런 식으로 함수를 넣어주면 이걸 이벤트로 사용하기로 한 것
+            // ui 는 jQuery가 만든 이벤트 객체
+            drop: function(event, ui) {
+                // alert();
+                $(this).css('background-color', 'orange');
+
+                // 고양이 3마리 중 어떤 고양이가 들어왔는가?
+                // alert(ui.draggable.attr('id'));
+
+                // 상자 안에 들어간 고양이를 반투명으로 만들어보자
+                ui.draggable.css('opacity', .5);
+                ui.draggable.draggable({
+                    containment: '#box1'
+                });
+            }
+        });
+
+        $('.cats').dblclick(() => {
+            $(event.target).css('opacity', 1)
+                           .draggable({
+                                containment:''
+                           });
+        });
+
+    </script>
+    
+</body>
+</html>

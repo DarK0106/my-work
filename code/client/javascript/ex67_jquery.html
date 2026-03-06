@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactions Resizable</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.2/themes/base/jquery-ui.css">
+    <style>
+        #box1 {
+            border: solid 1px black;
+            width: 400px;
+            height: 400px;
+            background-color: gold;
+        }
+        img {
+            outline: 1px solid black;
+        }
+
+        .helper {
+            /* background-color: cornflowerblue; */
+            border: 1px dashed #333;
+            background-color: rgba(255, 217, 0, .5);
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>Interactions <small>Resizable</small></h1>
+    <div id="box1"></div>
+    <hr>
+    <img src="images/placeimg_200_400_animals.jpg" id="img1">
+
+    <script src="https://code.jquery.com/jquery-4.0.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.14.2/jquery-ui.js"></script>
+    <script>
+        $('#box1').resizable({
+            // maxWidth: 500,
+            // minWidth: 100,
+            // maxHeight: 500,
+            // minHeight: 100,
+            // grid: [100, 100]
+
+            // animate와 helper 같이 쓰는걸 권장
+            // helper가 뭘까? 미리보기
+            animate: true,
+            helper: 'helper'
+        });
+
+        $('#img1').resizable({
+            aspectRatio: true
+        });
+    </script>
+    
+</body>
+</html>
