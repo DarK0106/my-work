@@ -234,3 +234,29 @@ session(가장 중요!!) & application
 	- "ex13_session.jsp"
 	- "ex13_session_2.jsp"
 	- "ex14_session.jsp"
+	
+(*중요) 웹(http://, https://)은 비연결 지향이다.(Connectionless)
+Client <-> Server <-> 시작
+네이버를 열어둔 상태로 네이버 서버가 꺼져도 내가 열어둔 네이버가 자동으로 끊기거나 하진 않는다
+임시페이지를 내 하드디스크 어딘가에 저장해두고 그걸 보여주는 것
+웹은 연결이 길어지는걸 극도로 싫어한다
+- 웹 초창기: 회선 연결이 느렸음
+
+~파일 업로드/다운로드~
+- Servlet/JSP
+- cos.jar (webapp -> WEB-INF -> lib 에 붙여넣기, dynamic web project에서만 이 방식을 쓸 수 있음)
+
+단일 파일 업로드
+- "ex16.jsp" // 입력
+- "ex16ok.jsp" // 처리
+
+
+다중 파일 업로드
+- "ex17.jsp" // 입력
+- "ex17ok.jsp" // 처리
+
+이미지 뷰어(갤러리)
+- "ex18.jsp" // 메인 페이지
+- "ex18ok.jsp" // 업로드 처리 페이지
+- "ex18del.jsp" // 업로드한 파일을 삭제 처리하는 페이지
+
