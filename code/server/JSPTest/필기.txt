@@ -260,3 +260,46 @@ Client <-> Server <-> 시작
 - "ex18ok.jsp" // 업로드 처리 페이지
 - "ex18del.jsp" // 업로드한 파일을 삭제 처리하는 페이지
 
+260311
+
+EL + JSTL
+- 취지: JSP에서 자바 문법을 없애자 !!
+- <% %> -> JSTL
+- <%= %> (Expression) -> EL
+
+EL, Expression Language
+- ${}
+- 자바의 값을 HTML 문서에 출력하는 역할
+- <%= %> 역할 + 더 많은 기능 제공
+
+JSTL, Java Standard Tag Language
+- 모양이 태그
+- 프로그래밍 기능을 가진 태그
+
+쿠키, Cookie
+- 브라우저의 기능 중 하나
+- 브라우저가 데이터를 저장하는 저장소 중 하나
+- JavaScript or 서버 언어(Java) -> 접근 + 조작
+- 용도: 사용자(브라우저)가 웹 사이트 접속 -> 개인 정보를 저장하는 경우 쿠키를 사용
+		-> 지속적으로 보관/수정/열람 등
+- 회원증 같은 역할
+		
+쿠키는 항상 비교되는 애가 있는데 그게 세션
+- 왜? 역할이 비슷함
+- 둘 다 개인적인 공간
+- 내 세션은 내가 쓰는거고 다른 사람 세션은 다른 사람이 쓰는 것
+- 특정 웹 페이지에 종속적이지 않다. -> 어디서든 접근 가능한 공간
+
+cookie function
+https://www.w3schools.com/js/js_cookies.asp
+개발자도구 -> Application -> Storage -> Cookies
+
+- "ex23_cookie.jsp"
+- "ex23_cookie_ok.jsp"
+
+쿠키의 종류
+1. 메모리 쿠키
+	- 메모리에 생성 -> 브라우저를 닫으면 사라진다.
+2. 하드 쿠키
+	- 하드디스크에 생성 -> 계속 보관 가능
+	- 쿠키에 만료 시간을 지정할 수 있음
