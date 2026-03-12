@@ -1,4 +1,4 @@
-package com.test.java;
+package com.test.memo;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

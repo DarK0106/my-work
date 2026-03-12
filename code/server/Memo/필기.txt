@@ -1,0 +1,50 @@
+새 Dynamic Web Project
+	-"Memo" -> "memo"
+	
+메모장 구현
+- JSP Model 1
+- Oracle
+- JDBC
+
+구현할 업무
+- 메모 CRUD
+- 권한 처리 -> 회원 개념이 없으므로
+			-> 메모를 읽고 쓰는건 모든 사용자가 가능
+			-> 메모를 수정하거나 삭제하는건 작성자 본인만 가능
+			
+DB
+- Memo -> "script.sql"
+
+DB설계 이후에는 사이트 구조 설계 or 화면(UI) 설계
+
+필요한 라이브러리들을 추가
+- JDBC
+- JSTL
+
+템플릿
+webapp -> template.jsp
+
+필요한 패키지 또는 파일 생성
+- 목록 보기 페이지를 시작 페이지로 만들 것
+webapp -> list.jsp
+
+- 메모 쓰기 페이지
+webapp -> add.jsp(메모를 작성하는 폼 페이지), addok.jsp(메모를 DB에 넣는 처리)
+
+- 메모 수정하기 페이지
+webapp -> edit.jsp(수정 내용을 작성하는 폼 페이지), editok.jsp(수정 내용을 DB에 넣는 처리)
+
+- 메모 삭제하기 페이지
+webapp -> del.jsp,  delok.jsp
+
+조각 페이지
+webapp -> inc -> header.jsp, asset.jsp
+
+리소스
+webapp -> asset -> css 폴더
+				-> main.cssk
+				-> js
+				-> images
+				
+JDBC
+src/main/java -> com.test.memo -> DBUtil.java(기존에 쓰던거 재활용)

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Calendar;
 
-import jakarta.servlet.ServletException;
+import javax.servlet.ServletException;
 
 //인도네시아
 //- 자바섬
@@ -13,9 +13,9 @@ import jakarta.servlet.ServletException;
 
 //Tomcat 9.X > 10.X
 //       javax.servlet.http.HttpServlet
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 //1. 서블릿 클래스 선언
 //a. javax.servlet.http.HttpServlet 클래스를 상속받는다. > 단순함. 저비용
