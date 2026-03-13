@@ -1,0 +1,37 @@
+새 프로젝트
+- Dynamic Web Project -> "MvcTest" -> "mvc" + web.xml(v)
+
+1. Servlet
+2. JSP
+3. Servlet + JSP
+
+Servlet
+- 장점: 자바 기반
+- 단점: 클라이언트 코드 작성 시 불편함
+
+JSP
+- 장점: HTML 기반
+- 단점: 자바 코드 작성 시 불편함
+
+Servlet + JSP
+- 자바 코드는 Servlet에서 작성
+- 클라이언트 코드는 JSP에서 작성
+- 단점: 사람이 할 일 증가 + 파일 개수 증가
+
+고객 -> 서블릿(자바(비즈니스 코드) -> JSP(HTML(화면 출력 코드) -> 고객
+
+
+페이지 작업
+1. 브라우저가 서블릿을 호출한다.(JSP 호출 불가)
+2. 호출된 서블릿 -> 자바 작업
+3. 서블릿의 업무 완료 -> (데이터 전달) -> JSP 호출
+4. 호출된 JSP -> HTML 문서 작업
+5. HTML 문서를 브라우저에게 전달한다.
+
+이걸 JSP Model 2 라고 부른다
+
+JSP Model 1: 자바 코드와 클라이언트 코드를 1장의 JSP 페이지에 작성하는 방식
+JSP Model 2(Mvc라는 이름의 디자인 패턴): 자바 코드는 서블릿 + 클라이언트 코드는 JSP
+
+"com.test.mvc" -> Hello.java
+webapp -> hello.jsp

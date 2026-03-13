@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourcePerFileMappings">
+    <file url="file://$PROJECT_DIR$/../server/AuthTest/script.sql" value="b8339102-6d55-4a7d-afcc-c64c0c34ddcd" />
     <file url="file://$PROJECT_DIR$/../server/JDBCTest/script.sql" value="b8339102-6d55-4a7d-afcc-c64c0c34ddcd" />
     <file url="file://$PROJECT_DIR$/../server/Memo/script.sql" value="b8339102-6d55-4a7d-afcc-c64c0c34ddcd" />
+    <file url="file://$PROJECT_DIR$/../server/Todo/script.sql" value="b8339102-6d55-4a7d-afcc-c64c0c34ddcd" />
     <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/36825232-b025-4173-a93b-c707b0fe5337/console.sql" value="36825232-b025-4173-a93b-c707b0fe5337" />
     <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/36825232-b025-4173-a93b-c707b0fe5337/console_1.sql" value="36825232-b025-4173-a93b-c707b0fe5337" />
     <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/36825232-b025-4173-a93b-c707b0fe5337/console_10.sql" value="36825232-b025-4173-a93b-c707b0fe5337" />
@@ -26,6 +28,5 @@
     <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/36825232-b025-4173-a93b-c707b0fe5337/console_7.sql" value="36825232-b025-4173-a93b-c707b0fe5337" />
     <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/36825232-b025-4173-a93b-c707b0fe5337/console_8.sql" value="36825232-b025-4173-a93b-c707b0fe5337" />
     <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/36825232-b025-4173-a93b-c707b0fe5337/console_9.sql" value="36825232-b025-4173-a93b-c707b0fe5337" />
-    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/b8339102-6d55-4a7d-afcc-c64c0c34ddcd/console.sql" value="b8339102-6d55-4a7d-afcc-c64c0c34ddcd" />
   </component>
 </project>

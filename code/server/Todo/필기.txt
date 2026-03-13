@@ -1,0 +1,29 @@
+새 프로젝트
+- Dynamic Web Project -> "Todo" -> "todo" + web.xml(v)
+
+할일 관리 사이트
+- JSP Model 2
+- JDBC
+
+DB
+- script.sql
+
+라이브러리 설치
+- lib 폴더에 ojdbc11.jar, jstl-1.2.jar, lombok.jar
+
+패키지 구조 + 디렉토리 구조 + 파일 생성
+- com.test.todo -> Main.java(시작 페이지)
+				-> AddOk.java(글쓰기 페이지)
+				-> CheckOk.java(수정 페이지)
+				-> DelOk.java(삭제 페이지)
+			
+- webapp -> css -> main.css
+				
+- webapp -> WEB-INF -> views -> Main.jsp(시작 페이지)
+							 -> addok.jsp(글쓰기 페이지)
+							 -> checkok.jsp(수정 페이지)
+							 -> delok.jsp(삭제 페이지) 
+							 
+com.test.todo.model -> TodoDAO.java
+					-> TodoDTO.java
+					-> DBUtil.java
