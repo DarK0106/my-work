@@ -19,7 +19,7 @@ public class LoginOk extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		HttpSession session = req.getSession();
-		
+
 		//LoginOk.java
 		//1. 데이터 가져오기(id, pw)
 		//2. DB 작업 > 계정 정보 확인?
@@ -38,30 +38,21 @@ public class LoginOk extends HttpServlet {
 		dto.setId(id);
 		dto.setPw(pw);
 		
-		// id와 pw를 맞췄을 때만
 		AuthDto result = dao.login(dto);
 		
 		if (result != null) {
-			//로그인 성공
-			// System.out.println(result);
-			
-			// 로그인 성공 -> 인증 티켓 발급
-			session.setAttribute("auth", id);
-			
+			//로그인 성공 > 인증 티켓 발급!!!
+			//System.out.println(result);
+			session.setAttribute("auth", id);		//티켓
+			session.setAttribute("authDto", dto);	//티켓 유저 정보
+						
 		} else {
 			//로그인 실패
 			
 		}
 		
-
 		resp.sendRedirect("/auth/index.do");
+		
 	}
 
 }
-
-
-
-
-
-
-

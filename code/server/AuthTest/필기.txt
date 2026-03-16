@@ -1,0 +1,73 @@
+새 프로젝트
+- Dynamic Web Project > "AuthTest" > "auth" + web.xml(v)
+
+
+웹 보안 구현
+- 로그인/로그아웃
+
+1. 인증, Authentication
+- 로그인(Login), 사인인(Signin)
+- 현재 접속자가 해당 사이트의 구성원인지 확인하는 작업
+- 본인 확인 작업(아이디, 암호) > 인증 티켓 발급
+
+2. 허가, Authorization
+- 일부 페이지 > 인증 받은 사용자 접속이 가능
+	- 접근 > 인증 티켓 유무 확인 > O > 인증 사용자 > 통과
+	                             > X > 익명 사용자 > 거절
+
+라이브러리
+- ojdbc11.jar
+- jstl-1.2.jar
+- lombok.jar
+- mylibrary.jar
+
+
+패키지 + 구조 + 파일
+
+- AuthTest > "script.sql"
+
+- "com.test.java" > "Index.java"			//시작 페이지
+- "com.test.java.auth" > "Login.java"		//로그인(폼)
+                       > "LoginOk.java"		//로그인(처리)
+                       > "LogoutOk.java"	//로그아웃(처리)
+- "com.test.java.member" > "Member.java"	//회원 전용
+- "com.test.java.admin"  > "Admin.java"		//관리자 전용
+
+- "com.test.java.model"  > "AuthDao.java"
+                         > "AuthDto.java"
+
+- webap > WEB-INF > "views" > "index.jsp"
+					        > "auth" > "login.jsp"
+					        > "member" > "member.jsp"
+					        > "admin" > "admin.jsp"
+
+URL 설계
+- /index.do
+
+- /auth/login.do
+- /auth/loginok.do
+- /auth/logoutok.do
+
+- /member/member.do
+- /admin/admin.do
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

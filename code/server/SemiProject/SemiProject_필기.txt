@@ -1,0 +1,99 @@
+새 프로젝트
+- Dynamic Web Project > "SemiTest" > "semi" + web.xml(v)
+
+새로운 프로젝트의 골격 역할을 하는 세미 프로젝트
+- 회원 관리
+- 게시판(CRUD)
+- 누구라도 업무 이해(게시판에서 무슨 일이 왜 일어나는지)를 할 수 있고
+- 모든 프로젝트의 기본기 역할을 하는 게시판 페이지
+
+1. 주제
+	- 미정
+	
+2. 요구분석
+	- 회원 관리
+		- 가입
+		- 인증
+		- 탈퇴
+	- 게시판
+	- 기타 기능
+	
+3. 페이지 구성(순서도 또는 관계도)
+	- https://draw.io
+	
+4. 화면 설계도(와이어 프레임)
+	- 생략
+	
+5. 스토리 보드
+	- 생략
+	
+6. 데이터베이스
+	- ERD
+
+7. 스크립트
+	- DDL, DML
+	- SemiProject -> ddl.sql
+				  -> dml.sql
+	
+8. 구현
+	- 패키지 -> 서블릿
+	- 폴더 -> JSP
+	- 기타
+	
+	- com.test.semi: 메인 패키지
+		- Index.java: 시작 페이지
+		- Template.java: 기본 베이스가 되는 코드(템플릿)
+	
+	- com.test.semi.user: 회원 패키지
+		- UserService.java: 서비스 계층(객체)
+		- Register.java: 회원 가입(폼 + 처리)
+		- Unregister.java: 회원 탈퇴
+		- Login.java: 로그인
+		- Logout.java: 로그아웃
+		- Info.java: 회원정보
+		
+	- com.test.semi.model
+		- UserDao.java
+		- UserDto.java
+	
+	- views
+		- index.jsp
+		- template.jsp
+		
+	- views -> user
+				- register.jsp
+				- unregister.jsp
+				- login.jsp
+				- logout.jsp
+				- info.jsp
+	
+	- 공통 리소스
+		- views -> inc
+					- asset.jsp
+					- header.jsp
+		
+		- webapp -> asset
+						- css
+							- main.css
+						- js
+							- main.js(만들진 않을 것)
+						- images
+						- pic: 프로필 사진 넣을 폴더
+	
+	- 라이브러리
+		- lib
+			- ojdbc
+			- mylibrary
+			- lombok
+			- jstl
+			- cos
+	
+9. 마무리
+
+회원 탈퇴를 해도 아이디(PK)는 남겨두고 회원 탈퇴한 사람의 특정 개인정보는
+알아볼 수 없는 무작위한 값으로 수정함(개인정보 파기), 보통 레코드 자체를 지우진 않는다
+활동유무 컬럼으로 통제함
+회원이 탈퇴해도 게시물도 회원의 개인정보기 때문에
+원래 게시물도 삭제되는게 맞지만
+활동유무 컬럼까지 만들어서 게시물을 남기려는 이유는
+만약 게시물 테이블이 쇼핑물 구매내역 테이블이라고 치면 삭제하면 안됨
