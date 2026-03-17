@@ -18,3 +18,33 @@ create table tblUser (
 commit;
 
 select * from tblUser;
+
+-- 게시판 테이블
+create table tblBoard (
+    seq number primary key, -- 글번호
+    subject varchar2(500) not null, -- 제목
+    content varchar2(500) not null, -- 내용
+    id varchar2(50) not null references tblUser(id), -- 아이디
+    regdate date default sysdate not null, -- 작성날짜
+    readcount number default 0 not null -- 조회수
+
+);
+
+create sequence seqBoard;
+
+commit;
+
+select * from tblBoard;
+
+create or replace view vwBoard
+as
+select
+    seq, subject, id, regdate, readcount,
+    (select name from TBLUSER where id = TBLBOARD.id) as name,
+    (sysdate - REGDATE) as isnew
+from tblBoard order by seq desc;
+
+update TBLBOARD set regdate = regdate - 1 where seq in (3, 4);
+update TBLBOARD set regdate = regdate - 1 where seq in (1, 2);
+
+select * from vwBoard;

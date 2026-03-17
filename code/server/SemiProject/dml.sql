@@ -12,3 +12,10 @@ insert into tblUser(id, pw, name, email, lv, pic, intro, regdate, ing)
 commit;
 
 select * from TBLUSER;
+
+select
+    seq, subject, id, regdate, readcount,
+    (select name from TBLUSER where id = TBLBOARD.id) as name
+from tblBoard order by seq desc;
+
+select a.*, (select name from TBLUSER where id = a.id) as name from tblBoard a;

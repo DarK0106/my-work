@@ -55,6 +55,22 @@
 	- com.test.semi.model
 		- UserDao.java
 		- UserDto.java
+		- BoardDao.java
+		- BoardDto.java
+		
+	- 게시판 관련 리소스
+	- com.test.semi.board
+		- List.java
+		- View.java
+		- Add.java
+		- Edit.java
+		- Del.java
+		- BoardService.java
+	
+	- 인코딩
+	- com.test.semi.filter <- web.xml에 등록
+		- EncodingFilter.java
+		- AuthFilter.java
 	
 	- views
 		- index.jsp
@@ -66,6 +82,13 @@
 				- login.jsp
 				- logout.jsp
 				- info.jsp
+	
+	- views -> board
+				- list.jsp
+				- view.jsp
+				- add.jsp
+				- edit.jsp
+				- del.jsp
 	
 	- 공통 리소스
 		- views -> inc
@@ -97,3 +120,16 @@
 원래 게시물도 삭제되는게 맞지만
 활동유무 컬럼까지 만들어서 게시물을 남기려는 이유는
 만약 게시물 테이블이 쇼핑물 구매내역 테이블이라고 치면 삭제하면 안됨
+
+(1순위)오라클 -> (2순위)서블릿, JSP -> 톰캣 -> (3순위)브라우저
+최대한 먼저 할 수 있으면 먼저 하라
+오라클에서 할 수 있는 작업이면 오라클에서 하고 끝내라
+
+게시판 인증 정책
+- CRUD
+- 목록보기, 상세보기 -> 익명(O), 인증(O)
+- 쓰기, 수정하기, 삭제하기 -> 익명(X), 인증(X) -> 노출 제어 방식
+- 구멍 막기
+
+- 수정하기, 삭제하기 -> 인증하기(O) -> 본인 글만 가능
+- 수정하기, 삭제하기 -> 관리자(모든 글에 가능)
