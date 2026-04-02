@@ -1,0 +1,32 @@
+- Spring 4.3.x > JDK 8 까지 지원
+- Spring 5.0~5.2 > JDK 8~11
+- Spring 5.3.x > JDK 8~21 //Spring 5.x 마지막 버전(안전성 높음)
+----------------------------------------------------------------
+- Spring 6.x > JDK 17~25
+- Spring 7.x > JDK 17~25
+
+
+- Spring Boot 2.7.x > Spring 5.3.x > JDK 8~21
+----------------------------------------------------------------
+- Spring Boot 3.0~3.3.x > Spring 6.0~6.1 > JDK 17~21
+- Spring Boot 3.4.x > Spring 6.2.x > JDK 17~25
+- Spring Boot 3.5.x > Spring 6.2.x > JDK 17~25 //Spring Boot 3.x 마지막 버전(안전성 높음)
+- Spring Boot 4.x > Spring 7.x > JDK 17~25
+
+
+- Tomcat 9.0.x > JDK 8~11 //Spring Boot 2.x(Spring 5.x)로 할 수 있는 톰캣 마지막 버전
+----------------------------------- JAVA EE(javax.*) > Jakarta EE(jakarta.*)
+- Tomcat 10.0.x > JDK 8~17  //과도기 버전. 안쓴다.
+- Tomcat 10.1.x > JDK 11~21 //Spring Boot 3.x 이상은 반드시 이버전 이후의 톰캣을 사용. 실행(JDK 11이상), 빌드(JDK 17이상)
+- Tomcat 11.0.x > JDK 17~25 //실행(JDK 17이상), 빌드(JDK 22이상)
+    
+
+- Spring > JDK 11 + Spring 5.3.39 + STS 3
+- Spring Boot > JDK 17 + Spring 6.x + Spring Boot 3.x + STS 4
+
+
+
+
+
+
+

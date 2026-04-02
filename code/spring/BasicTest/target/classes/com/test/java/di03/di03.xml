@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- more bean definitions go here -->
+
+	<!-- 
+		Spring Bean
+		- 자바 객체(new Hong())
+		- 스프링 컨테이너에 의해서 관리되는 자바 객체
+		
+		스프링을 통해 객체 생성
+		1. XML -> bean 정의(선언)
+		2. 스프링 컨테이너 생성
+		3. 빈(오브젝트) 생성 -> 빈(오브젝트) 반환
+	
+	-->
+	
+	<!-- Bean 1개 선언 == 객체 1개 선언 -->
+	<!-- 아직 객체를 만든게 아니고 getBean을 써야함 -->
+	<bean class="com.test.java.di03.Hong" id="hong"></bean>
+	<bean class="com.test.java.di03.Lee" id="lee"></bean>
+</beans>

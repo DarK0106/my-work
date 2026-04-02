@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- context.getBean("hong") -> new Hong() 호출 -->
+	<bean class="com.test.java.di04.Hong" id="hong"></bean>
+	
+	<bean class="com.test.java.di04.Lee" id="lee"></bean>
+	
+	<!-- Spring DI -->
+	<!-- context.getBean("service") -> new Service() 호출 -->
+	<bean class="com.test.java.di04.Service" id="service">
+		<!-- 그럼 무조건 기본 생성자만 호출할수있나? 그건아님 -->
+		<!-- <constructor-arg>
+			<bean class="com.test.java.di04.Hong" id="hong"></bean>
+		</constructor-arg> -->
+		<!-- <constructor-arg ref="hong"></constructor-arg> -->
+		<property name="employee" ref="lee"></property>
+	</bean>
+</beans>
