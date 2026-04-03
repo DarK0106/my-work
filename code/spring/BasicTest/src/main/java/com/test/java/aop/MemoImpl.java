@@ -41,7 +41,7 @@ public class MemoImpl implements Memo {
 //		logger.log();
 
 		System.out.println("메모 삭제하기: " + seq);
-		return true;
+		return false;
 	}
 
 }

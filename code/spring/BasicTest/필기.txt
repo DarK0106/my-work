@@ -93,3 +93,9 @@ AOP
 인터페이스와 그걸 구현하는 구현 클래스
 인터페이스 이름: IMemo, Memo
 구현 클래스: Memo, MemoImpl
+
+새 프로젝트
+- Spring Legacy Project -> Spring MVC Project -> "WebTest"
+-> "com.test.java"
+여기서 루트 컨텍스트 이름은 STS가 자동으로 java로 설정함
+-> 문제: 루트 컨텍스트 이름 중복되면 톰캣 에러(톰캣 -> Modules)

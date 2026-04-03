@@ -45,8 +45,8 @@
 			
 			- within() 지시자 
 			-->
-			<aop:pointcut expression="execution(public void com.test.java.aop.MemoImpl.add(String))" id="p1"/>
-			<aop:pointcut expression="execution(public String com.test.java.aop.MemoImpl.read(String))" id="p2"/>
+			<aop:pointcut expression="execution(public void com.test.java.aop.MemoImpl.addMemo(String))" id="p1"/>
+			<aop:pointcut expression="execution(public String com.test.java.aop.MemoImpl.readMemo(String))" id="p2"/>
 			<aop:pointcut expression="execution(public boolean com.test.java.aop.MemoImpl.edit(String,String))" id="p3"/>
 			<aop:pointcut expression="execution(public boolean com.test.java.aop.MemoImpl.del(String))" id="p4"/>
 			<aop:pointcut expression="execution(public * com.test.java.aop.MemoImpl.*(..))" id="p5"/>
@@ -93,8 +93,27 @@
 			<!-- add랑 read는 이름에 Memo 들어가게 바꾸고 그 공통점으로 묶어서 붙일 수 있음 -->
 			<!-- <aop:after method="log" pointcut-ref="p7" /> -->
 			
-			<aop:after method="log" pointcut-ref="p8" />
+			<!-- <aop:after method="log" pointcut-ref="p8" /> -->
 			
+			<!-- 글쓰기 기능에 로그 기능 결합하기 -->
+			<!-- 주 업무 다음에 보조 업무 -->
+			<!-- <aop:after method="log" pointcut-ref="p1"/> -->
+			
+			<!-- 보조 업무 다음에 주 업무(예: 권한 체크) -->
+			<!-- aop끼리 충돌만 없으면 중첩 가능 -->
+			<!-- <aop:before method="log" pointcut-ref="p1"/> -->
+			<!-- <aop:before method="test" pointcut-ref="p1"/> -->
+			
+			<!-- 보조 업무 -> 주 업무 -> 보조 업무 -->
+			<!-- <aop:around method="time" pointcut-ref="p1"/> -->			
+			<!-- <aop:around method="time" pointcut-ref="p4"/> -->
+			
+			<!-- 주 업무 -> 주 업무가 반환값을 보조 업무에게 전달 -> 보조 업무 -->
+			<!-- <aop:after-returning method="checkValid" pointcut-ref="p4" returning="result"/> -->
+			
+			<!-- 주 업무 -> 주 업무가 반환값을 보조 업무에게 전달 -> 보조 업무 -->
+			<!-- 에러가 날 때만 실행하는 보조 업무 -->
+			<aop:after-throwing method="logException" pointcut-ref="p2" throwing="e"/>			
 		</aop:aspect>
 	</aop:config>
 

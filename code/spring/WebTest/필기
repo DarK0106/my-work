@@ -1,0 +1,72 @@
+버전 변경
+~pom.xml~
+	- 자바 버전 11로 바꾸기
+	- 스프링 버전 5.0.7로 바꾸기
+	- 롬복 복사붙여넣기
+	
+프로젝트 properties -> facets -> 자바 11로 바꾸기
+프로젝트 우클릭 -> Maven -> update project
+
+Spring Framework 기반 web 구현
+
+Spring MVC Project에서 제공되는 스프링 설정 파일
+스프링 설정 파일의 목적은 단 하나: 빈을 만드는 것
+- root-context.xml
+	- 사이트 정체에 영향을 미치는 설정
+	- DB 설정이 여기 들어감
+	- 보안 설정이 여기 들어감
+- servlet-context.xml
+	- 브라우저의 요청과 관련된 설정만
+	- 요청과 응답 설정이 여기 들어감
+
+- "com.test.java.controller" -> "Ex01Controller.java"
+- views -> "ex01.jsp"
+
+- "com.test.java.controller" -> "Ex02Controller.java"
+- views -> "ex02.jsp"
+
+- "com.test.java.controller" -> "Ex03Controller.java"
+- views -> "ex03.jsp"
+
+- "com.test.java.controller" -> "Ex04Controller.java"
+							 -> "Ex04GetController.java"
+							 -> "Ex04PostController.java"
+- views -> "ex04.jsp"
+		-> "ex04get.jsp"
+		-> "ex04post.jsp"
+
+서블릿에서 서블릿 1개로 doGet doPost를 전부 구현해서
+JSP 두개를 연결하는 작업을 했었음
+- "com.test.java.controller" -> "Ex05Controller.java"
+- views -> "ex05.jsp"
+		-> "ex05get.jsp"
+		-> "ex05post.jsp"
+
+톰캣이 시작할때 web.xml을 읽고 시작함
+
+이클립스 특징
+1. 정적 파일 수정
+	- 톰캣(X), 브라우저(새로고침)
+2. JSP 파일 수정
+	- 톰캣(X), 브라우저(새로고침)
+3. 자바 파일 수정
+	- 잠시 기다리면 톰캣이 자동으로 재시작됨
+	- 잠시 기다리면 -> 재시작(X) -> 톰캣(직접 재시작)
+4. XML 수정
+	- 톰캣(직접 재시작)
+	
+데이터 입력해서 전송하고 수신하는 과정까지 해보자
+- com.test.java.controller -> "Ex06Controller.java"
+- com.test.java.model -> "AddressDTO.java"
+
+- views -> "ex06.jsp"
+		-> "ex06ok.jsp"
+		
+요청 메서드의 반환값 종류
+- com.test.java.controller -> "Ex07Controller.java"
+- views -> "ex07.jsp"
+
+- com.test.java.controller -> "Ex08Controller.java" // 사장(Main)
+- com.test.java.service -> "SpringService.java" // 팀장(Service)
+- com.test.java.model -> "SpringDAO.java" // 팀원(홍길동, 이순신)
+- views -> "ex08.jsp"
