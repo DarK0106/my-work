@@ -70,3 +70,57 @@ JSP 두개를 연결하는 작업을 했었음
 - com.test.java.service -> "SpringService.java" // 팀장(Service)
 - com.test.java.model -> "SpringDAO.java" // 팀원(홍길동, 이순신)
 - views -> "ex08.jsp"
+
+- com.test.java.controller -> "Ex09Controller.java" // 사장(Main)
+- com.test.java.service -> "DIService.java" // 팀장(Service)
+- com.test.java.model -> "DIDAO.java" // 팀원(홍길동, 이순신)
+- views -> "ex09.jsp"
+
+새 프로젝트
+- "MyBatisTest" -> com.test.mybatis
+
+Spring 5.x.x의 공식적인 마지막 버전 -> 5.3.9(Stable)
+
+DB 작업
+- "MyBatisTest" -> "script.sql"
+
+1. JDBC
+	- 기본
+	- 코드 반복 발생
+	- SQL 작성 불편
+	
+2. Spring JDBC
+	- 스프링 -> JDBC를 편하게
+
+3. MyBatis
+	- 영속성 계층
+	- JDBC를 Wrapping해서 편하게 사용
+	- XML을 사용해 SQL을 작성
+	- SQL Mapper Framework
+		- 우리가 쿼리를 날리면 그 결과를 객체로 만들어줌
+	
+	
+4. JPA
+	- 영속성 계층
+	- DB구조: OOP 구조
+	- DB를 자바처럼 조작한다
+	- ORM
+	
+패키지와 파일
+- "com.test.mybatis.controller -> MybatisController.java
+- "com.test.mybatis.model -> MyBatisDao.java
+						  -> AddressDto.java
+						  
+- views -> result.jsp
+		-> list.jsp
+		-> add.jsp
+
+MyBatis 설정하기
+1. 의존성
+
+2. 스프링에서 MyBatis 설정하기
+	- root-context.xml 조작
+	
+단위 테스트?
+	- 어떤 클래스가 정상적으로 동작하는지 테스트하기위해
+	- src/test/resources 가서 똑같은 클래스 이름 뒤에 Tests붙이기

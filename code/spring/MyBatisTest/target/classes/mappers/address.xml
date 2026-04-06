@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- src/main/resources -> mappers -> address.xml -->
+<!-- XML Mapper -->
+<mapper namespace="address">
+	<select id="time" resultType="String">
+		select sysdate from dual
+	</select>
+	
+	<insert id="m1">
+		insert into TBLADDRESS (seq, name, age, address, gender) VALUES (seqAddress.nextval,'홍길동', 20, '서울시 강남구 대치동', 'm');
+	</insert>
+	
+	<!-- 넘어오는 값이 있으면 반드시 parameterType=""를 써야함 -->
+	<update id="m2" parameterType="String">
+		update tblAddress set
+			age = age + 1
+				where seq = #{seq}
+	</update>
+	
+	<update id="m3" parameterType="java.util.HashMap">
+	<!-- JDBC에선 ? 를 썼지만 MyBatis에서는 #바인딩을 해야한다 -->
+		update tblAddress set
+			name = #{name},
+			age = #{age},
+			address = #{address},
+			gender = #{gender}
+				where seq = #{seq}
+	</update>
+	<!-- 방금 넘어온 변수의 풀네임을 parameterType에 적어라 -->
+	<update id="m4" parameterType="com.test.mybatis.model.AddressDto">
+		update tblAddress set
+			name = #{name},
+			age = #{age},
+			address = #{address},
+			gender = #{gender}
+				where seq = #{seq}
+	</update>
+	
+	<select id="m5" parameterType="String" resultType="String">
+	<!-- PK 하나 주면 이름을 가져오고 싶다고 했으니 -->
+		select name from tblAddress where seq = #{seq}
+	</select>
+	
+	<select id="m6" parameterType="String" resultType="adto">
+		<!-- 매개변수는 똑같고 컬럼을 다 가져오기로 했으니까 * 사용 -->
+		select * from tblAddress where seq = #{seq}
+	</select>
+	
+	<!-- ListString이 아니고 그냥 String으로 반환하는 이유가 뭘까? -->
+	<!-- template.selectList("m7")로 표현했기 때문에 구분 가능함 -->
+	<!-- resultType은 레코드 1개를 담을 자료형을 지정 -->
+	<!-- 어떻게 가져올지는 template.selectList 여기 메서드에서 정함 -->
+	<select id="m7" resultType="String">
+		select name from tblAddress
+	</select>
+	
+	<select id="m8" resultType="adto">
+		select * from tblAddress
+	</select>
+</mapper>
