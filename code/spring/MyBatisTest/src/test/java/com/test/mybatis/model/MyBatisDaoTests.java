@@ -3,6 +3,7 @@ package com.test.mybatis.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,6 +12,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import oracle.net.jdbc.TNSAddress.Address;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({ "file:src/main/webapp/WEB-INF/spring/root-context.xml",
@@ -92,6 +95,61 @@ public class MyBatisDaoTests {
 		List<AddressDto> list = dao.m8();
 		
 		assertEquals(6, list.size());
+		
+		System.out.println(list);
+	}
+	
+	@Test
+	public void testM10() {
+		// 나이가 10살 이상인 애들만 찾으라고 테스트
+		List<AddressDto> list = dao.m10(10);
+		
+		// 결과 레코드의 개수가 3개면 테스트 성공
+		assertEquals(3, list.size());
+	}
+	
+	@Test
+	public void testM11() {
+		List<AddressDto> list = dao.m11("강동");
+		
+		assertEquals(3, list.size());
+	}
+	
+	@Test
+	public void testM12() {
+		List<AddressDto> list = dao.m12("f");
+		
+		assertEquals(2, list.size());
+	}
+	
+	@Test
+	public void testM13() {
+		
+		AddressDto dto = new AddressDto();
+		dto.setAge("20");
+		dto.setGender("m");
+		dto.setAddress("강남");
+		
+		List<AddressDto> list = dao.m13(dto);
+		
+//		assertEquals(2, list.size());
+		System.out.println(list);
+	}
+	
+	@Test
+	public void testM14() {
+		
+		List<String> buseo = Arrays.asList("영업부", "총무부", "개발부");
+		
+		List<InsaDto> list = dao.m14(buseo);
+		
+		System.out.println(list);
+		
+	}
+	
+	@Test
+	public void testM16() {
+		List<AddressPointDto> list = dao.m16();
 		
 		System.out.println(list);
 	}

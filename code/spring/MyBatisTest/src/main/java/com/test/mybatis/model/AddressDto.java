@@ -13,4 +13,6 @@ public class AddressDto {
 	private String age;
 	private String address;
 	private String gender;
+	
+	private PointDto pdto; // 자식 객체
 }

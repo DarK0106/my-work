@@ -1,0 +1,18 @@
+새 프로젝트
+파일 업로드 연습용 프로젝트
+
+Maven 설정
+- pom.xml 확인
+
+파일 업로드 설정
+1. 업로드 파일 저장 폴더
+	- webapp -> resources -> "files"
+	
+2. web.xml 수정
+3. servlet-context.xml
+	- 파일 업로드를 처리하는 빈을 만들어야 함
+	
+패키지 + 파일
+com.test.file.controller -> FileController.java
+views -> ex01.java
+	  -> ex01ok.java
