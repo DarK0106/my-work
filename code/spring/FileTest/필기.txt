@@ -16,3 +16,5 @@ Maven 설정
 com.test.file.controller -> FileController.java
 views -> ex01.java
 	  -> ex01ok.java
+	  -> ex02.java
+      -> ex02ok.java

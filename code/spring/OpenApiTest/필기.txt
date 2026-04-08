@@ -1,0 +1,34 @@
+새 프로젝트
+- OpenApiTest -> com.test.api
+
+pom.xml
+- 이전 프로젝트에서 사용한 pom.xml 복사 후
+<groupId>com.test</groupId>
+<artifactId>api</artifactId>
+<name>OpenApiTest</name>
+위 부분 확인
+
+- root-context.xml -> HikariCP + DataSource + SqlSessionTemplate
+MyBatis 수업때 사용한 root-context.xml 재활용
+
+web.xml
+- 인코딩 필터
+
+Open API
+- 개발자라면 누구나 사용할 수 있도록 공개된 API
+- 서버에서 구현된 기능을 네트워크를 통해 연결해서 내가 사용
+- 실제 동작은 남이 하고 나는 입력과 출력만 함
+
+패키지 + 파일
+com.test.api.naver
+
+com.test.api.controller -> BookController.java
+com.test.api.model -> BookDao.java
+                   -> BookDto.java
+                   
+지도 API
+- 카카오맵 API 사용
+- com.test.api.controller -> "MapController.java"
+- com.test.api.model -> "MapDao.java"
+                     -> "MapDto.java"
+- views -> "map01.jsp"

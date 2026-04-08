@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- XML Mapper -->
+<mapper namespace="map">
+    <select id="list" resultType="com.test.api.model.MapDto">
+        select * from tblMarker
+    </select>
+    
+    <insert id="add" parameterType="com.test.api.model.MapDto">
+        insert into tblMarker values (seqMarker.nextVal, #{lat}, #{lng})
+    </insert>
+</mapper>
