@@ -1,0 +1,54 @@
+새 프로젝트
+- AjaxTest -> com.test.ajax
+
+pom.xml
+- 이전 프로젝트에서 사용한 pom.xml 복사 후
+<groupId>com.test</groupId>
+<artifactId>api</artifactId>
+<name>OpenApiTest</name>
+위 부분 확인
+
+- root-context.xml -> HikariCP + DataSource + SqlSessionTemplate
+MyBatis 수업때 사용한 root-context.xml 재활용
+
+web.xml
+- 인코딩 필터
+
+xml 3개와 properties 1개를 복사해와야함
+
+Ajax
+- Asynchronous JavaScript and XML
+- 비동기 자바스크립트 + XML
+- 자바스크립트를 사용해서 서보아 비동기 통신을 하는 기술, 주고 받는 데이터의 형식이 XML
+- 클라이언트(브라우저)와 서버(데이터 서버)와 XML형식의 데이터를 주고 받는 자바스크립트
+비동기 통신 기법
+
+XMLHttpRequest 객체( = ajax 객체)가 전화기 역할이라 이걸 사용해서 통신하는 것
+
+Ajax의 장단점
+- 화면 깜빡임(새로고침) 없이 서버와 데이터 통신이 가능하다
+-최소한의 필요한 데이터 송/수신을 한다. -> 트래픽 감소(비용 절감), 통신 속도 빠름
+
+구글지도에서의 Ajax
+지도는 여러 조각 이미지들이 연속적으로 보여지는것
+내가 드래그해서 옆으로 이동했다 라는 이벤트가 발생하면
+원래는 안보였던 조각 이미지를 서버랑 통신해서 서버로부터 받아와서
+잽싸게 원래 안 보였던 조각 이미지를 가져다 보여주는것
+
+네이버 검색창에서의 Ajax
+내가 키보드 이벤트를 발생한 순간 서버에 요청해서 DB에서 연관 검색어를
+select한 다음 검색창 밑에 연관검색어로 보여주는것
+
+패키지 + 파일
+
+- "com.test.java.controller" -> "AjaxController.java"
+- "com.test.java.model" -> "AjaxDao.java"
+                        -> "AddressDto.java"
+                        
+- views                 -> ex01.jsp
+                        -> ex02.jsp
+                        -> ex03.jsp
+                        -> ex04.jsp
+                        -> ex05.jsp
+                        -> ex06.jsp
+                        -> ex07.jsp

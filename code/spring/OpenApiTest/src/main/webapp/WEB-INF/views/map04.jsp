@@ -15,7 +15,7 @@
     }
 </style>
 <body>
-    <!-- map01.jsp -->
+    <!-- map04.jsp -->
     <h1>Kakao Map <small>마커</small></h1>
     
     <div>

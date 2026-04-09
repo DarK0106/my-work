@@ -56,3 +56,15 @@ from TBLINSA a
         on a.NUM = p.NUM;
 
 select * from tblProject;
+
+create table tblUser (
+    id varchar2(30) primary key ,
+    pw varchar2(30) not null ,
+    name varchar2(30) not null
+);
+
+insert into tblUser values ('hong', '1111', '홍길동');
+insert into tblUser values ('dog', '1111', '강아지');
+insert into tblUser values ('cat', '1111', '고양이');
+
+commit ;

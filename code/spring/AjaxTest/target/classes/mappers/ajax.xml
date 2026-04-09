@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- XML Mapper -->
+<mapper namespace="ajax">
+    <select id="countAddress" resultType="int">
+        select count(*) from tblAddress
+    </select>
+    
+    <select id="getName" resultType="string">
+        select name from tblAddress where seq = #{_parameter}
+    </select>
+    
+    <select id="checkId" parameterType="string" resultType="int">
+        select count(*) from tblUser where id = #{_parameter}
+    </select>
+    
+    <select id="listUser" resultType="com.test.ajax.model.UserDto">
+        select * from tblUser
+    </select>
+</mapper>

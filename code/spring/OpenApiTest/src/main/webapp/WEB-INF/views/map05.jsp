@@ -15,7 +15,7 @@
     }
 </style>
 <body>
-    <!-- map01.jsp -->
+    <!-- map05.jsp -->
     <h1>Kakao Map <small>마커 추가하기</small></h1>
     
     <div>
