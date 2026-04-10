@@ -52,3 +52,13 @@ select한 다음 검색창 밑에 연관검색어로 보여주는것
                         -> ex05.jsp
                         -> ex06.jsp
                         -> ex07.jsp
+                        
+                        
+서버와 클라이언트 완전 분리
+
+REST Server 역할
+- com.test.ajax.controller -> "ServerController.java"
+
+Client 역할
+- com.test.ajax.controller -> "ClientController.java"
+- views -> "ex08.jsp"

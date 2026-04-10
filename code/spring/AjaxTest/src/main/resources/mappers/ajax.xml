@@ -20,4 +20,29 @@
     <select id="listUser" resultType="com.test.ajax.model.UserDto">
         select * from tblUser
     </select>
+    
+    <select id="list" resultType="com.test.ajax.model.AddressDto">
+        
+        select a.* from (select * from tblAddress order by seq desc) a
+            where rownum &lt;=5
+           
+    </select>
+    
+    <insert id="add" parameterType="com.test.ajax.model.AddressDto">
+        insert into tblAddress
+            values (seqAddress.nextVal, #{name}, #{age}, #{address}, #{gender})
+    </insert>
+    
+    <delete id="del" parameterType="com.test.ajax.model.AddressDto">
+        delete from tblAddress where seq = #{_parameter}
+    </delete>
+    
+     <select id="more" parameterType="map" resultType="com.test.ajax.model.AddressDto">
+        
+        select * from
+        (select a.*, rownum as rnum from 
+            (select * from tblAddress order by seq desc) a)
+        where rnum between #{begin} and #{end}
+           
+    </select>
 </mapper>

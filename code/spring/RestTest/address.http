@@ -1,0 +1,38 @@
+// address.http
+// REST Client 확장 프로그램 써보기
+
+// 주소록 추가하기
+POST http://localhost:8080/rest/address
+Content-Type: application/json
+
+{
+    "name": "붕어",
+    "age": "34",
+    "gender": "m",
+    "address": "서울시 강남구 역삼동 555"
+}
+
+###
+
+// ### 이 구분자가 있어야 구분 가능함
+// 주소록 목록 보기
+GET http://localhost:8080/rest/address
+
+###
+
+// 수정하기
+PUT http://localhost:8080/rest/address/2
+Content-Type: application/json
+
+{
+    "name": "엄붕어",
+    "age": "52",
+    "gender": "f",
+    "address": "서울시 강남구 역삼동 522"
+}
+
+###
+
+// 삭제하기
+DELETE http://localhost:8080/rest/address/2
+Content-Type: application/json

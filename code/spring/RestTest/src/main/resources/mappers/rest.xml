@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- XML Mapper -->
+<mapper namespace="rest">
+    <select id="m1" resultType="com.test.rest.model.AddressDto">
+        select * from tblAddress where seq = 1
+    </select>
+    
+    <insert id="add" parameterType="com.test.rest.model.AddressDto">
+        insert into tblAddress(seq, name, age, gender, address)
+            values (seqAddress.nextval, #{name}, #{age}, #{gender}, #{address})
+    </insert>
+    
+    <select id="list" resultType="com.test.rest.model.AddressDto">
+        select * from tblAddress
+    </select>
+    
+    <update id="edit" parameterType="com.test.rest.model.AddressDto">
+        update tblAddress set
+            name = #{name},
+            age = #{age},
+            gender = #{gender},
+            address = #{address}
+                where seq = #{seq}
+    </update>
+    
+    <delete id="del" parameterType="string">
+        delete from tblAddress where seq = #{_parameter}
+    </delete>
+</mapper>

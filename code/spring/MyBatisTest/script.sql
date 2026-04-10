@@ -18,7 +18,6 @@ insert into TBLADDRESS (seq, name, age, address, gender) VALUES (seqAddress.next
 insert into TBLADDRESS (seq, name, age, address, gender) VALUES (seqAddress.nextval,'남궁준식', 124, '포르투갈', 'm');
 
 select * from tblAddress;
-select * from TBLPOINT;
 
 commit;
 
@@ -68,3 +67,12 @@ insert into tblUser values ('dog', '1111', '강아지');
 insert into tblUser values ('cat', '1111', '고양이');
 
 commit ;
+
+select * from tblAddress;
+
+select a.* from (select * from tblAddress order by seq desc) a
+            where rownum <= 5;
+
+select * from
+             (select a.*, ROWNUM as rnum from (select * from tblAddress order by seq desc ) a)
+where rnum between 11 and 15;
