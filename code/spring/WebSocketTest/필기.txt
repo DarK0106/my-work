@@ -1,0 +1,94 @@
+웹 소켓, WebSocket
+- 소켓(Socket) -> 네트워크상 호스트간의 데이터를 주고받는 규약(인터페이스_
+- WebSocket -> ws 프로토콜을 기반으로 웹 클라이언트(js)와 서버 사이에 통신을 제공하는 기술
+
+개념 비교
+1. 이전 환경
+    - 웹서버 <- (데이터) -> 브라우저
+    - 비연결 지향
+    - 클라이언트의 의지만으로 서로 연결이 가능
+    - 굳이 따지자면 편지와 유사함
+    
+2. 이전 환경(ajax)
+    - 웹서버 <- (데이터) -> XMLHttpRequest 객체
+    - 비연결 지향
+    - 클라이언트의 의지만으로 서로 연결이 가능
+    - 굳이 따지자면 편지와 유사함
+    
+3. 소켓 환경(ws)
+    - 웹 소켓 <- (데이터) -> 웹 소켓
+    - 연결 지향
+    - 전화기와 유사함
+    ex) 카톡
+    
+소켓 동작
+1. 호스트A, 호스트B
+
+2. 호스트A -> 소켓(전화기) 생성 + IP주소(+포트번호)
+*IP주소(+포트번호) 이걸 종단점이라고 한다*
+3. 호스트B -> 소켓(전화기) 생성 + IP주소(+포트번호)
+
+A가 B한테 전화를 걸려면 B의 전화번호(IP주소(+포트번호))가 있어야함
+서로 전화번호를 알려줘야 하는게 아니고, 이미 서로의 전화번호를 알고 있는 상태에서 전화하는 것
+
+4. 호스트B가 전화를 받는 사람, 즉 서버 역할이다. 미리 수신 대기 준비를 한다(Listener)
+5. 호스트A는 전화를 거는 사람, 즉 클라이언트 역할이다. 호스트B의 종단점과 연결을 시도한다.
+6. 호스트B가 호스트A의 연결을 수락했다.
+7. 호스트A와 호스트B가 서로 연결되었다. 서로간의 데이터를 송수신한다.
+8. 호스트A, 호스트B가 연결을 종료한다.
+
+A가 B의 리스너와 연결되면 B쪽에서 새로운 연결점? 을 바로 만들어서 
+A와 B의 전화를 하기 위한 연결? 이 새로 생긴다
+
+
+-- WebSocketTest --
+패키지와 파일들
+
+클라이언트 역할
+com.test.socket.controller -> SocketController.java
+views -> socket.jsp
+
+서버 역할
+com.test.socket.server -> SocketServer.java
+
+-- 채팅 서비스를 만들어보자 --
+DB는 사용하지 않음
+채팅방도 따로 만들진 않음
+채팅의 형태는 그룹 채팅
+DB를 사용하려면 오라클, MongoDB, Redis를 사용
+
+패키지와 파일들
+com.test.socket.controller -> "ChatController.java"
+views -> index.jsp -> 홈 화면(대화명 입력 + 방 들어가기)
+      -> chat.jsp  -> 채팅 화면
+      
+com.test.socket.server -> ChatServer.java
+com.test.socket.model -> Message.java <- 이게 DTO 역할임. 원래 수업이니까 MessageDto 이렇게 한거지
+원래 잘 안 붙임
+
+com.test.java.model -> DAO, DTO <- 지금까지 이렇게 해왔는데, 이건 규모가 작아서 가능한것
+
+~권장~
+com.test.java.repository -> DAO
+com.test.java.model -> DTO
+        또는 .domain -> DTO
+        또는 .dto -> DTO
+        
+DAO, DTO가 너무 많으니까 분리하려고 이렇게 하는 것
+
+HTTP 프로토콜 -> 통신 규약
+
+POST http://test.com HTTP 1.1
+
+메타 데이터는 Content-type 이런 형식의 "application/json; charset=UTF-8" 이런 데이터를 넣자
+Content-type "application/json; charset=UTF-8"
+{
+    "name": "홍길동
+}
+
+이런걸 미리 다 설계를 해놓고 그걸 기반으로 웹페이지를 만든다
+HTTP 프로토콜은 우리가 직접 만드는 것
+
+프로토콜 설계
+1. 상태 코드 정의
+2. 데이터 구조 정의
