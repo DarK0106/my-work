@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:security="http://www.springframework.org/schema/security"
+    xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 스프링 빈 선언 -->
+    <!-- 403 핸들러 -->
+    <!-- XML로 빈 만들기 -->
+    <bean class="com.test.java.auth.CustomAccessDeniedHandler"
+        id="customAccessDeniedHandler"></bean>
+        
+    <!-- 스프링 빈 선언 -->
+    <!-- 로그인 성공 핸들러 -->
+    <bean class="com.test.java.auth.CustomLoginSuccessHandler"
+        id="customLoginSuccessHandler"></bean>
+
+    <!-- 스프링 빈 선언 -->
+    <!-- 패스워드 인코더 빈(임시로 만든 인코더) -->
+    <!-- <bean class="com.test.java.auth.CustomNoOpPasswordEncoder"
+        id="customNoOpPasswordEncoder"></bean> -->
+        
+    <!-- 스프링 빈 선언 -->
+    <!-- 13. 실제 사용할 PasswordEncoder 생성하기: blowfish 알고리즘 -->
+    <bean class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" id="bCryptPasswordEncoder"/>
+        
+
+    <!-- 필기 4. security-context.xml 기본 설정 -->
+    <!-- <security:http> form 방식으로 로그인하겠다 <security:form-login /> </security:http> 
+        인증 관리자 <security:authentication-manager></security:authentication-manager> -->
+    <!-- 필기 4. security-context.xml 기본 설정 -->
+
+    <!-- 6. 로그인/ 로그아웃 구현 -->
+    <security:http>
+        <!-- 허가 설정 -->
+        <!-- 익명, 인증된 사용자 모두 허용 -->
+        <security:intercept-url
+            pattern="/index.do" access="permitAll" />
+
+        <!-- 로그인한 회원만 허용 -->
+        <security:intercept-url
+            pattern="/member.do" access="hasRole('ROLE_MEMBER')" />
+
+        <!-- 관리자만 허용 -->
+        <security:intercept-url
+            pattern="/admin.do" access="hasRole('ROLE_ADMIN')" />
+
+        <!-- 8.1 403 에러 > 특정 URL 지정 -->
+        <!-- <security:access-denied-handler error-page="/accesserror.do" 
+            /> -->
+        <!-- 8.1 403 에러 > 특정 URL 지정 -->
+        <!-- 8.2 AccessDeniedHandler 구현 -->
+        <security:access-denied-handler
+            ref="customAccessDeniedHandler" />
+        <!-- 8.2 AccessDeniedHandler 구현 -->
+        
+        <!-- 9. 자동 생성 로그인 페이지 사용 -->
+        <!-- <security:form-login /> -->
+        
+        <!-- 9. 커스텀 로그인 페이지 구현 -->
+        <!-- <security:form-login login-page="/customlogin.do" /> -->
+        
+        <!-- 9.1 개발할 때는 CSRF 방지 설정을 잠시 끈다 -->
+        <!-- <security:csrf disabled="true" /> -->
+        
+        <!-- 10. 로그아웃 기능 구현하기 -->
+        <security:logout logout-url="/customlogout.do" invalidate-session="true" logout-success-url="/index.do" />
+        
+        <!-- 11. 로그인을 성공하고 후속 동작을 구현하기 -->
+        <!-- 내가 만든 핸들러를 사용하라고 지정 -->
+        <!-- 새로운 스프링 빈을 만들어야함 -->
+        <security:form-login login-page="/customlogin.do" authentication-success-handler-ref="customLoginSuccessHandler" />
+        
+    </security:http>
+
+    <!-- 인증 관리자 -->
+    <!-- <security:authentication-manager></security:authentication-manager> -->
+
+    <!-- 7. 계정 만들기(아주 단순한 방법, 테스트 용도) -->
+    <!-- 인 메모리 방식이라고 함 -->
+    <!-- 
+    <security:authentication-manager>
+        <security:authentication-provider>
+            <security:user-service>
+                <security:user name="hong"
+                    password="{noop}1111" authorities="ROLE_MEMBER" />
+                <security:user name="ronaldo"
+                    password="{noop}1111"
+                    authorities="ROLE_ADMIN, ROLE_MEMBER" />
+            </security:user-service>
+        </security:authentication-provider>
+    </security:authentication-manager> 
+    -->
+    <!-- 7. 계정 만들기(아주 단순한 방법, 테스트 용도) -->
+    
+    <!-- 12.1 미리 정해진 구조의 DB 스키마 사용 -->
+    <security:authentication-manager>
+        <security:authentication-provider>
+            <!-- root-context 가서 dataSource 복사(HikariCP를 참조한 것) -->
+            <security:jdbc-user-service data-source-ref="dataSource"/>
+            <!-- 아까는 개발하는 동안만 잠깐 봐달라고 {noop} 써서 -->
+            <!-- 무시했는데 이제는 PasswordEncoder 를 만들어야함 -->
+            <!-- <security:password-encoder ref="customNoOpPasswordEncoder" /> -->
+        </security:authentication-provider>
+    </security:authentication-manager>
+    <!-- 12.1 미리 정해진 구조의 DB 스키마 사용 -->
+
+</beans>

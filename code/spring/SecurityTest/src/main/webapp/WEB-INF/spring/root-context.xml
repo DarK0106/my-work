@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- HikariCP -->
+    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+        <!-- <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property> -->
+        <!-- <property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:xe"></property> -->
+        <property name="driverClassName"
+            value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
+        <property name="jdbcUrl"
+            value="jdbc:log4jdbc:oracle:thin:@localhost:1521:xe"></property>
+        <property name="username" value="spring"></property>
+        <property name="password" value="java1234"></property>
+    </bean>
+
+    <!-- 나중에 커넥션 풀이 되는 DataSource -->
+    <bean id="dataSource"
+        class="com.zaxxer.hikari.HikariDataSource"
+        destroy-method="close">
+        <constructor-arg ref="hikariConfig"></constructor-arg>
+    </bean>
+
+    <!-- MyBatis 설정 -->
+    <bean id="sessionFactory"
+        class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"></property>
+        <!-- classpath: 는 src/main/resources를 말함 -->
+        <property name="mapperLocations"
+            value="classpath:mappers/*.xml"></property>
+        <property name="configLocation"
+            value="classpath:config/mybatis-config.xml"></property>
+    </bean>
+
+    <!-- JDBC의 Statement와 유사한 역할인 쿼리 실행 도구인 SqlSessionTemplate -->
+    <bean class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg ref="sessionFactory"></constructor-arg>
+    </bean>
+</beans>

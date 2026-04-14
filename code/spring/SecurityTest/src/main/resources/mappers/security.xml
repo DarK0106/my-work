@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- XML Mapper -->
+<mapper namespace="security">
+    <select id="test" resultType="int">
+        select count(*) from tblAddress
+    </select>
+    
+    <!-- 회원가입 -->
+    <insert id="add" parameterType="com.test.java.model.MemberDto">
+        insert into member (memberid, memberpw, membername, email, gender, enabled, regdate) values (#{memberid}, #{memberpw}, #{membername}, #{email}, #{gender}, default, default)
+    </insert>
+</mapper>

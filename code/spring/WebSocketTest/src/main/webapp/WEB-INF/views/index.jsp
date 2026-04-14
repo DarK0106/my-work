@@ -24,6 +24,10 @@
     
     <div>
         <button type="button" class="in">채팅방 접속하기</button>
+        
+        <button type="button" class="in" data-name="강아지">채팅방 접속하기(강아지)</button>
+        <button type="button" class="in" data-name="고양이">채팅방 접속하기(고양이)</button>
+        <button type="button" class="in" data-name="병아리">채팅방 접속하기(병아리)</button>
     </div>
 
     <script src="https://code.jquery.com/jquery-4.0.0.js"></script>
@@ -33,7 +37,17 @@
         // 접속하기 버튼 기능 구현
         $('.in').click(() => {
         	
-        	let name = $('#name').val().trim();
+        	// let name = $('#name').val().trim();
+        	
+        	// 테스트하기 귀찮으니까 버튼 누르면 바로
+        	// 채팅방 제목 작성해서 채팅방에 접속하기 위한 로직
+        	let name = $(event.target).data('name');
+        	
+        	if (name == null || name == '') {
+        		name = $('#name').val().trim();
+        	} else {
+        		$('#name').val(name);
+        	}
         	
         	// 채팅창 역할의 창을 여는 작업
         	const child = window.open('/socket/chat.do', 'chat', 'width=406, height=518');

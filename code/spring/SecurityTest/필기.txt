@@ -1,0 +1,193 @@
+Spring Security
+- 스프링 기반 애플리케이션의 보안을 담당하는 프로젝트
+- 보안(인증, 허가, 권한 관리 등)
+- 서블릿 필터 + 스프링 인터셉터
+
+1. 세션 기반 인증(제일 권장)
+2. JWT(토큰 기반 인증) -> 세션리스
+2. OAuth2 기반 인증(소셜 인증) + 세션
+2. OAuth2 기반 인증(소셜 인증) + JWT
+
+시큐리티 구현
+DB 필요 <- MyBatis 설정 필요
+
+MyBatis 설정하기
+- root-context.xml 편집 필요
+src/main/resources 에
+log4j 있던거 지우고
+config mappers log4jdbc logback 붙여넣기
+mappers 에 있는 xml 이름 바꾸고 안에 있는 쿼리 다 지우기
+
+MyBatis 설정했으니 단위 테스트 해보자
+src/test/java -> com.test.java.model -> DbTests.java
+
+시큐리티 설정을 하려면 의존성 4개가 필요함
+스프링 버전을 따라가는게 일반적
+
+<spring-security-version>5.3.9.RELEASE</spring-security-version>
+
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-core</artifactId>
+    <version>${spring-security-version}</version>
+</dependency>
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-config</artifactId>
+    <version>${spring-security-version}</version>
+</dependency>
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-web</artifactId>
+    <version>${spring-security-version}</version>
+</dependency>
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-taglibs</artifactId>
+    <version>${spring-security-version}</version>
+</dependency>
+
+
+
+2. 시큐리티 필터 추가하기
+- web.xml
+
+<filter>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+</filter>
+<filter-mapping>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <servlet-name>appServlet</servlet-name>
+</filter-mapping>
+
+
+
+3. 실행
+- 프로젝트 > 오른쪽 버튼 > Run As > 1. Run on Server
+- 오류 실행
+    - No bean named 'springSecurityFilterChain' available
+- 조치
+    - web.xml > contextConfigLocation > /WEB-INF/spring/security-context.xml
+
+
+
+4. security-context.xml 설정
+- 네임스페이스 추가
+    > "spring-security-5.3.xsd" 수정 > "spring-security.xsd"
+- 다시 실행
+
+5. 패키지와 파일들
+com.test.java.controller -> TestController.java
+
+views -> index.jsp
+      -> member.jsp
+      -> admin.jsp
+
+views -> inc -> header.jsp
+
+5.1 테스트용 URI
+/index.do -> 모든 사용자가 접근 가능
+/member.do -> 인증된 회원만 접근 가능
+/admin.do -> 관리자 권한만 접근 가능
+
+6. 로그인/ 로그아웃 구현
+security-context.xml
+    - intercept-url -> url 별로 권한 부여
+실행(index.do, member.do) -> 권한 없음(401) -> http://localhost:8080/java/login 로 쫓겨남
+
+7. 계정 만들기(아주 단순한 방법, 테스트 용도)
+security-context.xml
+http://localhost:8080/java/login -> 자동으로 생성된 로그인 페이지를 잠시 사용
+
+<security:user name="hong" password="1111" authorities="ROLE_MEMBER" />
+    - 스프링 시큐리티에서는 유저 식별자를 id라고 안하고, name이라고 한다.
+
+에러: There is no PasswordEncoder mapped for the id "null"
+PasswordEncoder가 없대요
+
+스프링 시큐리티는 반드시 암호를 암호화(인코딩)해서 저장하도록 함
+1111 같은 평문으로는 저장할 수 없음
+
+스프링 시큐리티 4까지는 PasswordEncoder가 선택사항이었는데
+스프링 시큐리티 5부터는 PasswordEncoder가 필수가 되었음
+
+잠시 테스트하기 위해 임시로 PasswordEncoder를 사용하지 않도록 {noop} 사용
+password="{noop}1111"
+
+서버 다시 실행하고 hong으로 로그인
+관리자 페이지에는 접근 불가능(403 에러)
+
+로그아웃
+- 개발자 도구 -> Application -> Cookies -> JSESSION -> 삭제
+
+관리자 ronaldo로 로그인해서 관리자 페이지 접속 확인
+문제: 관리자인 내가 회원 페이지를 못들어가네?
+ROLE_ADMIN ROLE_MEMBER 이게 관리자고 회원인지 스프링은 모름
+스프링 입장에선 그냥 문자열임
+해결방법:  authorities에 ROLE_MEMBER 도 그냥 같이 넣어버림
+
+8 접근 권한(403) 페이지
+- 로그인을 안 한 상태에서 접근 불가능한 URL로 접근 -> 로그인 페이지로 이동
+- 로그인을 한 상태에서 접근 불가능한 URL로 접근 -> 403 오류 페이지
+
+8.1. 403 오류가 발생하면 특정 페이지로 이동
+접근 제한 오류 페이지
+com.test.java.controller -> AuthController
+views -> auth -> accesserror.jsp
+accesserror.jsp를 403 오류와 연결하기
+
+8.2 AccessDeniedHandler 구현
+에러가 나면 내가 하고 싶은 행동을 하고 미리 준비해놨던 페이지를 보여줌
+AccessDeniedHandler 사용자 클래스를 선언
+위의 클래스는 403 에러 발생 시 추가 업무를 구현할 수 있음
+com.test.java.auth -> CustomAccessDeniedHandler.java
+
+9. 커스텀 로그인 페이지 구현
+자동 생성 로그인 페이지를 사용하지 않고, 직접 구현한 로그인 페이지 사용
+com.test.java.controller -> AuthController.java
+view -> auth -> customlogin.jsp
+
+커스텀 로그인 페이지를 구현했으니
+security-context 가서 커스텀 로그인 페이지에 연결
+
+다시 로그인 시도 -> 로그인에 실패함 -> 이유: CSRF(Cross-site request forgery)
+CSRF, 사이트 간 요청 위조
+- 로그인 한 사람 몰래 로그인 한 사람이 마치 의도한 듯 행동(예: 결제)을 하도록 만드는 해킹 기법
+
+9.1 그럼 어떻게함? 개발할때는 CSRF 방지 설정을 잠시 끔
+
+9.2 그러다가 배포/운영 할 때 CSRF 방지 설정을 킴
+    - POST 요청 페이지에서 토큰 설정
+    
+    
+11. 로그인 성공 후 후속 동작을 구현
+com.test.java.auth -> CustomLoginSuccessHandler.java
+내가 만든 핸들러를 쓰라고 security-context에 설정하러 가야 함
+
+12. 계정 관리
+우리가 지금까지 썼던 인 메모리 방식
+InMemoryUserDetailsManager
+
+이제 JDBC 기반 방식으로 바꾸자(DB를 쓰자)
+    방법 1. (12.1) 미리 정해진 구조의 DB 스키마를 사용
+        -> 편함
+        -> 이미 정해진걸 쓰는거니까 디테일한 조작이 힘듦
+    방법 2. (12.2) 개발자가 직접 만든 DB 스키마를 사용
+        -> 비용 발생(내가 직접 해야함)
+        -> 디테일한 조작이 용이
+        -> 현실은 무조건 2번
+        
+SecurityTest -> script.sql
+
+12.1 미리 정해진 구조의 DB 스키마를 사용
+script.sql 테이블 생성
+security-context에서 JDBC 설정?
+
+아까는 개발하는 동안만 잠깐 봐달라고 {noop} 써서
+무시했는데 이제는 DB 버전이라 PasswordEncoder 를 만들어야함
+
+12.1.1 PasswordEncoder 생성하기(임시로)
+    - 데이터베이스 사용시 PasswordEncoder 구현 권장
+    - com.test.java.auth -> CustomNoOpPasswordEncoder
+    security-context에서 이 엔코더 쓰라고 설정
