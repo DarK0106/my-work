@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>Thymeleaf</title>
+<link rel="stylesheet" href="http://bit.ly/3WJ5ilK" />
+</head>
+
+<body>
+    <!-- m3.html -->
+    <h1>연산자</h1>
+    <!--  
+        타임리프 상수(리터럴)
+        - String: 'hong', '100', 'Ronaldo'
+        - Number: 10, 123, 3.14
+        - Boolean: true, false
+        - Null: null
+        
+        타임리프 연산자(= 자바, EL과 거의 비슷)
+        - 산술 연산자
+        - 비교 연산자
+        - 논리 연산자
+        - 삼항 연산자
+    
+    
+    -->
+
+    <div>10 + 3 = 13</div>
+    <div>
+        <span th:text="${a}"></span> + <span th:text="${b}"></span> = <span
+            th:text="${a+b}"></span>
+    </div>
+
+    <div>타임리프 연산자</div>
+    <div th:text="${a + b}"></div>
+    <div th:text="${a} + ${b}"></div>
+    <br>
+    <div>타임리프 연산자, 10 + 3 = 13 을 표현하고 싶다</div>
+    <div th:text="${a} + ' + ' + ${b} + ' = ' + ${a+b}">1순위</div>
+    <div th:text="${a + ' + ' + b + ' = ' + (a+b)}">2순위</div>
+
+    <!--  
+        리터럴 치환 문법 / 문자열 보간법
+        타임 리프 2.1
+    -->
+    <br>
+    <div>리터럴 치환 문법</div>
+    <div th:text="|${a} + ${b} = ${a + b}|">0순위</div>
+
+    <hr>
+    <br>
+    <div>산술 연산자 5가지</div>
+    <div th:text="${a} + ${b}"></div>
+    <div th:text="${a} - ${b}"></div>
+    <div th:text="${a} * ${b}"></div>
+    <div th:text="${a} / ${b}"></div>
+    <div th:text="${a} % ${b}"></div>
+    <hr>
+    <br>
+    <div>비교 연산자 5가지</div>
+    <div th:text="${a} > ${b}"></div>
+    <div th:text="${a} >= ${b}"></div>
+    <div th:text="${a} < ${b}"></div>
+    <div th:text="${a} <= ${b}"></div>
+    <div th:text="${a} == ${b}"></div>
+    <div th:text="${a} != ${b}"></div>
+
+    <div>단어로 된 비교 연산자도 존재</div>
+    <div th:text="${a} gt ${b}"></div>
+
+    <hr>
+
+    <!-- <div th:text="true && true"></div> -->
+    <!-- 안됨 -->
+    
+    <div>논리 연산자</div>
+    <div>무조건 단어로 된 연산자로 사용</div>
+    <div th:text="true and true"></div>
+    <div th:text="true or true"></div>
+    <div th:text="not true"></div>
+    <div>!true 이건 또 됨</div>
+    <div th:text="!true"></div>
+    
+    <hr>
+    
+    <div>삼항 연산자</div>
+    
+    <div th:text="${a} > 0 ? '양수' : '양수아님'"></div>
+    <!-- 참일때만 값을 주고 거짓일 때에는 값을 주지 않음 -->
+    <!-- 거짓일 땐 null을 반환 -->
+    <div th:text="${a} > 0 ? '양수'"></div>
+    <div th:text="${a} > 0 ? '양수' : null"></div>
+    <hr>
+    <div>?: 엘비스 연산자</div>
+    <div th:text="${name} != null ? ${name} : '익명' "></div>
+    
+    <!-- true 스러운 값 truesy, false 스러운 값 falsy -->
+    <div th:text="${name} ? ${name} : '익명'"></div>
+    <!-- true 일 때의 값을 생략 -->
+    <div th:text="${name} ?: '익명'"></div>
+    
+
+</body>
+
+</html>

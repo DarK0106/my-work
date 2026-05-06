@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Thymeleaf</title>
+    <link rel="stylesheet" href="http://bit.ly/3WJ5ilK" />
+</head>
+
+<body>
+    <!-- m2.html -->
+    <h1>Thymeleaf</h1>
+
+    <h2>변수 표현식</h2>
+
+    <ul>
+        <li th:text="${dto.seq}"></li>
+        <li th:text="${dto.name}"></li>
+        <li th:text="${dto.age}"></li>
+        <li th:text="${dto.gender}"></li>
+        <li th:text="${dto.name}"></li>
+    </ul>
+    
+    <hr>
+    
+    <h2>선택 변수 표현식</h2>
+    <!-- dto. 가 반복되니까 이걸 줄이는 문법 -->
+    <ul th:object="${dto}">
+        <li th:text="*{seq}"></li>
+        <li th:text="*{name}"></li>
+        <li th:text="*{age}"></li>
+        <li th:text="*{gender}"></li>
+        <li th:text="*{name}"></li>
+    </ul>
+
+
+</body>
+
+</html>

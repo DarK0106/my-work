@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Thymeleaf</title>
+    <link rel="stylesheet" href="http://bit.ly/3WJ5ilK" />
+</head>
+
+<body>
+    <!-- m1.html -->
+    <h1>Thymeleaf</h1>
+
+    <h2>변수 표현식</h2>
+
+    <div>count: ${count}</div>
+    <div th:text="${count}"></div>
+    <div th:text="${name}"></div>
+
+    <!-- div 태그 안에 count: 이런걸 넣어도 -->
+    <!-- 렌더링 할 때(페이지 만들 때) -->
+    <!-- th:text가 태그 안의 내용물(count: )을 다 덮어씌움 -->
+    <div th:text="${count}">count: </div>
+
+    <div th:text="'홍길동'">name: </div>
+
+    <hr>
+
+    <div>숫자: 102</div>
+    <div>이름: 홍길동</div>
+    <div th:text="'숫자: ' + ${count}">권장</div>
+    <div th:text="${'숫자: ' + count}">비권장</div>
+
+    <div>이름: <span th:text="${name}"></span></div>
+
+    <hr>
+
+    <div>객체 출력</div>
+    <br>
+    <div th:text="${dto}"></div>
+
+    <ul>
+        <li th:text="${dto.getName()}"></li>
+        <li th:text="${dto.name}"></li>
+        <li th:text="${dto.seq}"></li>
+        <li th:text="${dto.age}"></li>
+        <li th:text="${dto.gender}"></li>
+        <li th:text="${dto.address}"></li>
+    </ul>
+
+    <hr>
+
+    <div>Map 출력</div>
+    <ul>
+        <li th:text="${map}"></li>
+        <li th:text="${map.get('red')}"></li>
+        <li th:text="${map.red}"></li>
+        <li th:text="${map['red']}"></li>
+        <li th:text="${map.yellow}"></li>
+        <li th:text="${map.blue}"></li>
+        <li th:></li>
+    </ul>
+
+
+
+
+    <!--
+        
+        Thymeleaf Standard Expression, 타임 리프 표현식
+        - EL(화면에 데이터를 출력) + JSTL(조건문, 반복문 처리) 역할
+        
+        1. Variable Expression, 변수 표현식
+        2. Selection Variable Expression, 선택 변수 표현식
+        3. Message Expression, 메시지 표현식
+        4. Link URL Expression, 링크 표현식
+        5. Fragment Expression, 조각 페이지 표현식       
+        
+        1. Variable Expression, 변수 표현식
+        
+        - 표현: ${}
+        - EL의 역할과 유사
+        - 컨트롤러가 건네준 값을 화면에 출력하거나 사용
+        
+        ** 타임리프의 대부분 표현은
+        - th 접두어로 시작한다
+        - 대다수의 타임리프는 HTML 태그의 속성 형태로 표현된다(중요)
+        - 타임리프 태그는 딱 1개만 제공됨
+        
+        타임리프는 스프링과 전혀 상관없는 독립적인 기술이다
+         
+    -->
+
+
+</body>
+
+</html>

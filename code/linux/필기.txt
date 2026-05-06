@@ -1,0 +1,958 @@
+Linux
+- Docker 수업
+- AWS 수업
+- CI-CD 수업
+
+
+Linux
+- 오픈 소스 기반으로 만들어진 유닉스 계열 운영체제
+- 리누스 토발즈(1991년?) > 리눅스 운영체제(커널) 개발
+
+
+리눅스 배포판
+- 커널: 핵심 기능 + 편의성/기능 부족
+- 커널 + 여러가지 추가 프로그램 > 패킹 > 배포판
+
+1. 데비안(Debian) 계열
+    - 우분투(Ubuntu), 리눅스 민트(Linux Mint), 칼리 리눅스(Kali Linux)
+
+2. 레드햇(Red Hat) 계열
+    - 레드햇 엔터프라이즈 리눅스(RHEL), CentOS
+
+3. 슬랙웨어(Slackware) 계열
+    - 슬랙웨어, SuSE/openSuSE
+
+4. 안드로이드 계열
+
+
+-----------------------------------------------------------
+
+Ubuntu 실습 방법?
+
+1. PC 직접 설치
+2. 가상 머신(VirtualBox, VMWare) 설치
+--------
+3. 도커 > 컨테이너
+4. WSL2(Windows Subsystem for Linux) > 윈도우 기능(리눅스 환경 제공)
+5. 클라우드 서버(AWS, Azure, Google Cloud)
+
+
+
+-----------------------------------------------------------------
+
+WSL2 설치하기
+
+1. windows 기능 켜기/끄기
+    - Linux용 Windows 하위 시스템(v)
+    - 가상 머신 플랫폼(Virtual Machine Platform)(v)
+    - Hyper-V(v)
+
+2. cmd 실행
+    - $ wsl --update
+
+3. 리눅스 배포판 설치하기
+    - MS Store > "ubuntu"
+    - Ubuntu 20.04 LTS
+    - Ubuntu 22.04 LTS
+    - Ubuntu 24.04 LTS
+    - Ubuntu 26.04 LTS
+
+4. 실행
+    - 시작 > 프로그램 > Ubuntu
+    - cmd > wsl
+    
+    - wsl --list
+    - wsl --install //최신 버전 LTS 설치
+    - wsl --install <배포판 버전>
+
+    - Create a default Unix user account: ubuntu
+    - New password: java1234
+    - Retype new password: java1234
+
+
+
+-----------------------------------------------------------------
+
+터미널
+- ubuntu@DESKTOP-6TTRTK5:/mnt/c/Users/in$ 
+- 유저명@컴퓨터명:현재경로
+
+
+$ vi ~/.bashrc
+
+
+
+Shell, 쉘
+- 여러종류의 쉘이 있다.
+
+- Bourne Shell(sh)
+    - 유닉스에 최초로 사용된 표준 쉘
+    - sh 명령어
+    - 단순하고 가볍다. 기능이 적다.
+
+- Bash(Bourne Again Shell)
+    - 리눅스에서 가장 많이 사용하는 기본 쉘
+
+- zsh(Z Shell)
+    - bash 모든 기능 + 자동 완성, 테마, 플러그인 등 제공
+    - macOS
+
+
+
+
+
+리눅스 파일 시스템 > 구조
+
+- /home: 사용자(계정) 폴더
+- /etc: 시스템 설정. 잘못 건드리면 시스템 불안정
+- /usr: Unix System Resources. 애플리케이션나 라이브러리 등을 관리
+        - 톰캣, JDK > 사용자가 직접 설치하는 경우
+- /opt: Optional. 애플리케이션나 라이브러리 등을 관리
+        - 대형 소프트웨어 or 상용 소프트웨어
+- /root: 관리자(root) 계정의 홈 디렉토리
+- /var: Variable. 가변 데이터
+        - 로그, 이메일, 임시 파일 등.. 자주 변경되는 데이터
+- /mnt: Mount. 리눅스가 외부 저장소를 연결해놓은 디렉터리
+
+
+-----------------------------------------------------------------
+
+리눅스 명령어
+
+1. pwd, Print Working Directory
+- $ pwd
+- 현재 작업 중인 디렉토리의 경로를 출력
+
+- WSL2 사용 중 > $ explorer.exe .
+
+
+
+2. ls, List
+- $ ls [옵션] [경로]
+
+- 디렉토리의 파일/폴더 목록을 출력
+
+- $ ls -l: 상세 정보까지 출력(long)
+- $ ls -a: 숨긴 파일/폴더까지 출력(all)
+- $ ls -al
+- $ ls -la
+
+- 출력 결과 의미
+    a. l rwx rwx rwx > 777
+       d rwx rwx rwx
+       - rwx rwx rwx
+
+       첫번째 문자: 파일 유형
+        - '-': 일반 파일
+        - 'd': 디렉터리
+        - 'l': 심볼릭 링크
+
+       2~4번째 문자: 소유자(User) 권한
+       5~7번째 문자: 그룹(Group) 권한
+       8~10번째 문자: 기타 사용자(Other) 권한
+
+    b. 소유자(Owner): 파일/디렉토리 소유. 파일/디렉토리를 직접 만들었거나, 소유권을 가지고 있는 유저
+    c. 그룹(Group): 계정의 집합
+
+
+    d rwx r-x r-x aaa
+    - rw- r-- r-- 테스트.txt
+
+    권한(Permission)
+    - 파일/디렉터리에 대해 누가 + 어떤 작업이 가능한지에 대한 정책
+    - 루트(root) 사용자가 변경한다.
+    - 읽기(r, 4): 파일(내용 읽기), 폴더(내용 열람)
+    - 쓰기(w, 2): 파일(내용 수정), 폴더(새파일 생성/삭제)
+    - 실행(x, 1): 파일(실행), 폴더(접근)
+    - rw- > 읽기+쓰기 > 4 + 2 > 6
+    - rwx > 읽기+쓰기+실행 > 4 + 2 + 1> 7
+    - r-x > 읽기+실행 > 4 + 1 > 5
+    - 2^0 = 1 1
+    - 2^1 = 2 0
+    - 2^2 = 4 0
+    - 2^3 = 8 1
+
+
+3. cd, Change Directory
+- $ cd [디렉터리 경로]
+- $ cd 폴더명   # 자식 폴더로 이동
+- $ cd ..       # 부모 폴더
+- $ cd /        # 루트 폴더
+- $ cd ~        # 홈 디렉터리
+- $ cd          # 홈 디렉터리
+- $ cd -        # 이전 폴더
+
+
+4. mkdir, Maker Directory
+- $ mkdir [옵션] [디렉터리명]
+- 디렉터리 생성
+- $ mkdir aaa
+- $ mkdir -p bbb/ccc/ddd  # parents
+
+
+5. history
+- $ history [개수]
+- 명령어 이력을 출력한다.
+
+- 출력 결과 > 번호
+- $ !번호 # 재실행
+
+
+6. touch
+- $ touch [파일명]
+- 빈 파일을 생성하는 명령어
+- $ touch aaa.txt
+- $ touch bbb.txt ccc.txt ddd.txt
+
+
+
+7. rm, Romove
+- $ rm [옵션] [파일]
+- $ rm -r [디렉터리]
+- $ rmdir [디렉터리]
+
+- 파일 삭제: 현재 디렉터리에 쓰기(w) 권한이 필요
+- 폴더 삭제: 빈폴더만 삭제 가능
+
+$ rm aaa.txt
+$ rm aaa
+$ rmdir aaa
+
+
+파일 삭제
+$ rm aaa.txt        # 파일 삭제
+$ rm -f aaa.txt     # -f. Force
+
+폴더 삭제
+$ rmdir aaa         # 빈폴더 삭제
+$ rm -r aaa         # 내용없는 폴더 삭제
+$ rm -r aaa         # 내용있는 폴더 삭제
+$ rm -R aaa         # 내용있는 폴더 삭제
+$ rm -rf aaa        # 내용있는 폴더 강제 삭제
+
+
+
+8. mv, Move
+- $ mv [옵션] [원본] [대상]
+- 파일/디렉터리 이동 or 이름변경
+
+- $ mv ccc.txt bbb
+- $ mv ccc.txt bbb/ccc.txt
+
+- $ mv ddd.txt eee.txt
+- $ mv eee.txt ccc.txt
+- $ mv -f eee.txt ccc.txt
+- $ mv -i eee.txt ccc.txt
+
+9. cp, Copy, 복사
+- $ cp [옵션] [원본] [대상]
+- 파일/디렉터리를 복사
+- $ cp -R: 하위 폴더 구조까지 복사
+
+파일 복사
+- $ cp 테스트.txt bbb
+또는
+- $ cp 테스트.txt bbb/테스트.txt
+
+10. vi, visual editor
+- 텍스트 편집기
+
+- vi 모드
+    - 명령 모드: 명령 단축키를 입력하면 그 기능을 실행
+    - 입력 모드: 텍스트 편집, 명령 모드인 상태에서 i 누르면 됨
+    esc 누르면 다시 명령 모드
+    - 명령 행 모드: 명령 모드인 상태에서 : 누르면 됨
+    추가 명령을 하기 위한 일종의 서브 창
+
+명령 모드 단축키
+- dd: 현재 라인 삭제
+- u: 명령 취소
+- D: 커서 위치로부터 행의 끝까지 삭제
+- yy: 줄 복사
+- p: 붙여넣기
+
+명령 행 모드 커맨드
+- :q -> 프로그램 종료(quit)
+- :w -> 기존 파일을 열었을 때, 저장(write)
+- :w aaa.txt -> 새 파일을 생성했을 때, 저장(write)
+- :wq -> 저장하고 종료
+
+11. man, Manual
+- $ man [명령어]
+
+12. 텍스트 편집과 관련된 명령어
+
+12. echo
+- 텍스트를 터미널에 출력하는 명령어
+- echo "밥먹고싶다"
+- 근데 이렇게는 잘 안쓰고
+- echo "엄준식입니다." > um.txt
+- 조심해야 할 점: 무조건 덮어쓰기(create) 모드임
+- echo "호날두입니다." >> um.txt <- 이게 이어쓰기(append) 모드
+
+13. cat, Concatenate
+- cat [옵션] [파일명]
+- 1개 이상의 파일을 연결 후 화면에 출력 또는 새 파일 저장
+- vi로 열기는 좀 부담스러워서 바로 내용을 확인하고 싶을 때
+- 새 파일 저장하는 용도로는 잘 안 씀
+- 읽기 전용으로 보기 느낌
+- cat 필기.txt | more
+    - Enter: 한줄씩 아래로
+    - Space bar: 한 페이지씩 아래로
+    - q: 종료
+
+14. ifconfig
+- 현재 내 컴퓨터에 할당된 IP 조회
+
+15. ip addr
+- ifconfig의 최신 버전
+
+15. apt-get
+- 패키지 관리 도구
+- 관리자 권한이 있어야 실행 가능
+    1. root 로 로그인
+    2. 잠시 루트 권한을 빌려오기(sudo, super user do)
+
+15.1. apt-get update
+- /etc/apt/sources.list
+이 레포지토리들을 최신 버전으로 갱신
+sudo apt-get update <- 관리자 권한을 잠시 빌려와서(sudo) 실행
+
+15.2 apt-get install 패키지이름
+- sudo apt-get install net-tools(apt-get: 구형)
+또는
+- sudo apt install net-tools(apt: 신형)
+
+15.3 apt-get remove
+- 프로그램 삭제
+- sudo apt-get remove 패키지이름
+
+15.4 apt-get purge
+- purge가 되게 강력한 의미라 조심해서 써야 함
+- remove는 패키지(프로그램)만 삭제함, 그래서 설정 파일을 그대로 남김
+- 그래서 remove로 지웠다가 다시 패키지를 깔면 이전에 설정했던 옵션이 남아있음
+- purge는 아주 깔끔하게 다 지워버림
+
+15.5 apt-get autoremove
+sudo apt-get autoremove
+- 더 이상 사용하지 않는 패키지를 삭제한다
+- 의존성을 체크해서 더 이상 참조되지 않는 패키지를 삭제함
+
+15.6 apt-get clean
+sudo apt-get clean
+- 15.5에서 했던 동작 + 설치 파일 까지 지워버림
+- autoremove보다 더 강력한 녀석
+
+16. ps, Process Status
+- ps -ef <- 작업 관리자의 리눅스 버전
+목록이 굉장히 많아지면 한번에 보기 힘듦
+- ps -ef | grep 프로세스이름 <- 특정 키워드가 들어간 프로세스만 검색
+이걸 왜씀? 정상적으로 동작하는지 확인하려고, 또는 해당 프로세스를 강제로 종료하려고
+프로세스 ID(숫자) 를 보고 kill
+
+17. kill
+- kill 프로세스ID
+- kill -9 프로세스ID (진짜 강제로 종료, -9가 force랑 비슷함)
+
+우분투는 패키지를 설치할때 크게 2가지 방법을 사용
+방법 1. apt-get install
+방법 2. *.deb을 인터넷에 다운받아서 직접 실행해서 설치
+
+이름이 왜 deb임? 우분투가 debian 계열이라서
+
+도커
+도커는 데이터나 프로그램을 격리 시키는 기술을 제공하는 프로그램
+격리시키는 단위가 컨테이너
+도커는 컨테이너를 생성/관리/삭제  등을 하는 프로그램
+
+도커는 원래 리눅스에서만 돌아가는 기술인데
+그래서 VMware 나 VirtualBox를 사용해서 가상머신을 만들어
+거기에서 리눅스를 깔아서 그곳에서 도커를 사용해야만 했음
+
+이게 불편하니까 도커 데스크탑이라는걸 쓰자
+
+컨테이너는 독립적인 컴퓨터 1대라고 보면됨
+
+이미지라는게 있는데 
+우리가 직접 생성 or 남이 만든걸 다운로드 -> 컨테이너를 생성
+-> 컨테이너 운용 -> 컨테이너 삭제
+
+컨테이너를 쉽게 만들고 버리고 함
+
+도커는 새로운 컴퓨터(컨테이너)를 만들 때 마다
+새롭게 운영체제를 설치하지 않고 wsl2(리눅스)(호스트)로부터 
+리눅스 커널을(운영체제 역할) 빌려와서 사용한다
+-> 장점: 비용이 적다, 가볍다
+그럼 나머지만 하면됨 본인이 필요한(JRE OS Tomcat Spring ..)
+운영체제 까지만 깔려 있는 컴퓨터를 빌려 온다고 이해하자?
+
+도커 데스크탑은 그냥 포장해놓은 프로그램이고 실질적인 알맹이는 도커 엔진이다
+
+도커 데스크탑은 열어놓기만 할거고 그 프로그램을 잘 보진 않을 예정
+실질적으론 터미널에서 대부분 실습
+
+도커 사용
+방법 1. 도커 데스크탑에서 GUI 환경에서 사용 가능
+방법 2. 터미널에서 명령어로 사용 <- 추천
+
+모든 명령은 'docker' 로 시작한다
+docker [OPTIONS] COMMAND
+
+도커 컨테이너 이미지를 구해야 함
+이미지는 컨테이너를 생성하는 도구
+이미지를 얻는 방법
+    1. 직접 생성
+    2. 다운로드
+
+이미지 검색하기
+docker search 이미지명
+docker search httpd <- httpd가 아파치 웹서버를 말함(http daemon)
+
+작업 공간은 아무런 상관이 없으니 아무데서나 하면 됨
+
+이미지 다운로드
+docker image pull 이미지이름:태그이름
+태그이름 을 작성하지 않으면 자동으로 최신 버전으로 다운로드 됨
+명령어 중 image는 생략 가능해서
+docker pull 이미지이름:태그이름 <- 이렇게 작성해도 됨
+
+태그
+- 최신 버전이 우리에게 항상 좋다고 말할 수 없음
+docker image pull httpd
+docker image pull httpd:latest
+docker image pull httpd:2.4
+
+다운로드가 됐는지 안됐는지 궁금하니까
+
+이미지 목록보기 가능(내 컴퓨터(로컬)에 깔린 이미지들의 목록)
+docker image ls
+docker images <- 위랑 똑같은 명령어
+
+이미지 삭제하기
+docker image rm 이미지이름:태그이름
+docker rmi 이미지이름:태그이름
+
+docker rmi httpd
+
+컨테이너 조작하기
+- 다운로드한 이미지로 컨테이너를 생성할 수 있다.
+
+[container] 는 생략이 가능하다
+
+docker [container] create --name 컨테이너이름 이미지이름:태그이름
+docker [container] create 컨테이너이름 이미지이름:태그이름 <- --name(이름) 생략 가능
+<- 이름을 생략하면 컨테이너 이름이 무작위로 생성되는데 매우 비추
+
+이름 안 주고 컨테이너 만들어보기
+*같은 이미지로 컨테이너 여러개를 만들 수 있다
+docker create httpd
+
+
+아파치 이미지(httpd)
+이걸로 컨테이너(컴퓨터 1대)를 만들거임
+docker create --name apache httpd
+
+컨테이너가 잘 만들어졌는지 확인하기
+컨테이너 상태를 확인하기
+
+docker ps <- 현재 실행중인 컨테이너 목록을 가져와라
+
+ps? -> Process Status
+
+docker ps -a <- 모든 컨테이너의 목록을 본다(꺼져있는 컨테이너도 보여줌)
+docker ps -all
+
+컨테이너 삭제하기
+docker [container] rm 컨테이너이름
+docker [container] rm 컨테이너ID
+docker [container] rm -f ~~ (강제 삭제)
+<- 이름이 똑같이 뜨면 삭제 성공한 것
+
+docker rm apache
+docker rm 8df8
+
+컨테이너 ID로 삭제할때 ID 다 적어야함? <- ㄴㄴ 4글자까지만 쳐도 지워짐
+
+컨테이너 실행하기
+docker [container] start 컨테이너이름
+docker [container] start 컨테이너ID
+
+docker start apache
+잘 켜졌는지 확인하려면 docker ps
+
+docker ps 에서의 STATUS(상태)
+- Created: 컨테이너는 생성됐지만 아직 시작을 안했습니다.
+- Up 시간: 실행중이다. 실행 중인 누적 시간을 표시한다.
+- Exited: 종료됨(*중요)
+- Restarting: 다시 시작 중..
+- Paused: 일시 중지 상태
+- Dead: 비정상적으로 종료됨, 작동 불가\
+
+컨테이너 중단하기
+docker [container] stop 컨테이너이름
+docker [container] stop 컨테이너ID
+
+docker stop apache
+
+이미 생성된 컨테이너는 내용물 수정이 불가능하다.(읽기 전용임)
+
+그럼 수정하고 싶으면 어떻게 함? 삭제하고 다시 생성해야함
+뭘 고쳐야 함? 이미지를 고쳐야 함
+컨테이너는 객체니까 못바꿈 클래스(이미지)를 수정해야함
+
+더 이상 필요 없는 컨테이너와 이미지를 도커 데스크탑(GUI 환경)에서 지워보자
+
+컨테이너는 실행할때 두 가지 모드 중 선택해야함
+    1. Attach Mode, 다른 말로 Foreground Mode
+        - 컨테이너와 쉘(터미널)이 서로 연결되어있는 상태
+        - 컨테이너 실행 중에는 해당 쉘(터미널)에서는 다른 작업이 불가능하다
+    2. Detached Mode, 다른 말로 Background Mode
+        - 컨테이너와 쉘(터미널)이 분리된 상태로 실행
+        - 컨테이너가 실행 중이더라도 해당 쉘(터미널)로는 다른 작업이 가능하다
+
+docker image pull httpd
+docker create --name apache httpd
+
+docker start apache <- 기본으로 Detached Node, 즉 백그라운드 모드로 실행됨
+docker start -a apache <- 포그라운드 모드로 실행, 이 컨테이너가 이 터미널을 붙잡고 있어서
+이 컨테이너가 끝나기 전에는 다른 작업을 못함. ajax로 치면 동기 통신과 비슷
+이 터미널 창을 닫아버리면 컨테이너도 같이 중단됨
+그럼 터미널창 어떻게 씀? <- 하나 더 띄워야 함
+종료하려면 Ctrl + C
+
+Detached Mode로 실행하면 실행하고 나서 창 닫아버려도 됨
+<- 실시간으로 무슨 일이 일어나는지 확인할 수 없음
+
+결론:
+Attach Mode 는 개발할 때 많이 사용
+Detached Mode 는 실제로 운영 중일 때 사용
+
+운영중일때 Attach Mode 는 불편해서 안 씀
+
+지금까지는 정석적으로 사용하는 방법을 알아본것
+
+자주 사용하는 방법은 다음과 같다
+
+여태까지 이미지 다운로드, 컨테이너 생성, 컨테이너 실행을
+다 따로따로 했는데 이걸 한번에 할 수 있는 명령어가 있다
+
+docker [container] run --name 컨테이너이름 이미지이름:태그이름
+
+docker run --name apache httpd
+
+이 run 명령어는 기본적으로 컨테이너를 Attach Mode(Foreground Mode)로 실행함
+
+Detached Mode로 실행하고 싶으면?
+
+docker run -d --name apache httpd
+
+근데 아까전에 apache라는 이름의 컨테이너 실행하고 멈춰둔 상태라서
+apache 컨테이너를 또 새로 실행하려니까 conflict 에러 발생함
+
+run 명령어
+    - 이미지 다운로드(이미지가 없으면 다운로드, 있으면 그냥 사용)
+    - 컨테이너 생성(동일한 이름의 컨테이너가 없으면 생성, 있으면 에러 발생)
+
+그래서 똑같은 이름의 컨테이너를 지우던지, 다른 이름으로 새로 만들던지 해야함
+
+브라우저가 내가만든 톰캣서버로 들어갈라는데 방화벽때문에 그냥은 못들어가고
+8080이 포트번호인데 포트번호가 통로 역할임 8080으로 들어온 요청은 들어오게 해주세요
+라는 예외 처리를 해서 방화벽을 지나 톰캣 서버로 접속이 가능했던 것
+
+apache 컨테이너 웹서버에는 방화벽이 하나 더 있다?
+바깥쪽에 있는 방화벽을 지나서 웹서버에 진입해야함
+브라우저 -> 윈도우(호스트) 방화벽 -> apache라는 이름의 컨테이너로 만든 웹서버의 방화벽
+그래서 요청을 호스트인 윈도우한테 하는데 그러면 윈도우가 그 요청을
+apache 컨테이너한테 전달함
+포트번호가 8090이라고 치면 8090이라는 요청이 들어오면 그건 80이라는
+포트번호를 가진 apache 컨테이너한테 다 보내 라는 규칙을 만들었음
+*윈도우 포트번호랑 apache 컨테이너의 포트번호가 달라야 함(예: 8090, 80), 같으면 해킹당함
+이 일련의 과정을 포트 포워딩 이라고 한다
+
+공인 IP vs 사설 IP
+공인 IP는 전세계에 유일하다. 나만 가질 수 있음, 그래서 1년마다 돈내야함
+그 공인 IP는 내 공유기에 할당되어있어야함 그래야 전세계 수많은 공유기 중에
+내가 쓰는 공유기를 찾을 수 있으니까(내가 우리 집 와이파이로 카톡할때 상대방이
+카톡을 보낼 때 IP를 알아야 제대로 보낼 수 있음)
+그럼 컴퓨터 TV 스마트폰 다 공인 IP 쓰면 안 됨? <- 돈이 드니까 그렇게 안함
+그래서 사설 IP를 씀 
+사설 IP는 [컴퓨터 TV 스마트폰(내부 네트워크)]끼리 구별할 수 있는 IP이다.
+내부 네트워크 바깥에서는 이 사설 IP가 뭔지 모름
+공유기가 내부 네트워크에 있는 기기들 하나씩 사설 IP를 지정해줌, 그걸로 구별함
+
+그래서 상대방이 나한테 카톡을 보낼때 공인 IP만 써서 보내는게 아니고 포트번호까지
+같이 써서 보냄, 그래야 카톡을 무슨 기기로 보낼지 알 수 있으니까
+
+예: 외부에서 80이라는 포트번호로 들어오면 
+내부에서 8123이라는 번호를 쓰는 기기(예: 내가 쓰는 스마트폰)로 포워딩을 시켜라
+<- 이런 정책(규칙)이 적혀져 있는 테이블이 있다
+
+공인 IP는 몇번에서 몇번까지 a클래스 b클래스 c클래스 이렇게 나뉘어져있다
+
+우리집에서 쌍용교육센터에 있는 1강의실에 있는 수많은 컴퓨터 중 
+오라클 서버를 깔아놓은 컴퓨터에 접속하고 싶은데 왜 못할까
+학원 컴퓨터는 다 사설 IP가 할당되어 있으니 우리 집에서는 오라클 서버에 접속을 못함
+쌍용에서 외부와 내부를 연결할 때 문지기 역할을 하는 장치(이게 공유기 같은거)가 있다
+문지기한테 9999라는 포트번호로 요청이 들어오면 1521이라는 포트번호로
+포트 포워딩을 해주면(그렇게 하라는 규칙이 있으면)
+나도 우리 집에서 오라클 서버 들어갈 수 있음
+
+이제 컨테이너를 제대로 써보자
+
+컨테이너 통신
+- 호스트 또는 호스트 외부와 컨테이너 간의 네트워크 설정을 해야 제대로 된
+요청 응답이 가능한 환경이 만들어짐
+
+#포트 포워딩
+- 컨테이너를 생성할 때 포트 포워딩 설정을 같이 한다.
+- 컨테이너가 이미 생성된 이후로는 포트 포워딩이 불가능하다
+
+-p: 포트 포워딩을 하겠습니다
+밖에서 들어오는 윈도우의 포트번호:안쪽에 있는 컨테이너의 포트번호
+
+브라우저 -> [윈도우 -> {컨테이너}]
+
+docker run -p 호스트 포트번호:컨테이너 포트번호 이미지이름:태그이름
+
+docker create --name apache -p 80:80 httpd
+
+httpd(아파치) <- 이 이미지 만든 사람이 80이라고 만들어놔서 내부 포트번호는 못바꿈
+
+외부 포트번호는 내맘대로 바꿀 수 있음
+
+docker run -d --name apache2 -p 8888:80 httpd 이건 되는데
+docker run -d --name apache3 -p 8888:80 httpd 이거 또 하려니까 에러나네
+
+
+docker create --name apache -p 8888:80 httpd <- 컨테이너는 있는데 실행은 안되어있음
+docker run -d --name apache2 -p 8888:80 httpd <- 이건 잘돌아가는중
+docker run -d --name apache3 -p 8888:80 httpd <- 이건 왜 에러나지
+
+외부에서 8888이라는 요청이 들어오면 내부에서 80을 쓰는 애한테 보내겠다는 규칙이 있는 상황
+근데 내가 apache 라는 이름의 컨테이너를 중지시켰음
+근데 apache2도 8888이라는 요청이 들어오면 내부에서 80을 쓰는 애한테 보내라는 규칙이 있는데
+우리가 의도했던 대로 apache2로 가는게 아니라 apache한테 감
+근데 apache2는 왜 실행됨? apache가 중지되어있어서 apache랑은 연결이 성립이 되지 않음
+그래서 최종적으로는 우리가 원했던 대로 apache2 랑 연결됨
+
+컨테이너가 구분이 되면(apache2, apache3) 똑같은 내부 번호를 써도 상관이 없음
+
+apache2가 이미 내부 포트번호로 80을 쓰고있음 apache3도 80을 쓰고 있음
+
+Error response from daemon: failed to set up container networking: driver failed programming external connectivity on endpoint apache3 (9f89a85cd8f813524bf7f9ed9cbeefd7dc2ba3a14dca755b50ceb3c23cf73311): Bind for 0.0.0.0:8888 failed: port is already allocated
+
+진짜 문제는 외부 포트 번호인 8888임 
+8888은 하나만 있기 때문에 
+이미 apache2랑 연결되어 있어서
+apache3랑은 연결을 할 수 없음
+
+해결방법: 8888 말고 다른 번호로 쓰면 됨, 외부 포트 번호는 맘대로 설정할 수 있으니까
+
+docker run -d --name apache3 -p 8889:80 httpd
+
+컨테이너가 이미 실행된 후 그 컨테이너에 접근을 해보자
+- 실행 중인 컨테이너는 쉽게 말해 컴퓨터인데 그 컴퓨터를 호스트에서 접근할 수 있다
+우리가 쓰는 컨테이너는 모두 리눅스 운영체제이다
+컨테이너에 연결을 하면 컨테이너 내부에서 쉘을 사용할 수 있다
+도커 이미지의 대부분은 Debian 계열의 리눅스를 사용한다(= 우분투다).
+
+docker exec [옵션] 컨테이너이름 실행명령어 [명령어 인자]
+docker exec [옵션] 컨테이너ID 실행명령어 [명령어 인자]
+
+docker run -d --name apache httpd
+docker ps 로 확인을 해보면 아주 잘 돌고 있음
+근데 컨테이너(컴퓨터)안쪽에서 무슨 일이 벌어지는지 궁금함
+
+상황: It works! 에 오타가 남 <- 이걸 고치고 싶음
+원래는 이미지까지 삭제하고 다시 만든다?
+근데 우린 찾아가서 수정만 좀 하고싶음
+
+현재 돌고 있는 apache 컨테이너에 접속을 하겠습니다
+접속하자마자 실행해야하는 명령어를 작성해줘야함
+우린 리눅스 컴퓨터에 달라붙는거니까 쉘을 실행해야하는데
+그 쉘이 bin/bash에 있다
+docker exec -it apache 실행명령어
+docker exec -it apache /bin/bash
+docker exec -it apache bash <- 이 쉘이 어딨는지 정확히 기억이 안 나면 이렇게
+패키지 이름만 작성하면 알아서 검색해줌
+-i: 쉘에서 키보드 입력 가능
+-t: 터미널 환경에서 실행 결과 출력
+
+우리의 목적: It works! 를 찾아서 고치고 싶음
+어디 있는지 어떻게 암? -> 직접 찾아야됨
+cd /usr/local/apache2/htdocs
+
+여기서 ls 해보니까
+
+index.html <- 이런게 나왓음 이게 It works! 들어있던 html
+
+apache2 컨테이너 안의 패키지를 업데이트하고 vim도 깔앗음
+vi index.html 로 진입해서 index.html 수정
+
+260420
+처음부터 순서대로 컨테이너를 실행하는 법
+docker image pull httpd <- 아파치 이미지 다운로드
+docker image ls <- 이미지 목록보기
+docker create --name apache -p 8888:80 httpd <- 컨테이너 생성
+docker ps -a <- 컨테이너 목록 보기
+docker start apache <- apache 라는 이름의 컨테이너를 Detached 로 실행
+브라우저 접속 -> 아파치 확인
+docker stop apache <- 컨테이너 중지
+docker rm apache <- 컨테이너 삭제하기
+
+한번에 여러 명령어들을 실행하는 단축? 숏컷 방법(보통은 이렇게 사용)
+docker run --name apache -p 8888:80 httpd <- 이미지 다운로드 + 컨테이너 생성 + 컨테이너 실행(Attached 컨테이너)
+
+docker run -d --name apache -p 8888:80 httpd <- 이미지 다운로드 + 컨테이너 생성 + 컨테이너 실행(Detached 컨테이너)
+
+외부에서 누군가가 나한테 8888이라는 포트번호로 요청을 보내면 내 윈도우 방화벽이 그 요청을 윈도우 안에 있는 컨테이너의 80 포트번호로 표시되어 있는 곳으로 (도커 엔진이) 보내도록 해라 라는 규칙이 있는 컨테이너를 만들었다
+
+여러개의 컨테이너를 연동시키기
+각 컨테이너는 같은 네트워크에 속한다면 서로간의 컨테이너 이름을 활용해 서로 접속할 수 있다
+(우리가 실습하면서 썼던 apache 라는 그 이름)
+
+네트워크 목록 보기
+docker network ls
+
+네트워크 생성하기
+docker network create 네트워크이름
+Ex. docker network create mynetwork <- 빈 강의실이 하나 만들어졌다고 생각하면 된다
+
+NETWORK ID     NAME        DRIVER    SCOPE
+364b8fcb79a9   bridge      bridge    local
+f0f40c97147a   host        host      local
+ba393b13df2d   mynetwork   bridge    local
+fe5fc0f46055   none        null      local
+
+NAME(bridge)
+    - 기본 네트워크
+    - 컨테이너를 생성하면, 자동으로 이 네트워크(bridge)에 포함된다.
+    - 컨테이너를 생성할 때 별도의 네트워크를 지정하면, 지정한 네트워크에 포함된다.
+
+DRIVER(bridge)
+    - 가상의 공유기 역할
+    - 같은 네트워크 안의 컨테이너들을 서로 연결해주는 역할
+
+네트워크 삭제하기
+    docker network rm 네트워크이름
+    Ex. docker network rm mynetwork
+
+여러 개의 컨테이너를 같은 네트워크에 연동하기
+docker network create mynetwork
+
+docker run -d --name nginx nginx --network mynetwork nginx
+
+docker run -it --name busybox --network mynetwork busybox
+
+nginx <- 아파치랑 비슷한 역할을 하는 웹서버
+
+busybox <- 아무것도 없는 리눅스
+
+지금 상황: nginx, busybox 라는 두 컨테이너를 만들었음
+
+docker run -d --name nginx -p 8888:80 nginx
+
+컨테이너 파일 복사
+- 컨테이너와 호스트 간의 파일 복사
+- 드래그 앤 드롭이 불가능
+- 명령어로 해야 함
+- cp 사용
+
+호스트(윈도우)가 가지고 있는 파일 하나를 복사해서
+실행중인 컨테이너에 붙여넣기 해보자
+docker cp 호스트경로 컨테이너이름:컨테이너경로
+
+실행중인 컨테이너가 가지고 있는 파일 하나를 복사해서
+호스트(윈도우)에 붙여넣기 해보자
+docker cp 컨테이너이름:컨테이너경로 호스트경로
+
+아파치 컨테이너를 실행해 호스트에서 index.html 생성 후 컨테이너에 붙여넣기
+
+1. index.html 생성
+
+2. 아파치 컨테이너 생성하기
+docker run -d --name apache -p 8888:80 httpd
+
+3. 파일 복사하기(VS Colde 에서 Ctrl + `)
+
+실행중인 컨테이너가 가지고 있는 파일 하나를 복사해서
+호스트(윈도우)에 붙여넣기 해보자
+docker cp 컨테이너이름:컨테이너경로 호스트경로
+
+docker cp apache:/usr/local/apache2/htdocs/index.html ./index2.html
+
+
+스토리지 마운트(중요)
+- 문제: 기존의 cp 명령어는 컨테이너가 삭제되면 그 안에 있던 파일도 같이 삭제된다
+결국 컨테이너 안의 파이릉르 보존하려면 호스트에 복사를 해야 한다 <- 귀찮음
+
+이걸 해결하기 위해 스토리 마운트라는걸 만들었음
+
+스토리지 마운트는 컨테이너(가상 컴퓨터)에 외장 하드처럼 연결한다고 보면됨
+스토리지 마운트의 목적은 컨테이너가 삭제되더라도 데이터를 유지하기 위해
+
+컨테이너를 생성할때 스토리지 마운트를 지정하면 된다
+    - 단 컨테이너를 생성한 이후에는 스토리지 마운트를 할 수 없다.
+
+컴퓨터로 치면 컴퓨터 조립도 전에 외장하드 먼저 꽂는 것
+
+스토리지 마운트를 하면 컨테이너의 경로의 디렉토리의 모든 상태가 덮어쓰기 된다.
+(기존 파일을 모두 지워버림)
+
+스토리지 마운트의 방식은 2가지
+
+1. 바인드 마운트, Bind Mount <- 개발/테스트 할 때 쓰는 용도
+    호스트 시스템의 특정 디렉터리를 컨테이너에 마운트한다.
+    실습: C:\Ssangyong\code\drive 디렉터리를 새로 만들었음
+
+2. 볼륨 마운트, Volume Mount <- 많이 씀(운용할 때)
+    - 도커 엔진이 직접 관리하는 저장 공간을 볼륨이라고 한다
+    - 도커가 관리하는 외장 하드
+    - 볼륨을 특정 컨테이너에 결합(마운트)헤서 사용이 가능하다
+
+바인드 마운트:
+docker run -v 호스트경로:컨테이너경로
+
+로컬 경로는 C:\Ssangyong\code\drive
+
+컨테이너 생성하기
+docker run -it --name busybox -v C:\Ssangyong\code\drive:/home busybox
+<- home이라는 폴더에 마운트하겠습니다
+
+상황: 아파치 컨테이너 + 로컬 개발 + 바인드 마운트
+
+보통 마운트할 폴더랑 컨테이너랑 1:1로 만듦
+
+로컬 폴더: C:\Ssangyong\code\drive2
+
+아파치 컨테이너 생성 + 포트 포워딩 + 바인드 마운트
+docker run -d --name apache -p 8888:80 -v C:\Ssangyong\code\drive2:/usr/local/apache2/htdocs httpd:2.2
+
+예시 상황: 뭔가 문제가 생겨서 apache 라는 이름의 컨테이너를 지워야함
+
+지우고 다시 만들었음
+docker run -d --name apache -p 8888:80 -v C:\Ssangyong\code\drive2:/usr/local/apache2/htdocs httpd
+
+그래도 index.html 잘 뜸
+
+-- 볼륨 마운트 --
+docker volume create 볼륨이름 <- docker가 볼륨이라는 외장하드를 하나 만들었음
+docker volume ls
+docker volume inspect 볼륨이름
+docker volume rm 볼륨이름
+
+docker run -v 볼륨이름:컨테이너경로
+
+docker volume create myvolume
+
+docker run -it --name busybox -v myvolume:/home/volume busybox <- busybox라는 이름의 컨테이너를 만들고 myvolume이랑 연결함
+
+test.txt에 아무 내용이나 입력하고 busybox 컨테이너를 삭제함
+
+docker run -it --name busybox2 -v myvolume:/home/aaa busybox
+<- busybox2 라는 이름의 컨테이너를 다시 만들었고 myvolume이랑 연결도 함
+
+test.txt 찾아보니까 그대로 남아있음
+
+보통 남이 만든 이미지를 그대로 가져다 쓰는 일은 없음
+
+우리가 만든 이미지를 활용해 컨테이너에서 쓰는것
+
+이미지를 생성하기
+- 기존 컨테이너를 이미지로 변환하기
+- Dockerfile 스크립트로 이미지를 생성하기(보편적)
+
+Dockerfile 만들기
+이름 그대로 Dockerfile 만들면 됨, 그냥 텍스트 파일
+
+FROM httpd # 베이스 이미지
+COPY ./dir /usr/local/apache2/htdocs/ # 세팅
+EXPOSE 8080
+
+Dockerfile
+- 이미지를 빌드(생성)하는 텍스트 기반 스크립트
+- 베이스 이미지 + 파일 복사 + 시작 명령어
+
+docker build -t 이미지이름 .
+docker build -t myapache .
+docker build -t myapache:latest .
+docker build -t myapache:1.1 .
+
+docker run -d --name apache -p 8080:80 myapache
+
+이미지 빌드하기
+docker build -t board .
+docker build -t board-bash .
+
+컨테이너 실행하기
+docker run -it --name board board
+docker run -it --name board-custom board-custom
+docker run -it --name board-custom board-bash
+
+컨테이너는 그 안에 동작되는 프로그램이 종료되면 자동으로 컨테이너도 종료된다
+
+1. 로컬(사설) 도커 레지스트리 운영하기
+
+# 사설 레지스트리 생성하기
+docker run -d --name registry -p 9999:5000 registry
+
+# 배포할 이미지 생성
+docker build -t localhost:9999/board .
+
+# 사설 레포지토리에 이미지를 업로드하기
+docker push localhost:9999/board
+
+# 사설 레포지토리에 내가 업로드한 이미지를 확인하기
+생략되었지만 GET 요청으로 확인함
+curl http://localhost:9999/v2/_catalog
+
+# 사설 레포지토리로부터 이미지를 다운로드 + 컨테이너
+docker image pull board                <- 도커 허브로부터 다운로드 
+docker image pull localhost:9999/board <- 사설 레포지로부터 다운로드
+
+도커 허브를 쓰는 방법, public으로 사용(보통 private)
+1. 도커 허브에 로그인
+
+2. 업로드할 이미지 + 태그 추가
+docker build -t 도커허브ID/이미지이름:태그이름 .
+docker build -t pinnpublic/board:v0.0.1 .
+
+도커 허브에 올리기
+docker push pinnpublic/board:v0.0.1
+
+다른 사용자가 이미지 + 컨테이너 를 다운받는 상황
+docker run -it --name board pinnpublic/board:v0.0.1
+
+== 오라클 컨테이너 만들어보기 ==
+오라클 도커 이미지
+- 공식 오라클 이미지
+    - oracle/database:18.4.0-xe
+
+- 커뮤니티 이미지
+    - gvenzl
+
+오라클이 제공해주는 이미지로 직접 이미지 빌드하기
+깃허브에서 오라클 도커 파일 클론하기
+git clone https://github.com/oracle/docker-images
+
+C:\Ssangyong\code\linux\docker-images\OracleDatabase\SingleInstance\dockerfiles
+
+진입 후 여기서 터미널(파워쉘) 열고
+./buildContainerImage.sh -v 18.4.0 -x
+
+오라클 컨테이너 생성하기
+docker run --name oracle -p 1522:1521 -p 5551:5550 -e ORACLE_PWD=java1234 -e ORACLE_CHARACTERSET=AL32UTF8 -e TZ=Asia/Seoul oracle/database:18.4.0-xe
+
+컨테이너에 오라클이 가동중인 상태임
+
+오라클 컨테이너 + 바인드 마운트
+C:Ssangyong\code\ora-data
+
+docker run -d --name oracle -p 1522:1521 -p 5551:5550 -v C:\Ssangyong\code\ora-data:/opt/oracle/oradata -e ORACLE_PWD=java1234 -e ORACLE_CHARACTERSET=AL32UTF8 -e TZ=Asia/Seoul oracle/database:18.4.0-xe
+
+오라클 컨테이너 + 볼륨 마운트
+# 볼륨 생성하기
+docker volume create docker-data
+
+# 컨테이너
+docker run -d --name oracle -p 1522:1521 -p 5551:5550 -v docker-data:/opt/oracle/oradata -e ORACLE_PWD=java1234 -e ORACLE_CHARACTERSET=AL32UTF8 -e TZ=Asia/Seoul oracle/database:18.4.0-xe  

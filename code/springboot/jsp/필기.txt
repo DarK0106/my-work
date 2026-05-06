@@ -1,0 +1,39 @@
+프로젝트 생성
+- Name: "jsp" (확인 필요)
+- Language: Java
+- Type: Gradle - Groovy
+- Group: "com.test"
+- Artifact: "jsp"
+- Package name: "com.test.java"
+- Java: 21
+- Packaging: jar
+- Dependencies: (확인 필요)
+    - Spring Web
+    
+Spring Boot 에서는 더 이상 JSP를 사용하지 않음
+    - 톰캣 의존성을 낮추기 위해 기존에 제공하던 JSP를 제공하지 않음
+    - 스프링 부트 -> Thymeleaf 선택
+    
+JSP 의존성을 추가
+    - 내장 톰캣 + JSP 처리
+    - 스타터에는 JSP 의존성 자체가 검색해도 없음
+    
+build.gradle 을 열고
+
+dependencies 에
+
+// JSP 컴파일용
+implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+// JSTL API
+implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
+// JSTL 구현체
+implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'
+
+붙여넣기 하고 우클릭 -> Gradle -> Refresh Gradle Project
+
+파일 생성하기
+- com.test.java.controller -> TestController.java
+
+JSP를 사용하려면 application.properties에서 뷰 리졸버 설정을 해야함
+
+근데 스프링 부트에선 JSP를 사용하지 않을 예정

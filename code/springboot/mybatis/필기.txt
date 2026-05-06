@@ -1,0 +1,27 @@
+프로젝트 생성
+- Name: "mybatis" (확인 필요)
+- Language: Java
+- Type: Gradle - Groovy
+- Group: "com.test"
+- Artifact: "jsp"
+- Package name: "com.test.java"
+- Java: 21
+- Packaging: jar
+- Dependencies: (확인 필요)
+    - Spring Web
+    - Lombok
+    - Oracle Driver <- DB 접속 시 필요(JDBC)
+    - MyBatis Framework <- JDBC 기반 MyBatis
+    
+이전 Spring 때의 방식 -> XML -> DBCP(HikariCP) + MyBatis 설정
+현재 Spring Boot에서의 방식 -> 대부분이 공통 설정으로 구현 완료
+-> 남아 있는 설정만 추가
+
+DB 설정
+application.properties
+
+단위 테스트
+- src/test/java -> com.test.java -> DBTests.java
+
+파일 생성하기
+com.test.java.controller

@@ -1,0 +1,44 @@
+Spring Boot
+    - Spring 생태계에 있는 프로젝트 중 하나
+    - 기존 스프링 환경 -> 생성과 설정이 난이도 있음
+    - 스프링 부트는 초기 설정과 관련된 많은 부분을 자동화
+    - 그 중 하나가 Spring Initializr
+    
+Spring VS Spring Boot 동작 방식
+    - Spring: 프로젝트를 톰캣에 등록 -> 톰캣을 통해서 실행
+    - Spring Boot: 사이트가 아님, 독립된 자바 프로그램임
+    프로그램 내부에 톰캣이 내장되어있음
+    
+루트 패키지
+- com.test.basic -> OOOApplication.java
+
+폴더 구조
+- src/main/java
+    - 이전과 동일, 자바 소스 넣는 폴더: 패키지 or 파일 들어감
+    - com.test.basic -> BasicApplication -> 메인(main) 클래스
+    - 우리가 xml로 설정하던 servlet-context.xml이나 root-context.xml
+    이 다 없어졌음
+    - @ComponentScan 어노테이션이 그 역할을 대신함
+    - @SpringBootApplication <- 컴포넌트 스캔 역할
+    
+- src/main/resources
+    - 스프링 자원을 넣는 폴더
+    - Spring과는 많이 다른 폴더와 파일이 들어있음
+    - templates
+        - Spring 때의 views 폴더 역할
+        - 뷰 파일을 저장
+    - static
+        - 정적 자원(HTML, CSS, JavaScript, 이미지 등)을 저장
+        - 이전의 webapp 안의 resources 역할(이모티콘, 기본 프로필 사진 넣고 하던 그 폴더)
+    - application.properties / application.yml
+    - 이전의 web.xml + root-context.xml + servlet-context.xml 역할
+    
+- src/test/java
+    - 단위 테스트용
+    - JUnit 5
+    
+- src 는 이제 건드릴 일이 없음
+
+- build.gradle
+    - Gradle 설정 파일
+    - Maven의 pom.xml 파일과 같은 역할

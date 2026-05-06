@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>Thymeleaf</title>
+<link rel="stylesheet" href="http://bit.ly/3WJ5ilK" />
+</head>
+
+<body>
+    <!-- m4.html -->
+    <h1>HTML 속성 조작하기</h1>
+    
+    <!--  
+        규칙
+        1. 모든 타임리프 문법은 th: ... 속성에서만 쓸 수 있다
+        2. 태그가 가지는 대부분의 속성에는 th: 를 붙일 수 있다
+        정확히는 th: 가 붙은 HTML 속성을
+        개발자가 쓰기 쉽게 
+        타임리프에서 미리 만들어놨다
+    
+    -->
+    
+    <div>
+        <!-- PCDATA: innerText, textContent 역할 -->
+        <div th:text="${count}"></div>
+        <br>
+        
+        <input type="text" value="100">
+        <br>
+        
+        <input type="text" value="${count}">
+        <br>
+        
+        <input type="text" 
+            th:value="${count}"
+            th:title="${name}"
+            th:size="${count - 50}"
+            th:style="|background-color: ${color}|">
+            
+        <!-- th:style="'background-color:' + ${color}" 도 사용 가능 -->
+    </div>
+    
+    <hr>
+    <h2>체크박스</h2>
+    <div>
+        <input type="checkbox" checked>
+        <br>
+        <input type="checkbox" th:checked="true">
+        <br>
+        <input type="checkbox" th:checked="false">
+        <br>
+        <input type="checkbox" th:checked="${count > 0}">
+    </div>
+    
+    <h2>셀렉트 박스</h2>
+    <div>
+        <select>
+            <option value="아무개"
+                th:selected="${name == '아무개'}">아무개</option>
+            <option value="강아지"
+                th:selected="${name == '강아지'}">강아지</option>
+            <option value="고양이"
+                th:selected="${name == '고양이'}">고양이</option>
+        </select>    
+    </div>
+
+</body>
+
+</html>
