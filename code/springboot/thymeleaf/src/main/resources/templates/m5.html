@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>Thymeleaf</title>
+<link rel="stylesheet" href="http://bit.ly/3WJ5ilK" />
+</head>
+
+<body>
+    <!-- m5.html -->
+    <h1>컨텐츠 조작하기</h1>
+    
+    <div>태그의 내용물 조작하기</div>
+    
+    <!--  
+    
+        <태그>내용물</태그>
+        - PCDATA 조작 -> innerText(textContent)
+        - 자식 태그 조작 -> innerHTML
+        
+        Thyemleaf Text
+        1. th:text
+            - escaped text
+            - innerText
+            - 컨트롤러가 넘겨준 값(문자열) 중에 
+            - 태그가 있는 문자열이면
+            - 태그가 적용되지 않음
+        
+        2. th:utext
+            - unescaped text
+            - innerHTML
+            - 컨트롤러가 넘겨준 값(문자열) 중에 
+            - 태그가 있는 문자열이면
+            - 태그가 적용됨
+            
+        3. 인라인 출력
+            모든 태그에는 th:inline 값을 가진다(생략이 되었을 뿐임)
+            - th:inline="text" // default
+            - th:inline="javascript"
+            
+            - th:inline + [[표현]] = th:text
+            - th:inline + [(표현)] = th:utext
+            
+    -->
+    <div th:text="값"></div>
+    <div>값</div>
+    
+    <hr>
+    
+    <div th:text="${txt1}"></div>
+    <div th:utext="${txt1}"></div>
+    <div th:utext="${txt2}"></div>
+    <div th:utext="${txt3}"></div>
+    
+    <hr>
+    
+    <div>인라인 출력</div>
+    
+    <br>
+    
+    <div th:inline="text">[[${txt1}]]</div>
+    <!-- th:inline="text" 이걸 작성하진 않음 -->
+    <div>[[${txt1}]]</div>
+    
+    <!-- 우리가 JSP 에서 했던 -->
+    <!-- 이거랑 똑같음 -->
+    <div>${txt1}</div>
+    
+    <br>
+    
+    <div>인라인 출력 - th:inline + [(표현)]</div>
+    
+    <br>
+    
+    <div>[(${txt2})]</div>
+    
+    <hr>
+    
+    <div>JSP 보다 월등한 기술?</div>
+    
+    <div id="list"></div>
+    
+    <script>
+    
+        // 컨트롤러가 건내준 값을 사용
+        let num1 = [[${num}]];
+        // alert(num1);
+        
+        // let name1 = [[${name}]];
+        let name1 = '[[${name}]]';
+        // alert(name1);
+        
+        // 자바의 객체를 자바스크립트로 가져와서
+        // 자바스크립트는 이해못함
+        // 파싱을 해야함
+        // let dto1 = [[${dto}]];
+        
+        // 이것들도 마찬가지로 이대로는
+        // 자바스크립트에서 써먹지 못함
+        // let names1 = [[${names}]];
+        // let list1 = [[${list}]];
+        
+    </script>
+    
+    
+    <script th:inline='javascript'>
+        
+        let num2 = [[${num}]];
+        let name2 = [[${name}]];
+        // alert(name2);
+        
+        // dto에 있었던 자바 멤버가 프로퍼티가 되었다
+        // 자바 객체를 추가 동작 없이 
+        // 자바스크립트 객체로 바뀌었다
+        // 원래 컨트롤러 쪽에서 JSON으로 바꿔서 보내주고 그랬는데
+        // 그런걸 하지 않아도 됨 
+        let dto2 = [[${dto}]];
+        // alert(dto2.address);
+        
+        let names2 = [[${names}]];
+        let list2 = [[${list}]];
+        
+        list2.forEach(dto => {
+        
+            document.getElementById("list").innerHTML +=
+            `
+                <div>${dto.seq} - ${dto.name}(${dto.age}) - ${dto.address}</div>
+            `;
+        
+        });
+    
+    </script>
+
+</body>
+
+</html>

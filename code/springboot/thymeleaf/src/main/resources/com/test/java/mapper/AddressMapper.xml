@@ -11,4 +11,12 @@
         select * from tblAddress where seq = #{_parameter}
         
     </select>
+    
+    <select id="names" resultType="string">
+        select name from tblAddress
+    </select>
+    
+    <select id="list" resultType="AddressDto">
+        select * from tblAddress
+    </select>
 </mapper>

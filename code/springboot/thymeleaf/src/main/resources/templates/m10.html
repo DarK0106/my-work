@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thymeleaf</title>
+    <link rel="stylesheet" href="http://bit.ly/3WJ5ilK" />
+</head>
+<body>
+    <!-- m10.html -->
+    <!--  
+        조각 페이지
+        - templates > "inc" > "sub1.html"
+        
+        1. th:fragment
+        
+        2. th:insert
+            - 태그는 유지되고, 그 안에 조각 페이지를 자식으로 삽입
+        
+        3. th:replace
+            - 태그 자체가 조각 페이지로 교체됨
+        
+    -->
+    <h1>Thymeleaf Fragment</h1>
+    
+    <div th:insert="~{inc/sub1.html}"></div>
+    <div th:replace="~{inc/sub1.html}"></div>
+    <hr>    
+    <div th:insert="~{inc/sub2.html :: tel}"></div>
+    <hr>
+    <div th:insert="~{inc/sub2.html :: address}"></div>
+    
+    <hr>
+    
+    <div th:replace="~{inc/sub2.html::title('게시판','수정하기')}"></div>
+    
+    <hr>
+        
+    <div th:replace="~{inc/sub2.html::title('회원','가입하기')}"></div>
+    
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thymeleaf</title>
+    <link rel="stylesheet" href="http://bit.ly/3WJ5ilK" />
+</head>
+<body>
+    <!-- m8.html -->
+    <h1>링크 표현식 <small>링크 or 쿼리스트링</small></h1>
+    
+    <div>
+        <a href="/list.do?seq=10">이동하기</a>
+        <br>
+        <a href="/list.do?seq=${seq}">이동하기</a>
+        <br>
+        <a th:href="'/list.do?seq=' + ${seq}">이동하기</a>
+        <br>
+        <a th:href="|/list.do?seq=${seq}|">이동하기</a>
+        <!-- <a href="/list.do?seq=[[${seq}]]">이동하기</a> -->
+        <br>
+        <a th:href="@{/list.do(seq=${seq})}">이동하기</a>
+        <br>
+        <!-- list.do?seq=10&mode=add -->
+        <a th:href="@{/list.do(seq=${seq}, mode=${mode})}">이동하기</a>
+        <br>
+        <!-- /view.do?search=y&column=subject&word=java -->
+        <a th:href="@{/view.do(search=${map.search}, column=${map.column}, word=${map.word})}">이동하기</a>
+        
+        <hr>
+        
+        <!-- REST API 방식으로 넘긴다면 -->
+        <a th:href="@{/board/10}">글보기</a>
+        <!-- 이렇게 하면 -->
+        <a th:href="@{/board(seq=${seq})}">글보기(쿼리스트링)</a>
+        <!-- 우리가 원했던 /board/10으로 바인딩이 되지 않고 -->
+        <!-- /board/seq=10 이런식으로 바인딩됨 -->
+        <a th:href="@{/board/{seq}(seq=${seq})}">글보기(패스변수)</a>
+        
+    </div>
+    
+</body>
+</html>

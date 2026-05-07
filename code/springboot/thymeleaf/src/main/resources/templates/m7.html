@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thymeleaf</title>
+    <link rel="stylesheet" href="http://bit.ly/3WJ5ilK" />
+</head>
+<body>
+    <!-- m7.html -->
+    <h1>스프링 메시지</h1>
+    
+    <!--  
+    
+        스프링 메시지, Spring Message
+        - 프로젝트 내에서 자주 사용하게 되는 문자열
+        이 반드시 생김
+        - 그런 반복적인 문자열들을 관리하는 기능
+        - 모든 상수 문자열을 관리하는 기능
+        
+        - src/main/resources -> message.properties
+        
+        
+        3. Message Expression, 메시지 표현식
+    
+    -->
+    
+    <h2 th:text="#{author}"></h2>
+    <h2 th:text="#{language}"></h2>
+    
+    <ul>
+        <li th:text="#{item.category}">
+        <li th:text="#{item.name}">
+        <li th:text="#{item.color}">
+        <li th:text="#{item.option}">
+        <li th:text="#{item.desc(#{item.name}, #{item.color})}">
+    </ul>
+    
+    <h1>스프링 메시지 <small>다국어</small></h1>
+    <!-- 브라우저의 기본 언어 설정에 따라 -->
+    <!-- 그 언어에 맞는 스프링 메시지를 출력함 -->
+    <!-- 언어별로 페이지를 만드는것이 아님 -->
+    <!-- 지금 방식처럼 하나의 페이지에서 다국어를 처리함 -->
+    
+    <h2 th:text="#{author}"></h2>
+    <h2 th:text="#{language}"></h2>
+    
+    <ul>
+        <li th:text="#{item.category}">
+        <li th:text="#{item.name}">
+        <li th:text="#{item.color}">
+        <li th:text="#{item.option}">
+        <li th:text="#{item.desc(#{item.name}, #{item.color})}">
+    </ul>
+    
+    
+</body>    
+</html>
+
+
+
+
+
+
+

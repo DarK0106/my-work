@@ -1,0 +1,14 @@
+# Conversion to YAML from Properties formar report
+# Warnings:
+# - The yaml file had comments which are lost in the refactoring!
+spring:
+  application:
+    name: thymeleaf
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521/XEPDB1
+    username: springboot
+    password: java1234
+mybatis:
+  mapper-locations: classpath:com/test/java/mapper/*.xml
+  type-aliases-package: com.test.java.model

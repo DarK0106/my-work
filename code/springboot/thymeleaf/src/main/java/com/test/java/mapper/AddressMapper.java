@@ -1,5 +1,7 @@
 package com.test.java.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.test.java.model.AddressDto;
@@ -13,4 +15,8 @@ public interface AddressMapper {
 	// PK 하나를 주면 레코드 하나를 통째로 반환하는 메서드
 	// 기존 template.selectOne(); 역할
 	AddressDto get(int seq);
+
+	List<String> names();
+
+	List<AddressDto> list();
 }

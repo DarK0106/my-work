@@ -1,6 +1,8 @@
 package com.test.java.controller;
 
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -90,13 +92,113 @@ public class TestController {
 
 	@GetMapping("/m4")
 	public String m4(Model model) {
-		
+
 		model.addAttribute("count", 100);
 		model.addAttribute("name", "호날두");
 		model.addAttribute("color", "cornflowerblue");
-		
-		
+
 		return "m4";
+	}
+
+	@GetMapping("/m5")
+	public String m5(Model model) {
+
+		String txt1 = "홍길동입니다.";
+		String txt2 = "<b>호날두</b>입니다.";
+		String txt3 = "<u>손흥민</u>입니다.";
+
+		// Map 출력
+		Map<String, String> map = new HashMap<String, String>();
+
+		map.put("red", "빨강");
+		map.put("blue", "파랑");
+		map.put("yellow", "노랑");
+
+		List<String> names = mapper.names();
+		List<AddressDto> list = mapper.list();
+
+		model.addAttribute("txt1", txt1);
+		model.addAttribute("txt2", txt2);
+		model.addAttribute("txt3", txt3);
+		model.addAttribute("map", map);
+		model.addAttribute("num", 100);
+		model.addAttribute("name", "홍길동");
+		// Mapper 인터페이스의 get() 메서드를 호출하면, 
+		// MyBatis가 xml에서 id가 get인 쿼리를 찾아서 실행
+		model.addAttribute("dto", mapper.get(1));
+		model.addAttribute("names", names);
+		model.addAttribute("list", list);
+
+		return "m5";
+	}
+
+	@GetMapping(value = "/m6")
+	public String m6(Model model) {
+
+		int num1 = 1234567;
+		double num2 = 12345.6789;
+		Calendar now = Calendar.getInstance();
+
+		model.addAttribute("num1", num1);
+		model.addAttribute("num2", num2);
+		model.addAttribute("now", now);
+
+		return "m6";
+	}
+
+	@GetMapping("/m7")
+	public String m7(Model model) {
+
+		return "m7";
+	}
+
+	@GetMapping("/m8")
+	public String m8(Model model) {
+
+		int seq = 10;
+		String mode = "add";
+
+		Map<String, String> map = new HashMap<String, String>();
+
+		map.put("search", "y");
+		map.put("column", "subject");
+		map.put("word", "java");
+
+		model.addAttribute("seq", seq);
+		model.addAttribute("mode", mode);
+		model.addAttribute("map", map);
+
+		return "m8";
+	}
+
+	@GetMapping("/m9")
+	public String m9(Model model) {
+
+		int seq = 10;
+		String mode = "add";
+
+		Map<String, String> map = new HashMap<String, String>();
+
+		map.put("search", "y");
+		map.put("column", "subject");
+		map.put("word", "java");
+
+		List<String> names = mapper.names();
+		List<AddressDto> list = mapper.list();
+
+		model.addAttribute("seq", seq);
+		model.addAttribute("mode", mode);
+		model.addAttribute("map", map);
+		model.addAttribute("names", names);
+		model.addAttribute("list", list);
+
+		return "m9";
+	}
+
+	@GetMapping(value = "/m10")
+	public String m10(Model model) {
+
+		return "m10";
 	}
 
 }
