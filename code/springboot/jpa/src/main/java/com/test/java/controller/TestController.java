@@ -4,15 +4,27 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.querydsl.core.Tuple;
+import com.test.java.entity.Board;
 import com.test.java.entity.Item;
+import com.test.java.entity.User;
+import com.test.java.entity.UserInfo;
 import com.test.java.model.ItemDto;
+import com.test.java.repository.BoardRepository;
+import com.test.java.repository.ItemQueryDSLRepository;
 import com.test.java.repository.ItemRepository;
+import com.test.java.repository.UserInfoRepository;
+import com.test.java.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,6 +32,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TestController {
 	private final ItemRepository itemRepository;
+	private final UserRepository userRepository;
+	private final UserInfoRepository userInfoRepository;
+	private final BoardRepository boardRepository;
+	
+	private final ItemQueryDSLRepository itemQueryDSLRepository;
 
 	/*
 		DB 조작
@@ -470,7 +487,7 @@ public class TestController {
 		//where (qty is null or desc is null) and price > 100000
 
 		//List<Item> list = itemRepository.findByQtyIsNullOrDescriptionIsNullAndPriceGreaterThan(100000);
-		
+
 		List<Item> list = itemRepository.findByQtyIsNotNull();
 
 		List<ItemDto> dlist = list.stream().map(item -> item.toDto()).collect(Collectors.toList());
@@ -480,13 +497,13 @@ public class TestController {
 		return "result";
 	}
 
+	// In, NotIn
 	@GetMapping("/m13")
 	public String m13(Model model) {
 
-		//In, NotIn
-		//- 열거형 조건
-		//- where color in ('black', 'white')
-		//- 매개변수 > List 전달
+		// - 열거형 조건
+		// - where color in ('black', 'white')
+		// - 매개변수 > List 전달
 
 		List<String> colors = List.of("black", "white", "blue"); //읽기 전용 List
 
@@ -499,4 +516,427 @@ public class TestController {
 
 		return "result";
 	}
+
+	// 패턴 검색
+	@GetMapping("/m14")
+	public String m14(Model model) {
+
+		// 패턴 검색
+		// StartsWith, StartingWith
+		// EndsWith, EndingWith
+		// Contains
+		// Like: 사용자 정의형
+
+		// where name = '스마트폰'
+		// where name like '스마트%'
+		// where name like ? escape '\'
+		// where name like '%기%'
+
+		// where name 을 하고 싶다
+		// where name like '???%' 를 하고싶다
+		// 실제로 만들어진 쿼리: where i1_0.name like ? escape '\'
+		// 오라클 버전에 따라 일부 SQL 구문이 다를 수 있다
+		// JPA가 그 오라클 버전이나 DB 종류에 맞게끔 알아서 짜준다
+
+		// DB에서 실제 레코드를 조회해서 가져옴
+		// List<Item> list = itemRepository.findByNameStartsWith("스마트");
+
+		// ??? 로 끝나는 데이터를 찾고싶다
+		// List<Item> list = itemRepository.findByNameEndsWith("폰");
+
+		// ??? 를 포함하는 데이터를 찾고싶다
+		// List<Item> list = itemRepository.findByNameContaining("기");
+		List<Item> list = itemRepository.findByDescriptionLike("%기능%");
+
+		// 꺼낸 엔티티를 DTO로 변환
+		// DB에서 SELECT해서 꺼낸 진짜 데이터를 DTO로 바꾸는 것
+		// 조회(SELECT) 후 뷰에 넘길 때 씀
+		List<ItemDto> dlist = list.stream().map(item -> item.toDto()).collect(Collectors.toList());
+
+		model.addAttribute("dlist", dlist);
+
+		return "result";
+	}
+
+	// 정렬
+	@GetMapping("/m15")
+	public String m15(Model model) {
+
+		// 정렬을 해보자
+		// 정렬도 키워드로 함
+		// 쿼리 메서드로 정렬하고 싶을 때 사용하는 키워드
+		// - OrderBy컬럼명Asc
+		// - OrderBy컬럼명Desc
+
+		// List<Item> list = itemRepository.findAll();
+		// List<Item> list = itemRepository.findAllByOrderByNameAsc();
+		// List<Item> list = itemRepository.findAllByOrderByNameDesc();
+
+		// All 로 다 가져오는게 아니라 조건으로 일부만 가져와서
+		// 정렬해보고 싶다
+		// List<Item> list = itemRepository.findByColorOrderByPriceAsc("white");
+
+		// 색상을 알파벳순으로 먼저 정렬하고, 
+		// 같은 색상 안에서는 가격이 높은 것 부터 정렬하고 싶다
+		List<Item> list = itemRepository.findAllByOrderByColorAscPriceDesc();
+
+		List<ItemDto> dlist = list.stream().map(item -> item.toDto()).collect(Collectors.toList());
+
+		model.addAttribute("dlist", dlist);
+
+		return "result";
+	}
+
+	@GetMapping("/m16")
+	public String m16(Model model, @RequestParam("price") Integer price, @RequestParam("order") String order) {
+
+		// 가격이 10만원 이상 > 오름 차순
+		// - m16?price=100000&order=asc
+		// - m16?price=100000&order=desc
+
+		// List<Item> list = itemRepository.findByPriceGreaterThanEqual(price);
+
+		//		if (order.equals("asc")) {
+		//			List<Item> list = itemRepository.findByPriceGreaterThanEqualOrderByPriceAsc(price);
+		//		} else if (order.equals("desc")) {
+		//			List<Item> list = itemRepository.findByPriceGreaterThanEqualOrderByPriceDesc(price);
+		//		}
+
+		Direction orderDirection = Sort.Direction.ASC;
+
+		if (order.equals("desc")) {
+			orderDirection = Sort.Direction.DESC;
+		}
+
+		// List<Item> list = itemRepository.findByPriceGreaterThan(Sort.by(orderDirection, "price"), price);
+
+		// List<Item> list = itemRepository.findAllByOrderByPriceAsc();
+
+		// ASC
+		// List<Item> list = itemRepository.findAll(Sort.by("name"));
+
+		// 내림차순 정렬
+		// List<Item> list = itemRepository.findAll(Sort.by(Sort.Direction.DESC, "price"));
+
+		// 다중 정렬
+		// List<Item> list = itemRepository.findAll(Sort.by("color", "price"));
+
+		// 내가 원하는 방향으로 다중 정렬
+		List<Item> list = itemRepository.findAll(Sort.by(Sort.Order.asc("color"), Sort.Order.desc("price")));
+
+		List<ItemDto> dlist = list.stream().map(item -> item.toDto()).collect(Collectors.toList());
+
+		model.addAttribute("dlist", dlist);
+
+		return "result";
+	}
+
+	// 페이징을 해보자
+	// m17하고 m18 따로 만들어야 하는데
+	// 수업듣다가 그냥 하나에 해버림
+	// 그래서 m17 없음
+	@GetMapping("/m18")
+	public String m18(Model model, @RequestParam(name = "page", required = true, defaultValue = "1") Integer page) {
+
+		// 페이징 구현
+		// /m18
+		// /m18?page=1
+		// /m18?page=2
+		// /m18?page=3
+		// URL에서 값을 받아오려고 @RequestParam 사용
+		// /m18?page=2 이렇게 접속하면 
+		// URL의 page=2 를 자바 변수 page에 넣어주는 게 @RequestParam
+		page--;
+
+		// 어디서부터 몇개를 가져올 것인가?
+		// (0, 20): 첫번째 레코드부터 20번째 레코드까지 갖고 오겠습니다
+		// PageRequest.of(페이지 번호, 한 페이지 당 레코드 개수);
+		PageRequest pageRequest = PageRequest.of(page, 5);
+
+		// 키워드는 아니고 매개변수로 넣는 방식
+		// List 대신 Page(페이징 관련 기능이 추가된 List) 반환
+		Page<Item> list = itemRepository.findAll(pageRequest);
+
+		/*
+		// 페이지 번호
+		System.out.println(list.getNumber());
+		// 가져온 엔티티 수
+		// 현재 가져온 페이지의 레코드 수
+		System.out.println(list.getNumberOfElements());
+		// 모든, 총 엔티티 수
+		System.out.println(list.getTotalElements());
+		// 총 페이지 수(29 / 5 하고 반올림해서 6)
+		System.out.println(list.getTotalPages());
+		// 한 페이지당 가져오기로 설정한 레코드 수
+		System.out.println(list.getSize());
+		*/
+
+		List<ItemDto> dlist = list.stream().map(item -> item.toDto()).collect(Collectors.toList());
+
+		// 페이지 바 구현
+		String temp = "";
+		for (int i = 1; i <= list.getTotalPages(); i++) {
+			temp += """
+					<a href="/m18?page=%d">%d</a>
+					""".formatted(i, i);
+		}
+
+		model.addAttribute("dlist", dlist);
+		model.addAttribute("temp", temp);
+
+		return "result";
+	}
+
+	//---------- Query Method > 메서드 만드는 수업
+
+	//---------- Query Method > 엔티티 조작 > 조인  
+
+	@GetMapping("/m19")
+	public String m19(Model model) {
+
+		// DB 테이블 -> 엔티티 생성
+		// 엔티티까진 만들었음, 근데 DB에 있는 테이블 처럼
+		// 엔티티끼리도 관계를 맺어줘야함
+		
+		// User 가져오기
+		Optional<User> user = userRepository.findById("hong");
+		
+		System.out.println(user.get().getName());
+		System.out.println(user.get().getPw());
+		
+		// User.java(엔티티)에 UserInfo도 참조를 해놨으니
+		// UserInfo 에 있는 정보도 join을 통해 가져올 수 있다
+		System.out.println(user.get().getUserInfo().getAddress());
+		
+		// UserInfo 가져오기
+		UserInfo userInfo = userInfoRepository.findById("hong").get();
+		
+		System.out.println(userInfo.getAddress());
+		System.out.println(userInfo.getGender());
+		System.out.println(userInfo.getUser().getName());
+		
+		// 개발자가 해야 할 일? -> 엔티티 간의 관계를 맺어주고, 알려주면 됨
+		// join은 JPA가 알아서 해줌
+		
+		return "result";
+	}
+	
+	@GetMapping("/m20")
+	public String m20(Model model) {
+		
+		// 1 : N 관계
+		// tblUser : tblBoard (실제 DB)
+		// User : Board (엔티티)
+		
+		User user = userRepository.findById("hong").get();
+		
+		System.out.println(user.getName());
+		System.out.println(user.getBoard().size()); // 5
+		// 길동이가 글을 5개 썼나보다
+		
+		// 진짜 5개 썼나?
+		user.getBoard().forEach(board -> {
+			
+			System.out.println(board.getSubject());
+		});
+		
+		return "result";
+	}
+	
+	@GetMapping("/m21")
+	public String m21(Model model) {
+		
+		// 1 : N 관계
+		// tblUser : tblBoard (실제 DB)
+		// User : Board (엔티티)
+		
+		Board board = boardRepository.findById(1L).get();
+        
+        System.out.println(board.getSubject());
+        System.out.println(board.getContent());
+		
+		return "result";
+	}
+	
+	@GetMapping("/m22")
+	public String m22(Model model) {
+		
+		// N : N 관계
+		// 정규화를 통해
+		// 1 : N N : 1
+		// tblTag:tblTagging - tblTagging:tblBoard (실제 DB)
+		// Tag:Tagging - Tagging:Board (엔티티)
+		
+		// Board 가져오기
+		Board board = boardRepository.findById(10L).get();
+		
+		System.out.println(board.getSubject());
+		System.out.println(board.getTagging().size());
+		System.out.println(board.getTagging().get(0).getTag().getTag());
+		System.out.println(board.getTagging().get(1).getTag().getTag());
+		
+		return "result";
+	}
+	
+	// 가져온 게시물을 페이지에 출력해보자
+	@GetMapping("/m23")
+	public String m23(Model model) {
+		
+		// 엔티티 관계가 중요
+		List<Board> list = boardRepository.findAll();
+		
+		model.addAttribute("blist", list);
+		
+		return "result";
+	}
+	
+	// JQPL, Native Query 수업
+	@GetMapping("/m24")
+	public String m24(Model model) {
+		
+		/*
+		
+	 	JPQL, Java Persistence Query Language
+	 	- JPA에서 질의에 사용하는 전용 질의문(JPA 전용 SQL)
+	 	- SQL과 유사
+	 	
+	 	SQL:  테이블을 대상으로 질의
+	 	JPQL: 엔티티를 대상으로 질의
+	 
+		 */
+	
+		// Query Method 가 아닌
+		// 내가 직접 구현하는 메서드
+		
+		// List<Item> list = itemRepository.m24();
+		List<Item> list = itemRepository.m24_1();
+		
+		List<ItemDto> dlist = list.stream().map(item -> item.toDto()).collect(Collectors.toList());
+		
+		model.addAttribute("dlist", dlist);
+		
+		return "result";
+	}
+	
+	// 숫자 하나 밀렸는데
+	// 그냥 편의상 m26으로 작성했음
+	@GetMapping("/m26")
+	public String m26(Model model, @RequestParam(name="color", defaultValue = "black") String color) {
+		
+		// /m26 <- 기본이 black인걸로 처리해보자
+		// /m26?color=white
+		
+		List<Item> list = itemRepository.m26(color);
+		
+		List<ItemDto> dlist = list.stream().map(item -> item.toDto()).collect(Collectors.toList());
+		
+		model.addAttribute("dlist", dlist);
+		
+		return "result";
+	}
+	
+	// DTO(다중값) 넘기기?
+	@GetMapping("/m27")
+	public String m27(Model model, ItemDto dto) {
+
+		// /m27?color=white&price=100000
+
+		// dto(color=white, price=100000)
+		List<Item> list = itemRepository.m27(dto);
+		
+		List<ItemDto> dlist = list.stream().map(item -> item.toDto()).collect(Collectors.toList());
+		
+		model.addAttribute("dlist", dlist);
+		
+		return "result";
+	}
+	
+	// Query DSL 수업
+	@GetMapping("/m28")
+	public String m28(Model model) {
+		
+		// JPQL 작성을 도와주는 동적 쿼리
+		// JPQL을 자바의 메서드를 사용해서 생성해줌
+		// 장점: 안정성 높아짐, 컴파일 시 오류를 발견할 수 있음
+		// 가독성 높음
+		// 엔티티 조작을 도와주는 QClass가 필요함
+		
+		// select * from tblItem 을 하고 싶다
+		List<Item> list = itemQueryDSLRepository.m26();
+		
+		List<ItemDto> dlist = list.stream().map(item -> item.toDto()).collect(Collectors.toList());
+		
+		model.addAttribute("dlist", dlist);
+		
+		return "result";
+	}
+	
+	@GetMapping("/m29")
+	public String m29(Model model) {
+		
+		// /m29?name=태블릿
+		
+		// 항목 하나를 찾아 레코드 한개를 반환하는 작업을 해보자
+		Item item = itemQueryDSLRepository.m29("마우스");
+		
+		// 엔티티를 DTO로 바꾼다
+		model.addAttribute("dto", item.toDto());
+		
+		return "result";
+	}
+	
+	@GetMapping("/m30")
+	public String m30(Model model) {
+		
+		// 상품 이름만 좀 가져오고 싶음, 즉 컬럼 1개
+		
+		List<String> names = itemQueryDSLRepository.m30();
+		
+		model.addAttribute("names", names);
+		
+		// 일부 컬럼만 가져오는게 Query Method로는 안되고
+		// JPQL 로는 되니까 Query DSL 로도 됨
+		
+		
+		return "result";
+	}
+	
+	@GetMapping("/m31")
+	public String m31(Model model) {
+		
+		// 다중 컬럼
+		// 1. 모든 컬럼을 받을거면 -> List<DTO> 사용
+		// 2. 1개의 컬럼만 받을거면 -> List<String>
+		// 3. 2~5개 처럼 어정쩡한 개수의 컬럼만 받을거면?
+		// Tuple 이 뭘까? 배열 같은 것
+		List<Tuple> list = itemQueryDSLRepository.m31();
+		
+		model.addAttribute("tlist", list);
+		
+		return "result";
+	}
+	
+	@GetMapping("/m32")
+	public String m32(Model model) {
+		
+		// 일부 컬럼만 가져오고 싶다
+		// 근데 엔티티를 쓰긴 싫다
+		// 그래서 Tuple을 쓴다
+		// 근데 DTO도 쓸 수 있다?
+		// 여지껏 DTO를 많이 썼기 때문에
+		// 친숙하긴 한데 난이도는 있는 편
+		
+		// 일부 컬럼 조회 할 때
+		// 1. 엔티티 -> 편함, 무조건 모든 컬럼 가져옴
+		// 단점은 사용하지 않는 값까지 다 가져옴
+		
+		// 2. Tuple -> 조금 편함, 컬럼 인덱스(0, 1, 2 ...)로
+		// 접근해야해서 가독성 떨어짐 0, 1, 2 가 뭔데?
+		
+		// 3. DTO -> 불편함, 프로퍼티(컬럼명)로 접근해서 가독성 좋음
+		
+		return "result";
+		
+	}
+
 }

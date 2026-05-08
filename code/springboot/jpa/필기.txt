@@ -24,6 +24,10 @@ JPA, Java Persistence API
 
 class Test <- (매핑) -> tblAddress
 
+자바의 데이터 > insert ... (?, ?)
+
+오라클 데이터 > rs.getString(컬럼)
+
 JDBC 기반 기술
 1. MyBatis
     - Mapping Framework
@@ -42,7 +46,7 @@ JDBC 기반 기술
 JPA 설정하기
 - application.properties 를 application.yml 로 바꿔야함
 - JDBC(HikariCP) 설정
--
+- JPA 설정
 
 ==파일 생성하기==
 
@@ -51,3 +55,17 @@ com.test.java.entity -> Item.java(매우중요)
 com.test.java.model -> ItemDto.java
 com.test.java.repository -> ItemRepository.java(인터페이스)
 templates -> result.html
+
+엔티티 관계
+1. 단방향(이것만 구현하는 경우는 거의 없음)
+    - 부모 -> (참조) -> 자식
+    
+2. 단방향(이것만 구현하는 경우 많음)
+    - 자식 -> (참조) -> 부모
+    
+3. 양방향(이것만 구현하는 경우 많음)
+    - 부모 -> (참조) -> 자식
+    - 자식 -> (참조) -> 부모
+    
+Query DSL 설정
+com.test.java.config -> QueryDSLConfig.java // 스프링 빈 파일(환경설정용)
