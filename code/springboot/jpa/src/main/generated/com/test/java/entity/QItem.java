@@ -18,6 +18,8 @@ public class QItem extends EntityPathBase<Item> {
     private static final long serialVersionUID = -859303487L;
 
     public static final QItem item = new QItem("item");
+    
+    public static final QItem item2 = new QItem("item2");
 
     public final StringPath color = createString("color");
 

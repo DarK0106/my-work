@@ -42,5 +42,13 @@ public class ItemDto {
 					.description(this.description)
 					.build();
 	}
+	
+	// 특정 컬럼만 갖고 오고 싶을 때 사용함
+	// 반환된 엔티티를 DTO로 매핑하기 위해 작성
+	public ItemDto(String name, String color, Integer qty) {
+		this.name = name;
+		this.color = color;
+		this.qty = qty;
+	}
 
 }

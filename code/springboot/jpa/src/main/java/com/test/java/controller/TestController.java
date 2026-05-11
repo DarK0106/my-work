@@ -24,6 +24,7 @@ import com.test.java.repository.BoardRepository;
 import com.test.java.repository.ItemQueryDSLRepository;
 import com.test.java.repository.ItemRepository;
 import com.test.java.repository.UserInfoRepository;
+import com.test.java.repository.UserQueryDSLRepository;
 import com.test.java.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -35,8 +36,9 @@ public class TestController {
 	private final UserRepository userRepository;
 	private final UserInfoRepository userInfoRepository;
 	private final BoardRepository boardRepository;
-	
+
 	private final ItemQueryDSLRepository itemQueryDSLRepository;
+	private final UserQueryDSLRepository userQueryDSLRepository;
 
 	/*
 		DB 조작
@@ -697,144 +699,144 @@ public class TestController {
 		// DB 테이블 -> 엔티티 생성
 		// 엔티티까진 만들었음, 근데 DB에 있는 테이블 처럼
 		// 엔티티끼리도 관계를 맺어줘야함
-		
+
 		// User 가져오기
 		Optional<User> user = userRepository.findById("hong");
-		
+
 		System.out.println(user.get().getName());
 		System.out.println(user.get().getPw());
-		
+
 		// User.java(엔티티)에 UserInfo도 참조를 해놨으니
 		// UserInfo 에 있는 정보도 join을 통해 가져올 수 있다
-		System.out.println(user.get().getUserInfo().getAddress());
-		
+//		System.out.println(user.get().getUserInfo().getAddress());
+
 		// UserInfo 가져오기
 		UserInfo userInfo = userInfoRepository.findById("hong").get();
-		
+
 		System.out.println(userInfo.getAddress());
 		System.out.println(userInfo.getGender());
 		System.out.println(userInfo.getUser().getName());
-		
+
 		// 개발자가 해야 할 일? -> 엔티티 간의 관계를 맺어주고, 알려주면 됨
 		// join은 JPA가 알아서 해줌
-		
+
 		return "result";
 	}
-	
+
 	@GetMapping("/m20")
 	public String m20(Model model) {
-		
+
 		// 1 : N 관계
 		// tblUser : tblBoard (실제 DB)
 		// User : Board (엔티티)
-		
+
 		User user = userRepository.findById("hong").get();
-		
+
 		System.out.println(user.getName());
 		System.out.println(user.getBoard().size()); // 5
 		// 길동이가 글을 5개 썼나보다
-		
+
 		// 진짜 5개 썼나?
 		user.getBoard().forEach(board -> {
-			
+
 			System.out.println(board.getSubject());
 		});
-		
+
 		return "result";
 	}
-	
+
 	@GetMapping("/m21")
 	public String m21(Model model) {
-		
+
 		// 1 : N 관계
 		// tblUser : tblBoard (실제 DB)
 		// User : Board (엔티티)
-		
+
 		Board board = boardRepository.findById(1L).get();
-        
-        System.out.println(board.getSubject());
-        System.out.println(board.getContent());
-		
+
+		System.out.println(board.getSubject());
+		System.out.println(board.getContent());
+
 		return "result";
 	}
-	
+
 	@GetMapping("/m22")
 	public String m22(Model model) {
-		
+
 		// N : N 관계
 		// 정규화를 통해
 		// 1 : N N : 1
 		// tblTag:tblTagging - tblTagging:tblBoard (실제 DB)
 		// Tag:Tagging - Tagging:Board (엔티티)
-		
+
 		// Board 가져오기
 		Board board = boardRepository.findById(10L).get();
-		
+
 		System.out.println(board.getSubject());
 		System.out.println(board.getTagging().size());
 		System.out.println(board.getTagging().get(0).getTag().getTag());
 		System.out.println(board.getTagging().get(1).getTag().getTag());
-		
+
 		return "result";
 	}
-	
+
 	// 가져온 게시물을 페이지에 출력해보자
 	@GetMapping("/m23")
 	public String m23(Model model) {
-		
+
 		// 엔티티 관계가 중요
 		List<Board> list = boardRepository.findAll();
-		
+
 		model.addAttribute("blist", list);
-		
+
 		return "result";
 	}
-	
+
 	// JQPL, Native Query 수업
 	@GetMapping("/m24")
 	public String m24(Model model) {
-		
+
 		/*
 		
-	 	JPQL, Java Persistence Query Language
-	 	- JPA에서 질의에 사용하는 전용 질의문(JPA 전용 SQL)
-	 	- SQL과 유사
-	 	
-	 	SQL:  테이블을 대상으로 질의
-	 	JPQL: 엔티티를 대상으로 질의
-	 
+		JPQL, Java Persistence Query Language
+		- JPA에서 질의에 사용하는 전용 질의문(JPA 전용 SQL)
+		- SQL과 유사
+		
+		SQL:  테이블을 대상으로 질의
+		JPQL: 엔티티를 대상으로 질의
+		
 		 */
-	
+
 		// Query Method 가 아닌
 		// 내가 직접 구현하는 메서드
-		
+
 		// List<Item> list = itemRepository.m24();
 		List<Item> list = itemRepository.m24_1();
-		
+
 		List<ItemDto> dlist = list.stream().map(item -> item.toDto()).collect(Collectors.toList());
-		
+
 		model.addAttribute("dlist", dlist);
-		
+
 		return "result";
 	}
-	
+
 	// 숫자 하나 밀렸는데
 	// 그냥 편의상 m26으로 작성했음
 	@GetMapping("/m26")
-	public String m26(Model model, @RequestParam(name="color", defaultValue = "black") String color) {
-		
+	public String m26(Model model, @RequestParam(name = "color", defaultValue = "black") String color) {
+
 		// /m26 <- 기본이 black인걸로 처리해보자
 		// /m26?color=white
-		
+
 		List<Item> list = itemRepository.m26(color);
-		
+
 		List<ItemDto> dlist = list.stream().map(item -> item.toDto()).collect(Collectors.toList());
-		
+
 		model.addAttribute("dlist", dlist);
-		
+
 		return "result";
 	}
-	
+
 	// DTO(다중값) 넘기기?
 	@GetMapping("/m27")
 	public String m27(Model model, ItemDto dto) {
@@ -843,100 +845,339 @@ public class TestController {
 
 		// dto(color=white, price=100000)
 		List<Item> list = itemRepository.m27(dto);
-		
+
 		List<ItemDto> dlist = list.stream().map(item -> item.toDto()).collect(Collectors.toList());
-		
+
 		model.addAttribute("dlist", dlist);
-		
+
 		return "result";
 	}
-	
+
 	// Query DSL 수업
 	@GetMapping("/m28")
 	public String m28(Model model) {
-		
+
 		// JPQL 작성을 도와주는 동적 쿼리
 		// JPQL을 자바의 메서드를 사용해서 생성해줌
 		// 장점: 안정성 높아짐, 컴파일 시 오류를 발견할 수 있음
 		// 가독성 높음
 		// 엔티티 조작을 도와주는 QClass가 필요함
-		
+
 		// select * from tblItem 을 하고 싶다
 		List<Item> list = itemQueryDSLRepository.m26();
-		
+
 		List<ItemDto> dlist = list.stream().map(item -> item.toDto()).collect(Collectors.toList());
-		
+
 		model.addAttribute("dlist", dlist);
-		
+
 		return "result";
 	}
-	
+
 	@GetMapping("/m29")
 	public String m29(Model model) {
-		
+
 		// /m29?name=태블릿
-		
+
 		// 항목 하나를 찾아 레코드 한개를 반환하는 작업을 해보자
 		Item item = itemQueryDSLRepository.m29("마우스");
-		
+
 		// 엔티티를 DTO로 바꾼다
 		model.addAttribute("dto", item.toDto());
-		
+
 		return "result";
 	}
-	
+
 	@GetMapping("/m30")
 	public String m30(Model model) {
-		
+
 		// 상품 이름만 좀 가져오고 싶음, 즉 컬럼 1개
-		
+
 		List<String> names = itemQueryDSLRepository.m30();
-		
+
 		model.addAttribute("names", names);
-		
+
 		// 일부 컬럼만 가져오는게 Query Method로는 안되고
 		// JPQL 로는 되니까 Query DSL 로도 됨
-		
-		
+
 		return "result";
 	}
-	
+
 	@GetMapping("/m31")
 	public String m31(Model model) {
-		
+
 		// 다중 컬럼
 		// 1. 모든 컬럼을 받을거면 -> List<DTO> 사용
 		// 2. 1개의 컬럼만 받을거면 -> List<String>
 		// 3. 2~5개 처럼 어정쩡한 개수의 컬럼만 받을거면?
 		// Tuple 이 뭘까? 배열 같은 것
 		List<Tuple> list = itemQueryDSLRepository.m31();
-		
+
 		model.addAttribute("tlist", list);
-		
+
 		return "result";
 	}
-	
+
 	@GetMapping("/m32")
 	public String m32(Model model) {
-		
+
 		// 일부 컬럼만 가져오고 싶다
 		// 근데 엔티티를 쓰긴 싫다
 		// 그래서 Tuple을 쓴다
 		// 근데 DTO도 쓸 수 있다?
 		// 여지껏 DTO를 많이 썼기 때문에
 		// 친숙하긴 한데 난이도는 있는 편
-		
+
 		// 일부 컬럼 조회 할 때
 		// 1. 엔티티 -> 편함, 무조건 모든 컬럼 가져옴
 		// 단점은 사용하지 않는 값까지 다 가져옴
-		
+
 		// 2. Tuple -> 조금 편함, 컬럼 인덱스(0, 1, 2 ...)로
 		// 접근해야해서 가독성 떨어짐 0, 1, 2 가 뭔데?
-		
+
 		// 3. DTO -> 불편함, 프로퍼티(컬럼명)로 접근해서 가독성 좋음
+		
+		//select 실행
+		// 1. 모든 컬럼
+		//	- List<Entity>
+		// 2. 일부 컬럼(1개)
+		//	- List<String>
+		//	- List<Integer>
+		// 3. 일부 컬럼(N개)
+		//	- List<Tuple>
+		//	- List<DTO>
+
+		List<ItemDto> list = itemQueryDSLRepository.m32();
+
+		model.addAttribute("dlist", list);
+
+		return "result";
+
+	}
+
+	@GetMapping("/m33")
+	public String m33(Model model, ItemDto dto) {
+		
+		//where() 절
+		List<Item> list = itemQueryDSLRepository.m33(dto);
+		
+		List<ItemDto> dlist = list.stream().map(item -> item.toDto()).collect(Collectors.toList());
+		
+		model.addAttribute("dlist", dlist);
+		
+		return "result";
+	}
+	
+	// 정렬의 Query DSL 버전
+	@GetMapping("/m34")
+	public String m34(Model model) {
+		
+		//정렬
+		List<Item> list = itemQueryDSLRepository.m34();
+		
+		List<ItemDto> dlist = list.stream().map(item -> item.toDto()).collect(Collectors.toList());
+		
+		model.addAttribute("dlist", dlist);
+		
+		return "result";
+	}
+	
+	// 페이징을 Query DSL로 구현해보자
+	// page라는 이름으로 매개변수를 받고 
+	// 혹시나 아무것도 안받았으면 defaultValue로 1
+	@GetMapping("/m35")
+	public String m35(Model model, @RequestParam(name = "page", defaultValue = "1") Integer page) {
+		
+		// 준비물
+		// - offset: 가져올 레코드의 시작 위치(begin)
+		// - limit: 가져올 개수(size)
+		
+		int limit = 10;
+		int offset = (page - 1) * limit;
+		
+		List<Item> list = itemQueryDSLRepository.m35(offset, limit);
+		
+		List<ItemDto> dlist = list.stream().map(item -> item.toDto()).collect(Collectors.toList());
+		
+		model.addAttribute("dlist", dlist);
+		
+		return "result";
+	}
+	
+	// Query DSL - 집계 함수
+	@GetMapping("/m36")
+	public String m36(Model model) {
+		
+//		Object count = itemQueryDSLRepository.m36();
+		Tuple count = itemQueryDSLRepository.m36();
+		
+		System.out.println(count);
+		
+		return "result";
+	}
+	
+	// Query DSL - 그룹바이 + 집계 함수
+	@GetMapping("/m37")
+	public String m37(Model model) {
+		
+		List<Tuple> list = itemQueryDSLRepository.m37();
+				
+		System.out.println(list);
+		
+		return "result";
+	}
+	
+	// Query DSL - 서브 쿼리
+	@GetMapping("/m38")
+	public String m38(Model model) {
+		// JPA 의 특징 ?
+		// 서브 쿼리를 where 절에 붙이면 조건의 값을
+		// select 절은
+		// from 절은 서브 쿼리에서 못 씀
+		// Native Query에서만 사용 가능
+		
+		// select * from tblItem where price >= (평균가격); 를 하고 싶음
+		List<Item> list = itemQueryDSLRepository.m38();
+		
+		List<ItemDto> dlist = list.stream().map(item -> item.toDto()).collect(Collectors.toList());
+
+		model.addAttribute("dlist", dlist);
+
+		return "result";
+	}
+	
+	@GetMapping("/m39")
+	public String m39(Model model) {
+		
+		// select name, price, color, (같은 색상의 평균 가격) from tblItem;
+		// select name, price, color, (select avg(price) from tblItem b where a.color = b.color) from tblItem a;
+		
+		List<Tuple> list = itemQueryDSLRepository.m39();
+		
+		model.addAttribute("tupleList", list);
+		
+		return "result";
+	}
+	
+	// Join
+	@GetMapping("/m40")
+	public String m40(Model model) {
+		
+		// Join
+		// 1 : 1
+		// User : UserInfo
+		// 우리는 User 만 가져오면 됨
+		// User 엔티티 안에 UserInfo와의 관계를
+		// 우리가 명시해놨기때문
+		User user = userQueryDSLRepository.m40();
+		
+		System.out.println(user.getName());
+//		System.out.println(user.getUserInfo().getAddress());
 		
 		return "result";
 		
 	}
-
+	
+	@GetMapping("/m41")
+	public String m41(Model model) {
+		
+		List<User> ulist = userQueryDSLRepository.m41();
+		
+		model.addAttribute("ulist", ulist);
+		
+		return "result";
+	}
+	
+	@GetMapping("/m42")
+	public String m42(Model model) {
+		
+		// JPA에서의 연관 관계별 FetchType
+		// - @OneToOne 1 : 1 EAGER 가 기본값
+		// 1 : 1 을 LAZY 로 하는 경우 자체가 없다고 보면 됨
+		// 만약에 억지로 LAZY 로 바꿀거면 특정 엔티티랑 얘랑 관련된
+		// 엔티티까지 둘 다 양방향으로 LAZY로 바꿔야됨
+		// - @ManyToOne N : 1 EAGER
+		// - @OneToMany 1 : N LAZY
+		// - @ManyToMany N : N LAZY
+		
+		// FetchType 이란?
+		// 1. 1개의 엔티티를 찾아서 1개의 엔티티를 사용한다고 했을 땐 FetchType이랑은 상관 없음
+		// 2. 가져올 때는 1개의 엔티티를 가져왔는데 
+		// 쓸때는 가져온 1개의 엔티티랑 연관이 있는 
+		// 여러개(주로 자식이나 부모 엔티티)의 엔티티를 쓸 때 FetchType이 동작함
+		
+		// 2.1 LAZY(게으른 fetch)
+		// 	   - 1개의 엔티티를 가져올 때 그 엔티티만 가져와라
+		//     그 1개의 엔티티를 봤더니 연관된 엔티티가 있네? 
+		//     그 연관된 엔티티는 일단 안 가져왔다가
+		//     연관 엔티티를 조회하는 순간(즉, 필요할 때만) 그 때 가져와라
+		//	   쿼리가 여러번 실행됨
+		// 	   반복문으로 돌려보니까 이미 내부적으로 캐싱이 된게 있는 것 처럼 보임
+		
+		
+		// 2.2 EAGER
+		//     - 1개의 엔티티를 가져올 때 엔티티에 정의된 
+		//     모든 관련된 엔티티도 한번에 다 가져와라
+		//     - User의 경우 User와 관계된 Board 까지 한번에 다 갖고옴, Join이 실행됨
+		//     - 관련된 엔티티를 쓸 일이 있다고 처음부터 판단이 이미 끝났을 때 사용
+		//     - 어차피 관련된 엔티티를 쓴다는 전제 하에는 EAGER가 더 비용이 싸다
+		
+		// User : Board
+		User user = userRepository.findById("hong").get();
+		
+		// 부모 테이블 접근
+		// select id, name, pw from tblUser where id = ?
+		// select id,name,pw,id,seq,content,regdate,subject 
+		// from tblUser left join tblBoard on id=id where id=?
+		System.out.println(user.getName()); // 홍길동
+		
+		// 자식 테이블 접근
+		// System.out.println(user.getBoard().get(0).getSubject());
+		for (Board board : user.getBoard()) {
+			System.out.println(board.getSubject());
+		}
+		
+		// fetch 가 LAZY 일 때 한 번 더 반복문을 돌려보기 위해 작성
+//		for (Board board : user.getBoard()) {
+//			System.out.println(board.getSubject());
+//		}
+		
+		// LAZY 로 해놓고 반복문을 두번 해보니까
+		// 뭔가 내부적으로 쿼리가 캐싱되어있는 것으로 보임
+		// select u1_0.id,u1_0.name,u1_0.pw from tblUser u1_0 where u1_0.id=?
+		// select b1_0.id,b1_0.seq,b1_0.content,b1_0.regdate,b1_0.subject from tblBoard b1_0 where b1_0.id=?
+			
+		// fetch 가 LAZY 냐 EAGER 냐 에 따라 쿼리문이 달라짐
+		// LAZY
+		// select b1_0.id,b1_0.seq,b1_0.content,b1_0.regdate,b1_0.subject from tblBoard b1_0 where b1_0.id=?
+		
+		// EAGER
+		// select u1_0.id,u1_0.name,u1_0.pw,b1_0.id,b1_0.seq,b1_0.content,b1_0.regdate,b1_0.subject from tblUser u1_0 left join tblBoard b1_0 on u1_0.id=b1_0.id where u1_0.id=?
+		
+		return "result";
+	}
+	
+	@GetMapping("/m43")
+	public String m43(Model model) {
+		
+		User user = userRepository.findById("hong").get();
+		
+		System.out.println(user.getName());
+		System.out.println(user.getUserInfo().getAddress());
+		
+		return "result";
+	}
+	
+	// ManyToOne
+	// Board : User
+	// 게시물을 하나 가져오고 싶다
+	@GetMapping("/m44")
+	public String m44(Model model) {
+		
+		Board board = boardRepository.findById(1L).get();
+		
+		//select * from tblBoard left join tblUser left join tblUserInfo 를 하고 싶음
+		System.out.println(board.getSubject());
+		
+		return "result";
+	}
 }

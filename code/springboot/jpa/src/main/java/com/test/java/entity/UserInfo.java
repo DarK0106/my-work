@@ -2,6 +2,7 @@ package com.test.java.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -39,6 +40,7 @@ public class UserInfo {
 	// 1:1 -> @OneToOne
 	// 자식 -> (참조) -> 부모 를 한 상황임
 	@OneToOne
+//	@OneToOne(fetch = FetchType.LAZY)
 	// 그 때 사용할 Foreign Key 도 알려줘야 함
 	@JoinColumn(name = "id")
 	private User user;

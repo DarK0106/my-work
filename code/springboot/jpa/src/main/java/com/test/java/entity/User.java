@@ -4,6 +4,7 @@ import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -12,7 +13,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Entity
 @Table(name = "tblUser")
@@ -37,6 +37,7 @@ public class User {
 	// 자식 -> (참조) -> 부모 를 했었기 때문에
 	// 결론적으로 양방향 참조를 해둔 상태임
 	@OneToOne(mappedBy = "user")
+//	@OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
 	private UserInfo userInfo;
 	
 	// 유저 : 보드(Board) = 1 : N
@@ -46,6 +47,8 @@ public class User {
 	// 자식 -> (참조) -> 부모 를 했었기 때문에
 	// 결론적으로 양방향 참조를 해둔 상태임
 	@OneToMany(mappedBy = "user")
-	private List<Board> board;
+//	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+//	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+	private List<Board> board;	
 	
 }

@@ -47,6 +47,11 @@ public class Board {
 	// User : Board = 1 : N
 	// Board : User = N : 1
 	// 그래서 @ManyToOne
+	// 이름은 ManyToOne 이지만
+	// 게시물 1개에 관련된 유저는 1명
+	// 그래서 사실 1:1 관계이다
+	// 게시물 입장에서는 유저가 1명이니까
+	// 기본적으로 fetch 가 EAGER 로 되어있음(ManyToOne이 원래 그럼) 
 	@ManyToOne
 	// 그 때 사용할 Foreign Key 도 알려줘야 함
 	@JoinColumn(name = "id")

@@ -1,17 +1,20 @@
 package com.test.java.repository;
 
+import static com.test.java.entity.QItem.item;
+
 import java.util.List;
 
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.querydsl.core.Tuple;
+import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.test.java.entity.Item;
+import com.test.java.entity.QItem;
+import com.test.java.model.ItemDto;
 
 import lombok.RequiredArgsConstructor;
-
-import static com.test.java.entity.QItem.item;
 
 @Repository
 @RequiredArgsConstructor
@@ -100,4 +103,180 @@ public class ItemQueryDSLRepository {
 					;
 	
 	}
+
+
+		public List<ItemDto> m32() {
+		// select 한 결과를 DTO 로 매핑하는게 목적
+		// 처음엔 셀렉트결과가 무조건 엔티티로 반환되기 때문에
+		// 우리가 직접 엔티티를 DTO로 매핑해야함
+		// DTO 생성자가 필요한데 Setter 를 못 씀
+		// 내가 가져오고 싶은 컬럼만 매개변수로 갖는 생성자가 필요함
+		// 애초에 특정 컬럼만 갖고 오는게 목적이기 때문
+			return factory.select(Projections.constructor(ItemDto.class, item.name, item.color, item.qty))
+					  	  .from(item)
+					  	  .fetch();
+	}
+
+
+		public List<Item> m33(ItemDto dto) {
+		
+		/*
+		
+			where()
+			
+			- 동등 비교
+				- where(item.color.eq("white"))
+			
+			- 범위 비교(숫자, 날짜)
+				- where(item.price.gt(100000))
+			
+			- 열거형(in)
+				- where(item.color.in("red", "yellow", "blue"))
+			
+			- 패턴 문자열
+			
+			- 논리 연산
+				- and()
+				- or()
+				- not()
+		
+		*/
+		
+			return factory
+					.selectFrom(item)
+					// 동등 비교
+	//				.where(item.color.eq("white"))
+	//				.where(item.color.ne("white"))
+	//				.where(item.description.isNull())
+	//				.where(item.description.isNotNull())
+					// 범위 비교
+	//				.where(item.price.gt(110000))
+	//				.where(item.price.goe(110000))
+	//				.where(item.price.lt(110000))
+	//				.where(item.price.loe(110000))
+	//				.where(item.price.between(50000, 100000))
+					// 열거형
+	//				.where(item.color.in("red", "yellow", "blue"))
+	//				.where(item.color.notIn("red", "yellow", "blue"))
+					// 패턴 문자열
+	//				.where(item.description.startsWith("최신"))
+	//				.where(item.description.endsWith("입니다"))
+	//				.where(item.description.contains("스마트"))
+	//				.where(item.description.like("%스마트%"))
+					// 논리 연산
+					.where(item.color.eq("white").and(item.price.gt(100000).and(item.qty.isNotNull())))
+					.fetch();
+	}
+
+
+		public List<Item> m34() {
+			
+			/*
+				
+				정렬
+				- orderBy(정렬기준)
+				
+				정렬기준
+				- 엔티티.컬럼.기준()
+					- asc()
+					- desc()
+					- nullsFirst()
+					- nullsLast()
+			
+			*/
+			return factory
+					.selectFrom(item)
+//					.orderBy(item.color.asc())
+//					.orderBy(item.color.asc()
+//							, item.price.desc()
+//							, item.qty.asc())
+					// NULL 들어간걸 맨앞으로 보낼지
+					// 아니면 맨 뒤로 뺄지
+//					.orderBy(item.qty.desc().nullsFirst())
+//					.orderBy(item.qty.desc().nullsLast())
+					// 오름차순은 NULL 이 맨 끝으로 감
+					.orderBy(item.qty.asc().nullsFirst())
+					.fetch();
+		}
+
+
+		public List<Item> m35(int offset, int limit) {
+			return factory
+					.selectFrom(item)
+					.offset(offset)
+					.limit(limit)
+					.fetch();
+		}
+
+
+		public Tuple m36() {
+
+			// - count(), sum(), avg(), max(), min()
+			
+			// select count(*) from tblItem 을 하고 싶다
+			return factory
+//					.select(item.count())
+//					.select(item.qty.count())
+//					.select(item.qty.sum())
+//					.select(item.qty.avg())
+//					.select(item.qty.max())
+//					.select(item.qty.min())
+					.select(item.count(), item.qty.count(), item.qty.sum())
+					.from(item)
+					.fetchOne();
+			
+		}
+
+		
+		public List<Tuple> m37() {
+			
+			return factory
+					.select(item.color, item.count(), item.price.avg())
+					.from(item)
+					.groupBy(item.color)
+					.having(item.count().gt(5))
+					.fetch();
+		}
+
+		// select * from tblItem where price >= (평균가격); 를 하고 싶음
+		public List<Item> m38() {
+
+			// 여지껏 우리가 item 이라고 작성하면 tblItem 에 대한 엔티티였는데
+			// 서브쿼리용으로 item2 엔티티를 하나 더 만들어야함
+			// 근데 item을 우리가 만든게 아니고 QClass에 알아서 만들어져있었음
+			// QClass 가서 하나 더 만들면 됨
+			
+			QItem item2 = QItem.item;
+			
+			return factory
+					.selectFrom(item)
+					.where(item.price.goe(
+							JPAExpressions.select(item2.price.avg()).from(item2)
+					))
+					.fetch();
+		}
+
+		
+		public List<Tuple> m39() {
+			
+			// select name, price, color, (select avg(price) from tblItem b where a.color = b.color) from tblItem a; 를 하고 싶음
+			
+			// QItem item2 = QItem.item;
+			QItem item2 = new QItem("item2");
+			
+			return factory
+						.select(
+							item.name, item.price, item.color,
+							JPAExpressions
+								.select(item2.price.avg())
+								.from(item2)
+								.where(item2.color.eq(item.color))
+						)
+						.from(item)
+						.fetch();
+		
+		}
+
+
+	
 }
