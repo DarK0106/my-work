@@ -8,27 +8,19 @@
 <body>
     <!-- template.html -->
     <header th:fragment="header">
-        <h1>Spring Boot <small>Security</small></h1>
+        <h1>Spring Boot <small>OAuth2</small></h1>
         <ul>
             <li><a href="/">Index</a></li>
             
             <th:block sec:authorize="isAnonymous()">
-            <li><a href="/join">Join</a></li>
             <li><a href="/login">Login</a></li>
             </th:block>
             
             <th:block sec:authorize="isAuthenticated()">
             <li><a href="/member">Member</a></li>
-            <li>
-            <form method="POST" action="/logout" id="logoutForm">
-            <a onclick="document.geElementById('logoutForm').submit()">Logout</a>
-            </form>
-            </li>
+            <li><a href="/logout">Logout</a></li>
             </th:block>
             
-            <th:block sec:authorize="hasRole('ADMIN')">
-            <li><a href="/admin">Admin</a></li>
-            </th:block>
         </ul>
     </header>
 </body>

@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: oauth2
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-name: google
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
+            redirect-uri: http://localhost:8080/login/oauth2/code/google
+            authorization-grant-type: authorization_code
+            scope: profile,email
+  # JDBC 설정
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    username: springboot
+    url: jdbc:oracle:thin:@localhost:1521/XEPDB1
+    password: java1234
+  
+  # JPA 설정
+  jpa:
+    database: oracle
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    properties:
+      hibernates:
+        format-sql: true
+        highlight_sql: true
+  
+logging:
+  level:
+    org:
+      hibernate:
+        sql: debug
+        orm:
+          jdbc:
+            bind: trace

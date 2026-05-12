@@ -1,0 +1,28 @@
+LangChain, Spring AI
+
+AI 를 쓴다고 하면
+1. 프롬프트(LLM)
+2. Agent
+3. API
+
+프로젝트 생성
+- Name: "Hello" (확인 필요)
+- Language: Java
+- Type: Gradle - Groovy
+- Group: "com.test"
+- Artifact: "Hello"
+- Package name: "com.test.java"
+- Java: 21
+- Packaging: jar
+- Spring Boot Version: 3.5.14
+- Dependencies: (확인 필요)
+    - Spring Web
+    - Lombok
+    - OpenAI
+    
+AI 설정
+    - application.yml
+
+파일 생성하기
+    - com.test.java.controller -> TestController.java
+    - com.test.java.config -> AiConfig.java 
