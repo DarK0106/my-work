@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thymeleaf</title>
+    <link rel="stylesheet" href="http://bit.ly/3WJ5ilK" />
+</head>
+<body>
+    <!-- m6.html -->
+    <h1>Spring AI <small>List</small></h1>
+    
+    <form method="POST" action="/m6">
+    <table>
+        <tr>
+            <td style="width: 600px;"><textarea name="message" required class="full"></textarea></td>
+            <td><button>질문하기</button></td>
+        </tr>
+    </table>
+    </form>
+    
+    <hr>
+    
+    <div>
+        <ul>
+            <li th:each="name : ${result}" th:text="${name}"></li>
+        </ul>
+    </div>
+    
+</body>
+</html>

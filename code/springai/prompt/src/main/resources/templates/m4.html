@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thymeleaf</title>
+    <link rel="stylesheet" href="http://bit.ly/3WJ5ilK" />
+</head>
+<body>
+    <!-- m4.html -->
+    <h1>Spring AI <small>ChatResponse</small></h1>
+    
+    <form action="/m4" method="POST">
+    <table>
+        <tr>
+            <td><textarea name="message" required class="full"></textarea></td>
+            <td><button>질문하기</button></td>
+        </tr>
+    </table>
+    
+    </form>
+    
+    <hr>
+    
+    <!-- <div class="message" th:text="${resp}"></div> -->
+    <div class="message" th:object="${resp}">
+        <div th:text="*{metadata}"></div>
+        <hr>
+        <div th:text="*{result}"></div>
+        <hr>
+        <div th:text="*{results}"></div>
+        <hr>
+        <div th:text="*{result.output.text}"></div>
+        <hr>
+        <div th:text="*{metadata.usage}"></div>
+        <hr>
+        <!-- 질문한 토큰, 입력 토큰 -->
+        <div th:text="*{metadata.usage.promptTokens}"></div>
+        <hr>
+        <!-- 답변(출력) 토큰 -->
+        <div th:text="*{metadata.usage.completionTokens}"></div>
+        <hr>
+        <!-- 입력 토큰 + 출력 토큰 -->
+        <div th:text="*{metadata.usage.totalTokens}"></div>
+        <hr>
+    
+    </div>
+</body>
+</html>
