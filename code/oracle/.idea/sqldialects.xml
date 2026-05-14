@@ -9,6 +9,7 @@
     <file url="file://$PROJECT_DIR$/../server/Todo/script.sql" dialect="Oracle" />
     <file url="file://$PROJECT_DIR$/../spring/MyBatisTest/script.sql" dialect="Oracle" />
     <file url="file://$PROJECT_DIR$/../spring/SecurityTest/script.sql" dialect="Oracle" />
+    <file url="file://$PROJECT_DIR$/../springai/sql/src/main/resources/script.sql" dialect="Oracle" />
     <file url="file://$PROJECT_DIR$/../springboot/oauth2/script.sql" dialect="Oracle" />
     <file url="file://$PROJECT_DIR$/../springboot/security/script.sql" dialect="Oracle" />
     <file url="file://$USER_HOME$/Downloads/DDL script.sql" dialect="Oracle" />

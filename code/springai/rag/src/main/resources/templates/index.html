@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring AI</title>
+    <link rel="stylesheet" href="http://bit.ly/3WJ5ilK" />
+    <style>
+        #result {
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <!-- index.html -->
+    <h1>Spring AI <small>RAG</small></h1>
+    
+    <div>
+        <div>
+            <input type="file" name="attach" id="attach">
+            <button type="button" id="btnAdd">등록하기</button>
+        </div>
+        <ul id="list">
+            <li>A.pdf <span>&times;</span></li>
+            <li>B.pdf <span>&times;</span></li>
+            <li>C.pdf <span>&times;</span></li>
+        </ul>
+    </div>
+    
+    <h2>질문</h2>
+    <div>
+        <input type="text" id="message" name="message" class="full" autofocus placeholder="">        
+    </div>
+    <hr>
+    <div id="result" class="message"></div>
+    
+    <script>
+    
+        window.onload = async function () {
+        
+            const list = document.getElementById('list');
+            
+            const resp = await fetch('/files');
+            
+            if (resp.ok) {
+            
+                const files = await resp.json();
+                
+                // 목록 출력
+            }
+        
+        };
+        
+        document.getElementById('message').onkeydown = async function() {
+            
+            if (event.key != 'Enter') return;
+            
+            const response = await fetch('/chat', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded; chatset=UTF-8'
+                },
+                body: new URLSearchParams({
+                    message: event.target.value
+                })
+            });
+            
+            if (response.ok) {
+                
+                const text = await response.text();
+                document.getElementById('result').textContent = text;             
+            }
+            
+        };
+        
+        
+        async function load() {
+            try {
+                const resp = await fetch('/load');    
+                document.getElementById('result').textContent = await resp.text();        
+            } catch (e) {
+                console.log(e);
+            }
+        }
+        
+        async function del() {
+            try {
+                const resp = await fetch('/del');    
+                document.getElementById('result').textContent = await resp.text();        
+            } catch (e) {
+                console.log(e);
+            }
+        }
+        
+    </script>
+    
+</body>
+</html>

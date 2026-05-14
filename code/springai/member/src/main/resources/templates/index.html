@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring AI</title>
+    <link rel="stylesheet" href="http://bit.ly/3WJ5ilK" />
+    <style>
+        #resultQuery {
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <!-- index.html -->
+    <h1>Spring AI <small>Tool Calling (내부 Tool)</small></h1>
+    
+    <div>
+        <input type="text" id="message" name="message" class="full" autofocus
+            placeholder="홍길동 회원의 정보를 알려줘 / 전체 회원 목록을 보여줘">        
+    </div>
+    <hr>
+    <div id="result" class="message"></div>
+    
+    <script>
+        
+        document.getElementById('message').onkeydown = async function() {
+            
+            if (event.key != 'Enter') return;
+            
+            const response = await fetch('/member', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded; chatset=UTF-8'
+                },
+                body: new URLSearchParams({ //weather?message=질문
+                    message: event.target.value
+                })
+            });
+            
+            if (response.ok) {
+                
+                const text = await response.text();
+                document.getElementById('result').textContent = text;            
+            }
+            
+        };
+        
+    </script>
+    
+</body>
+</html>
