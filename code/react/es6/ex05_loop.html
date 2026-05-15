@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- ex05_loop.html -->
+
+    <script>
+
+        let list = [ 10, 20, 30, 40, 50 ];
+
+        let obj = {
+            name: '홍길동',
+            age: 20,
+            address: '서울시'
+        };
+
+        // for (let n : list) {
+        //     console.log(n);
+        // }
+
+        for (let n in list) { //객체의 프로퍼티를 탐색할때 사용
+            console.log(n);
+        }
+
+        for (let n in obj) { //객체 프로퍼티 탐색
+            console.log(n);
+        }
+        
+        for (let n of list) { //foreach
+            console.log(n);
+        }
+
+        // for (let n of obj) {
+        //     console.log(n);
+        // }
+
+        for (let key of Object.keys(obj)) {
+            console.log(key);
+        }
+
+        for (let value of Object.values(obj)) {
+            console.log(value);
+        }
+
+
+        list.forEach(n => console.log(n));
+
+        //obj.forEach(n => console.log(n));
+    
+
+    </script>
+
+</body>
+</html>

@@ -1,6 +1,7 @@
 package com.test.java.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -44,6 +45,29 @@ public class TestController {
 			return ResponseEntity.status(500).body("등록 실패");
 		}
 		
+	}
+	
+	
+	@PostMapping(value = "/del")
+	public @ResponseBody ResponseEntity<String> del(@RequestParam("filename") String filename) {
+		
+		try {
+			aiService.del(filename);
+			return ResponseEntity.ok("삭제 완료");
+		} catch (Exception e) {
+			
+			return ResponseEntity.status(500).body("삭제 실패");
+		}
+		
+	}
+	
+	// LLM과 대화
+	@PostMapping(value = "/chat")
+	public @ResponseBody ResponseEntity<String> chat(@RequestParam("message") String message) {
+		
+		String result = aiService.chat(message);
+
+		return ResponseEntity.ok(result);
 	}
 
 }
