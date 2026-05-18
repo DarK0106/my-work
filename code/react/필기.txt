@@ -1,0 +1,86 @@
+jQuery
+- 데이터 조작 및 DOM 조작을 위한 JavaScript 라이브러리이다.
+
+jQuery UI
+- 사용자 화면(UI)를 만들기 위한 JavaScript 라이브러리이다.
+
+전세계에서 구축된 사이트를 봤을 때
+- jQuery로 구현: 70%
+- React로 구현: 6~7%
+- Vue 로 구현: 1%
+- Angular: 1~25%
+
+Stack Overflow 2025
+- jQuery: 25%
+- React: 45%
+- Angular: 18%
+- Vue: 18%
+
+React(jQuery + jQuery UI 느낌)
+- 사용자 화면(UI)를 만들기 위한 JavaScript 라이브러리이다.
+- 컴포넌트 지원
+    - 복잡한 화면을 작은 부품으로 나누고, 
+    데이터가 바뀌면 화면을 자동으로 다시 그린다.
+- 메타(페이스북) 직원이 2013년에 개발
+
+React 개발 환경
+- 직접 개발: 관련된 라이브러리 (*js) 참조해서 기본 골격 코드 작성
+<- 생산성이 매우 떨어짐
+
+- 빌드 도구를 통한 개발: MAVEN이나 gradle 같이 빌드 도구를 사용
+- Node.js(NPM == Node Package Manager, MAVEN이나 gradle 같이 라이브러리를 관리함)
+- 빌드 도구
+    - create-react-app: 많이 썼는데 지금은 안씀
+    - vite: 현재 쓰는 빌드 도구, 설치 필요(프랑스어로 빠르다는 뜻, 대충 비트라고 읽음)
+    (프로젝트 관리 도구, 생성 관리 테스트 빌드 실행 다 함)
+
+1. Node.js 설치
+
+2. vite 설치
+    - $ npm install -g
+
+Hello World 출력하기
+- vite 라는 도구를 사용해서 리액트 프로젝트를 생성(+ 실행)하자
+- $ npm create vite@latest 프로젝트이름 -- --template react
+    <--여기까지는 npm <옵션>---------->
+    - npm에게 전달하는 옵션
+
+    -- 는 구분자를 뜻함
+
+    - template react
+        - vite 에게 전달하는 옵션
+
+프로젝트 접속하기
+http://localhost:5173/
+
+Ctrl + C 를 눌러 프로젝트를 중단
+
+프로젝트 다시 실행하기
+- cd 프로젝트이름(프로젝트 루트 폴더로 가야함)
+- npm run dev // vite 개발 서버 실행 + 프로젝트 동작
+
+vite + React 프로젝트 표준 구조
+- node_modules: React, vite 관련 npm이 설치된 패키지
+              :절대 수정 금지
+
+- public: 정적 파일(favicon, 로고 이미지 등) 관리
+        : 주로 파일명을 그대로 유지해야 하거나, import 하지 않은 파일들
+
+- src: 모든 개발 관련 소스들
+    - assets: 이미지, 아이콘 등 리소스 관리
+            : Vite가 번들링하느 대상
+            : 최적화 대상
+            : 파일명에 해시코드가 추가됨
+
+    - main.jsx: 시작점 역할, 렌더링 진입점, React 앱을 시작
+    - index.css: 전역 css
+
+    - App.jsx: 샘플 페이지
+    - App.css
+
+- index.html: React 앱의 진입점
+- package.json: 프로젝트 메타 데이터, 의존성 등
+              : pom.xml(Maven), build.gradle(Gradle)
+
+- package-lock.json: package.json을 통해서 실제로 설치된 명세서
+- vite.config.js: vite 빌드 설정
