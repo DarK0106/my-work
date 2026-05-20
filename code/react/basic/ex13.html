@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="http://bit.ly/3WJ5ilK" />
+    <style>
+        
+    </style>
+</head>
+<body>
+    
+    <h1>텍스트 박스 <small>읽기/쓰기</small></h1>
+    
+    <form action="">
+        <input type="text" id="txt1">
+        <hr>
+        <div id="result"></div>
+        <hr>
+        <input type="button" value="확인" onclick="m1();">
+
+    </form>
+
+    <script src="https://code.jquery.com/jquery-4.0.0.js"></script>
+    <script>
+        function m1() {
+
+            // 1. 사용자가 텍스트 입력
+            // <- 이 시점에서는 자바스크립트가
+            // 입력값을 모름
+            // 즉 화면의 변화를 모름
+            // 자바스크립트가 실시간으로 알질 못함
+            // 액션을 취해야만 알 수 있음
+            // 2. txt1에 접근
+            // 3. txt1.value
+            // 4. result에 접근
+            // 5. result.textContent 로 값을 집어넣음
+
+            // 2
+            const txt1 = document.getElementById('txt1');
+
+            // 3, 4, 5
+            document.getElementById('result').textContent = txt1.value;
+
+        }
+    </script>
+    
+</body>
+</html>
