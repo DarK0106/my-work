@@ -1,0 +1,12 @@
+
+/* subject-color 와 같이 스네이크 표기법은 비추함 */
+/* 왜냐면 import해서 가져다가 쓸 때 에러남 */
+/* 처음부터 캐멀 표기법 사용하자 */
+
+.mainTitle {
+    color: chocolate;
+}
+
+.mainContent {
+    color: lightpink;
+}

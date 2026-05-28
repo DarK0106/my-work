@@ -1,0 +1,161 @@
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { useState } from 'react'
+import { BrowserRouter, Routes, Route, Link, NavLink, useParams } from 'react-router-dom';
+
+// main18.jsx
+/*
+
+    MyBatis(복합) + JPA(단순)
+
+
+    React
+        - 클라이언트 구축 기술
+
+    JSP/Thymeleaf
+        - 클라이언트 구축 기술
+
+    React 수업
+        1. 컴포넌트(+JSX) + useState()
+            - 화면 출력
+        2. 라우트
+            - 수많은 컴포넌트 > 페이지 역할(단위) > 관리/조작/이동 등
+        3. 훅
+            - 클래스 컴포넌트 > 함수형 컴포넌트
+
+
+
+*/
+
+// 라우팅: 브라우저의 요청 주소에 따라 어떤 컴포넌트를 출력할지 정하는 기술
+// 라우팅: 특정 주소(path)를 리액트 엘리먼트(컴포넌트)와 연결하는 행위
+
+function Home() {
+
+    return (
+        <>
+            <h3>시작 페이지</h3>
+            <p>시작 페이지입니다.</p>
+            <p>시작 페이지입니다.</p>
+            <p>시작 페이지입니다.</p>
+        </>
+    );
+
+}
+
+function Member() {
+
+    return (
+        <>
+            <h3>멤버 페이지</h3>
+            <p>회원 전용 페이지입니다.</p>
+            <p>회원 전용 페이지입니다.</p>
+            <p>회원 전용 페이지입니다.</p>
+        </>
+    );
+
+}
+
+function Admin() {
+
+    return (
+        <>
+            <h3>관리자 페이지</h3>
+            <p>관리자 전용 페이지입니다.</p>
+            <p>관리자 전용 페이지입니다.</p>
+            <p>관리자 전용 페이지입니다.</p>
+        </>
+    );
+
+}
+
+function NotFound() {
+
+  return (
+    <>
+      <h3>404 Not found</h3>
+      <p>페이지 없음.</p>
+    </>
+  );
+}
+
+function App() {
+
+    return (
+        // BrowserRouter 는 반드시 Link 와 Routes
+        // 모두를 감싸고 있어야 하는 컨테이너임
+        <BrowserRouter>
+            <h2>Route</h2>
+
+            {/* 메뉴 */}
+            {/* 시작 | 회원 | 관리자 */}
+            <nav>
+                <Link to="/">시작</Link>
+                 |
+                <Link to="/member">회원</Link>
+                 |
+                <Link to="/admin">관리자</Link>
+
+            </nav>
+
+            <hr />
+
+            {/* 컨텐츠 */}
+
+            {/* 이렇게 하지 말고 컴포넌트로 */}
+            {/* 최대한 조각내는게 리액트의 핵심 */}
+            {/* 
+            
+            <h3>시작 페이지</h3>
+            <p>시작 페이지입니다.</p>
+            <p>시작 페이지입니다.</p>
+            <p>시작 페이지입니다.</p>
+
+            <h3>멤버 페이지</h3>
+            <p>회원 전용 페이지입니다.</p>
+            <p>회원 전용 페이지입니다.</p>
+            <p>회원 전용 페이지입니다.</p>
+
+            <h3>관리자 페이지</h3>
+            <p>관리자 전용 페이지입니다.</p>
+            <p>관리자 전용 페이지입니다.</p>
+            <p>관리자 전용 페이지입니다.</p> 
+            
+            */}
+
+            {/* 어떤 특정 위치에 여러 컴포넌트 중 1개가 와야하는 상황 */}
+            <Routes>
+                {/* 컴포넌트 1개당 <Route> 1개 */}
+                
+                {/* 
+                
+                    현재 App() -> main.jsx -> 시작 페이지 
+                    
+                    <Routes>를 만나면
+                    - 최소 0개, 최소 1개의 Route를 렌더링(출력)한다
+                    - 선택 기준은 브라우저의 URL == <Route path>
+                    인 지 확인해서 판단함
+
+                    http://localhost:5173/
+                    <- 브라우저가 이 링크를 호출하면
+                    App() + Home() 로 호출
+
+                    http://localhost:5173/member 
+                    <- 브라우저가 이 링크를 호출하면
+                    App() + Member() 로 호출
+
+                */}
+
+                <Route path='/' element={<Home />} />
+                <Route path='/member' element={<Member />} />
+                <Route path='/admin' element={<Admin />} />
+                <Route path="*" element={<NotFound />} />
+
+
+            </Routes>
+
+        </BrowserRouter>
+    );
+}
+
+createRoot(document.getElementById('root')).render(<App />);
