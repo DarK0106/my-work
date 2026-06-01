@@ -1,0 +1,352 @@
+AWS
+- Amazon Web Services
+
+이전
+- 프리티어 > 1년
+- 여러가지 서비스(EC2, RDS 등) > 월 750시간 
+
+현재
+- 프리티어 > 6개월 or 크레딧 소비
+- 크레딧 지급 > $100 + $20 x 5 > 30만원
+
+
+아마존 > AWS
+오라클 > 오라클 클라우드
+MS > Azure
+
+AWS의 서비스
+- 개발자 무관
+- 시스템/서버 관리자
+- DevOps > 
+- Docker 사용
+
+
+
+
+AWS
+- 아마존 웹 서비스
+- 클라우드 컴퓨팅 > 컴퓨터 자원을 네트워크(인터넷)을 통해서 제공받는 환경
+- 전산 HW 장비 > 가상화 기술 + SW 제공
+
+
+운영 서버 구축 방식의 종류
+
+1. On-premise, 온 프레미스
+    - 전통적인 방식
+    - 내가 직접 사무실 대여 + 서버 컴퓨터 구매 + OS 구매 
+    + 네트워크 환경 직접 구축 + OS 설치 + 운영 SW 설치 + 쇼핑몰 배포 + 운영
+    - 자재 + 집 짓기 + 인테리어 + 가구 = 직접하는 방식
+    - 장점
+        - 자유롭다.
+        - 보안 탁월
+    - 단점
+        - 전문 지식 필요 > 인력 고용
+        - 운영/유지비 고가
+        - 초기 구축 비용 고가
+
+2. Iaas, Infrastructures as a Service
+    - 인프라를 빌려주는 서비스
+    - 서버, 스토리지, 네트워크 > H/W만 대여주는 서비스
+        - 물리적인 H/W > 가상화된 H/W 제공
+    - 전세, 월세
+    - 장점
+        - 초기 비용 약간 저렴
+    - 단점
+        - OS 직접 설치 > 전문 인력
+        - 실행 환경 직접 구축 > 전문 인력
+
+3. PaaS, Platform as a Service
+    - 인프라 + 플랫폼 대여
+    - 플랫폼 = 운영체제, 데이터베이스, 개발 도구 등..
+             = 개발에 필요한 모든 환경이 이미 세팅되어 있는 서비스
+    - 개발자는 직접 서버를 관리 필요X > 개발에만 집중 + 배포
+
+4. SaaS, Software as a Service
+    - 인프라 + 플랫폼 + 소프트웨어(쇼핑몰)
+    - 개발자 필요X
+
+
+AWS 서비스
+- IssS > EC2
+- PaaS > Elastic Beanstalk
+- SaaS > WorkDocs 
+
+
+
+
+AWS 인프라 구성 요소
+
+1. 리전, Region
+    - AWS 데이터 센터가 있는 물리적인 지역
+    - ex) 서울 리전, 도쿄 리전 등..
+
+2. 가용 영역, Availability Zone, AZ
+    - 하나 리전내에 있는 독립적인 데이터 센터 그룹
+
+3. 엣지 로케이션, Edge Location
+    - 전 세계 분산된 캐시 서버
+    - 데이터(이미지, 영상, 정적 파일) 콘텐츠를 사용자에게 빠르게 제공하는 서버
+
+
+
+AWS 대표 서비스
+
+1. Amazon EC2, Elastic Compute Cloud
+- 가상 서버 서비스(VM)
+- 컴퓨터 대여 서비스
+- Iaas
+- 종량제 > 과금(사용량)
+
+2. Amazon RDS, Relational Database Service
+- PaaS
+- 관계형 데이터베이스 서비스
+- 거의 대부분 DB 제공
+- DB 라이센스 고가 > MySQL(저렴,무료), Oracle(고가)
+
+3. Amazon S3, Simple Storage Service
+- 객체 단위의 무제한 용량 파일 저장 스토리지
+- 객체 1개의 5TB
+- 99.999999999% 안전
+- 용량은 무제한 > 사용한 만큼 지불(GB당 과금)
+    - 업로드 트래픽(요금 거의 없음)
+    - 저장된 공간(일정 요금 발생)
+    - 다운로드 트래픽(일정 요금 발생)
+
+4. Amazon EBS, Elastic Block Storage
+- 스토리지 서비스
+- EC2가 RDB에서 사용하는 저장 장치
+
+
+
+
+루트 사용자 로그인
+- MFA 설정
+
+
+AWS 계정 ID
+- 126104434413
+- aws202605
+
+
+IAM 유저 생성하기
+- user
+- MFA 설정
+
+
+
+
+
+
+EC2 서비스
+- 사용 컴퓨터 > 대여
+- EC2 인스턴트 == PC 1대
+- 대여 + 운영체제 설치 + 네트워크 설정 + 보안 설정
+
+
+
+
+원격 EC2 서버 접속하기
+- SSH 클라이언트 툴
+- PUTTY
+- MobaXterm
+
+
+
+EC2 할당된 IP
+1. Public IP > 유료
+2. Private IP > 무료
+- EC2가 운영 중일 때만 사용 > 중지/종료 > 공인 IP 다시 회수
+
+- 중지/종료 > 공인 IP 교체
+
+
+Elastic IP, 탄력적 IP
+
+
+
+
+패키지 최신으로 업데이트
+- $ sudo apt-get update
+- $ sudo apt-get upgrade
+
+
+서버 타임존 설정하기
+- $ date
+- $ timedatectl
+- $ sudo timedatectl set-timezone Asia/Seoul
+
+
+대부분 터미널
+- 복사: Ctrl + C > Ctrl + Insert
+- 붙여넣기: Ctrl + V > Shift + Insert
+
+
+
+EC2 운용
+1. 컴퓨팅 성능 조절(t3.small)
+    1.1 초기 설정하기
+    1.2 운영 중 수정하기
+
+2. 스토리지 용량 조절
+    2.1 초기 볼륨 + 기존 EC2에게 추가 볼륨 연결
+    2.2 기존 볼륨 확장
+
+2.1
+    a. EBS 볼륨 추가 + EC2 연결
+        $ free -h # 메모리 사용량
+        $ df -h # 스토리 사용량
+        $ lsblk # 시스템에 연결된 모든 블럭 디바이스(EBS, HDD, SSD) 목록
+
+        $ sudo mkfs -t ext4 /dev/nvme1n1 # 포맷
+
+        $ sudo mkdir /data # 마운트용 폴더
+
+        $ sudo mount /dev/nvme1n1 /data # EBS 볼륨 + 폴더 마운트
+
+    b. EBS 볼륨을 EC2와 분리하기
+        $ sudo umount /data # 우분투에서 볼륨 분리
+
+        $ sudo rmdir /data # 더 이상 안쓰는 폴더 삭제
+
+
+2.2
+    $ df -h # 현재 용량 확인
+    - 볼륨 > 16GB
+
+    $ lsblk # 이름 확인
+
+    # 파티션 크기 확장
+    # sudo growpart /dev/디스크명 파티션순서
+    $ sudo growpart /dev/nvme0n1 1 
+    
+    $ lsblk # 용량 확장 확인
+
+    $ sudo resize2fs /dev/nvme0n1p1 # 파티션순서
+
+
+
+
+
+EC2 자바 운영 환경 설치하기
+1. Servlet/JSP or Spring Legacy > JDK + 톰캣
+2. Spring Boot > JDK + X
+
+
+EC2 + JDK 설치
+$ sudo apt-get update
+$ sudo apt-get install openjdk-21-jdk
+
+
+# Temurin JDK 21
+wget -O - https://packages.adoptium.net/artifactory/api/gpg/key/public | sudo apt-key add -
+echo "deb https://packages.adoptium.net/artifactory/deb $(lsb_release -sc) main" | sudo tee /add/etc/apt/sources.list.get/adoptium.list
+
+sudo apt-get update
+sudo apt-get install temurin-21-jdk
+
+
+# Corretto JDK 21
+wget -O - https://apt.corretto.aws/corretto.key | sudo gpg --dearmor -o /usr/share/keyrings/corretto-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/corretto-keyring.gpg] https://apt.corretto.aws stable main" | sudo tee /etc/apt/sources.list.d/corretto.list
+
+sudo apt-get update
+sudo apt-get install java-21-amazon-corretto-jdk
+
+
+
+
+JDK 환경 변수 설정하기
+- JAVA_HOME
+$ sudo vi /etc/environment # 시스템 전역 설정 > 환경 변수 등록
+
+$ source /etc/environment # 시스템에 바로 적용
+
+$ echo $JAVA_HOME
+
+JDK 설치 경로?
+- /usr/lib/jvm/java-21-openjdk-amd64
+
+
+스프링 부트 실행
+$ java -jar memo-0.0.1-SNAPSHOT.jar # Foreground 실행 > 터미널을 닫으면 종료
+
+$ nohup java -jar memo-0.0.1-SNAPSHOT.jar > application.log 2>&1 &
+
+$ ps -ef | grep java
+
+$ tail -f application.log
+
+
+스프링 부트 중단
+$ ps -ef | grep java
+
+$ kill <PID>
+$ kill 44325
+$ kill -9 44325 # 강제 종료
+
+
+AWS
+- Spring: EC2
+- Oracle: EC2 or RDS
+- MySQL: RDS
+
+AWS + Docker
+- Spring + Oracle Container
+
+
+
+
+
+
+CI/CD
+- 전제조건: Git(GitHub), Docker
+- Continuous Integration, 지속적인 통합
+    - 개발자들이 작성한 코드를 중앙 저장소에 병합하고, 자동으로 빌드 및 테스트하여 코드의 오류를 조기에 발견하는 과정입니다.
+- Continuous Delivery/Deployment, 지속적인 전달/배포
+    - 테스트를 통과한 코드를 실제 운영 환경에 릴리스할 준비를 하거나(전달), 자동으로 배포(배포)하여 사용자가 즉시 새로운 기능을 사용할 수 있게 하는 단계입니다.
+
+
+
+
+
+
+EC2 설정하기
+1. 시간대 설정하기
+- $ timedatectl
+- $ sudo timedatectl set-timezone Asia/Seoul
+
+2. 리포지토리 + 패키지 업데이트
+- $ sudo apt-get update && upgrade
+
+3. JDK 설치하기
+- $ sudo apt-get install openjdk-21-jdk
+- $ sudo vi /etc/environment # 시스템 전역 설정 > 환경 변수 등록
+    JAVA_HOME="/usr/lib/jvm/java-21-openjdk-amd64"
+- $ source /etc/environment # 시스템에 바로 적용
+- $ echo $JAVA_HOME
+JDK 설치 경로?
+- /usr/lib/jvm/java-21-openjdk-amd64
+
+4. 스왑 메모리 > 2GB
+
+$ cd /
+
+$ sudo fallocate -l 2G /swapfile
+
+$ sudo chmod 600 /swapfile
+
+$ sudo mkswap /swapfile
+
+$ sudo swapon /swapfile
+
+$ sudo vi /etc/fstab
+
+# 한줄 추가하기
+/swapfile swap swap defaults 0 0 
+
+# 확인하기
+$ sudo swapon --show 
+
+$ free -h
+
+5. 도커 설치하기

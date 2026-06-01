@@ -1,0 +1,7 @@
+
+1. 파일 
+- "com.test.java.controller" > "MainController.java"
+- "templates" > "index.html" //목록
+              > "add.html"   //쓰기
+
+              

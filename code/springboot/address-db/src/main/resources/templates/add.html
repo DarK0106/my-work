@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thymeleaf</title>
+    <link rel="stylesheet" href="http://bit.ly/3WJ5ilK" />
+</head>
+<body>
+    <!-- add.html -->
+    <h1>주소록</h1>
+    
+    <form method="POST" action="/add">
+    <table class="vertical">
+        <tr>
+            <th>이름</th>
+            <td><input type="text" name="name" required class="short"></td>
+        </tr>
+        <tr>
+            <th>나이</th>
+            <td><input type="number" name="age" required class="short" min="0" max="120"></td>
+        </tr>
+        <tr>
+            <th>성별</th>
+            <td>
+                <select name="gender">
+                    <option value="m">남자</option>
+                    <option value="f">여자</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>주소</th>
+            <td><input type="text" name="address" required class="full"></td>
+        </tr>
+    </table>
+    <div>
+        <button>추가하기</button>
+    </div>
+    </form>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
