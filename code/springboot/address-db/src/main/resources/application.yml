@@ -2,12 +2,11 @@ spring:
   application:
     name: address-db
       
-  # JDBC 설정  
-  datasource:
-    driver-class-name: oracle.jdbc.OracleDriver
-    username: springboot
-    url: jdbc:oracle:thin:@localhost:1521/XEPDB1
-    password: java1234
+  # 실행 시
+  # - application.yml > 항상 실행
+  # - application-xxx.yml > 인자값 표현
+  profiles:
+    active: dev
     
   # JPA 설정
   jpa:

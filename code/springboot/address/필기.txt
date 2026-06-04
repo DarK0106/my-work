@@ -1,7 +1,26 @@
+스프링 부트 + DB(X) > 도커 > 컨테이너
 
 1. 파일 
 - "com.test.java.controller" > "MainController.java"
 - "templates" > "index.html" //목록
               > "add.html"   //쓰기
 
-              
+2. 빌드
+- Gradle Tasks > clean > build
+- address\build\libs\*.jar
+
+3. 실행 파일 > 도커 이미지 생성
+- address\Dockerfile
+
+3.1 Dockerfile 내용 작성
+
+3.2 도커 이미지 빌드
+docker build -t address .
+
+4. 컨테이너 실행
+docker run -it --name address address # 포그라운드
+docker run -it --name address -p 8080:8080 address # 포그라운드 + 포트 포워딩
+
+4.1 백그라운드(-d)로, address라는 이름의 컨테이너를, 
+호스트 8080 ↔ 컨테이너 8080 연결(-p)해서, address 이미지로 실행
+docker run -d --name address -p 8080:8080 address # 백그라운드 + 포트 포워딩

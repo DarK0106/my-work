@@ -1,0 +1,8 @@
+spring:
+
+  # JDBC 설정
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521/XEPDB1
+    username: springboot
+    password: java1234

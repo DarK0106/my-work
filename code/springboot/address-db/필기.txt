@@ -1,0 +1,121 @@
+다중 컨테이너 만들기
+- 스프링 부트용 컨테이너
+- 오라클용 컨테이너
+
+방법 a. 각각의 컨테이너를 개별로 관리
+방법 b. 도커 컴포즈를 써서 다중 컨테이너를 한번에 관리
+
+오라클 컨테이너 먼저 만들고 스프링 부트 컨테이너 만들기
+
+2. 오라클 컨테이너 만들기
+scripts -> init.sql
+
+3. 오라클 컨테이너 생성하기
+
+3.1 네트워크 생성하기
+docker network ls
+docker network create network-address
+
+3.2 오라클용 볼륨 생성하기
+docker volume ls
+docker volume rm 볼륨명 <- 볼륨 삭제하기
+docker volume create oracle-data
+
+3.3 오라클 컨테이너 생성하기
+docker run -d --name oracle --network network-address -p 1522:1521 -p 5501:5500 -v oracle-data:/opt/oracle/oradata -v ${PWD}/scripts:/container-entrypoint-initdb.d -e ORACLE_PASSWORD=java1234 -e ORACLE_CHARACTERSET=AL32UTF8 -e TZ=Asia/Seoul gvenzl/oracle-xe:18.4.0
+
+** 주의 **
+오라클 컨테이너 생성 중에 실패하면
+다음에 다시 시도하면 init.sql이 실행되지 않음
+
+3.4 오라클 컨테이너에 접속해보기
+docker exec -it oracle bash
+sqlplus springboot/java1234@//localhost:1521:/XEPDB1
+
+4. 스프링 부트 컨테이너 만들기
+
+4.1 Gradle Tasks -> build
+
+4.2 Dockerfile 만들기
+
+4.3 이미지 만들기
+docker build -t address-db .
+
+4.4 컨테이너 생성 + 실행
+docker run -d --name address -p 8080:8080 address // DB 없는 버전
+
+// DB 있는 버전
+docker run -d --name address-db -p 8080:8080 --network network-address -e SPRING_PROFILES_ACTIVE=prod -e DB_URL=jdbc:oracle:thin:@oracle:1521/XEPDB1 -e DB_USERNAME=springboot -e DB_PASSWORD=java1234 address-db
+
+== 방법 b. 도커 컴포즈를 써서 다중 컨테이너를 한번에 관리 ==
+
+이전 작업 초기화
+docker rm -f address-db
+docker rm -f oracle
+docker volume rm oracle-data
+docker network rm network-address
+
+도커 컴포즈, Docker Compose
+- 여러 개의 컨테이너를 한번에 생성/실행/종료 하는 도구
+- 오케스트레이션 이라고 함
+
+도커 컴포즈 설치하기
+- 도커와 별개의 프로그램
+- 윈도우/macOS -> 도커 데스크탑 설치 -> 도커 엔진 + 도커 컴포즈
+- 리눅스 -> 도커 엔진 설치, 도커 컴포즈 설치
+
+도커 컴포즈 설정하기
+- address-db -> "docker-compose.yml"
+
+docker-compose.yml 구조
+
+services: # 각각의 컨테이너를 정의 (컨테이너 == 서비스)
+  서비스명: # 컨테이너명
+  images: # 만들 컨테이너 이미지의 베이스 이미지
+  ports: # 포트 포워딩
+  volumes: # 스토리지 마운트
+  networks: # 네트워크 설정
+  environment: # 넘겨줄 환경변수들
+  depends_on: # 의존성. 
+
+networks: # 네트워크 정의
+
+volumes: # 볼륨 정의
+
+도커 컴포즈 실행 방법
+docker-compose.yml 에서 실행되는 일들
+
+1. 도커 컴포즈 시작
+docker-compose up [-d]
+    - -d 붙이면 컨테이너가 detached로(백그라운드로) 실행됨
+    - 볼륨 생성
+    - 네트워크 생성
+    - 이미지 생성
+    - 컨테이너 생성 및 실행
+    을 한방에 해버린것
+    
+    docker ps -a
+    docker network ls
+    docker volume ls
+    docker image ls
+    
+    근데 내가 중간에 뭔가 쿼리라던지 수정할게 생김
+    그럼 저 위에 과정을 다시 해야함
+    그래서 컴포즈 종료 명령어를 씀
+
+2. 도커 컴포즈 종료
+docker-compose down [-v]
+    - 컨테이너 삭제됨
+    - 네트워크 삭제됨
+    - 볼륨은 -v 붙여야 삭제됨
+    - 이미지는 삭제 안되는데 어차피
+    새로 만들면 덮어쓰기 되서 상관없음
+
+3. 도커 컴포즈 중지
+docker-compose stop
+    - 이미지, 볼륨, 네트워크는 그대로임
+    - 컨테이너만 중지함
+    
+4. 도커 컴포즈 시작
+docker-compose start
+    - 컨테이너만 다시 시작함

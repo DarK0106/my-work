@@ -11,6 +11,7 @@
     <file url="file://$PROJECT_DIR$/../spring/MyBatisTest/script.sql" dialect="Oracle" />
     <file url="file://$PROJECT_DIR$/../spring/SecurityTest/script.sql" dialect="Oracle" />
     <file url="file://$PROJECT_DIR$/../springai/sql/src/main/resources/script.sql" dialect="Oracle" />
+    <file url="file://$PROJECT_DIR$/../springboot/address-db/scripts/init.sql" dialect="Oracle" />
     <file url="file://$PROJECT_DIR$/../springboot/oauth2/script.sql" dialect="Oracle" />
     <file url="file://$PROJECT_DIR$/../springboot/security/script.sql" dialect="Oracle" />
     <file url="file://$USER_HOME$/Downloads/DDL script.sql" dialect="Oracle" />
@@ -18,5 +19,6 @@
     <file url="file://$USER_HOME$/Downloads/script (2).sql" dialect="Oracle" />
     <file url="file://$USER_HOME$/Downloads/script2.sql" dialect="Oracle" />
     <file url="file://$USER_HOME$/바탕 화면/황윤재_dml.sql" dialect="Oracle" />
+    <file url="file://$PROJECT_DIR$/../../../hyzSpringBootProject/shop/script/황윤재(제약조건).sql" dialect="Oracle" />
   </component>
 </project>

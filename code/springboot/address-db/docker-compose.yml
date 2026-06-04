@@ -1,0 +1,66 @@
+services:
+  
+  oracle:
+    container_name: oracle
+
+    image: gvenzl/oracle-xe:18.4.0
+
+    restart: unless-stopped
+
+    environment:
+      ORACLE_PASSWORD: java1234
+      ORACLE_CHARACTERSET: AL32UTF8
+      NLS_LANG: .AL32UTF8
+      TZ: Asia/Seoul
+
+    ports:
+      - "1522:1521"
+      - "5551:5500"
+
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+      - ./scripts:/container-entrypoint-initdb.d
+
+    networks:
+      - network-address
+
+    healthcheck:
+      test: ["CMD-SHELL", "echo 'select 1 from dual;' | sqlplus -s springboot/java1234@//localhost:1521/XEPDB1 | grep -q 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 30
+      start_period: 60s
+
+  address-db:
+    container_name: address-db
+
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    restart: unless-stopped
+
+    depends_on:
+      oracle:
+        condition: service_healthy
+
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DB_URL: jdbc:oracle:thin:@oracle:1521/XEPDB1
+      DB_USERNAME: springboot
+      DB_PASSWORD: java1234
+
+    ports:
+      - "8080:8080"
+
+    networks:
+      - network-address
+
+volumes:
+  oracle-data:
+    name: oracle-data
+
+networks:
+  network-address:
+    name: network-address
+    driver: bridge
